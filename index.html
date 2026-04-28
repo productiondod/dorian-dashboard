@@ -1107,9 +1107,12 @@ function showToast(msg,dur=2500){
 // ══════════════════════════════════════════════════════
 // INIT
 // ══════════════════════════════════════════════════════
-resizeCanvas();
-renderRecentAdd();
-checkCalendarSuggestions();
+// Wait for full layout before sizing the canvas
+window.addEventListener('load', () => {
+  resizeCanvas();
+  renderRecentAdd();
+  checkCalendarSuggestions();
+});
 
 if('serviceWorker' in navigator)
   navigator.serviceWorker.register('./sw.js').catch(()=>{});
