@@ -1,5 +1,5 @@
 {
-  "synced": "2026-04-28T23:38:47.151728",
+  "synced": "2026-04-28T23:45:10.511972",
   "events": [
     {
       "cal": "Nine & Dod ❤️",
@@ -83,6 +83,42 @@
       "startTs": 1777881600
     },
     {
+      "cal": "DodProduction",
+      "color": "#e8ff47",
+      "title": "🎬 Showreel",
+      "start": "2026-05-04T13:30:00",
+      "end": "2026-05-04T17:30:00",
+      "allDay": false,
+      "startTs": 1777894200
+    },
+    {
+      "cal": "DodProduction",
+      "color": "#e8ff47",
+      "title": "🎥 Docu île de Ré",
+      "start": "2026-05-04T18:00:00",
+      "end": "2026-05-04T19:30:00",
+      "allDay": false,
+      "startTs": 1777910400
+    },
+    {
+      "cal": "DodProduction",
+      "color": "#e8ff47",
+      "title": "🎯 Démarchage corporate",
+      "start": "2026-05-05T09:00:00",
+      "end": "2026-05-05T11:30:00",
+      "allDay": false,
+      "startTs": 1777964400
+    },
+    {
+      "cal": "DodProduction",
+      "color": "#e8ff47",
+      "title": "🎬 Showreel",
+      "start": "2026-05-05T13:00:00",
+      "end": "2026-05-05T17:00:00",
+      "allDay": false,
+      "startTs": 1777978800
+    },
+    {
       "cal": "Nine & Dod ❤️",
       "color": "#47c4ff",
       "title": "Psy Marine ",
@@ -110,6 +146,15 @@
       "startTs": 1778043600
     },
     {
+      "cal": "DodProduction",
+      "color": "#e8ff47",
+      "title": "🎯 Démarchage corporate",
+      "start": "2026-05-06T15:00:00",
+      "end": "2026-05-06T16:30:00",
+      "allDay": false,
+      "startTs": 1778072400
+    },
+    {
       "cal": "Nine & Dod ❤️",
       "color": "#47c4ff",
       "title": "Chalon",
@@ -135,6 +180,33 @@
       "end": "2026-05-10T23:59:59",
       "allDay": true,
       "startTs": 1778191200
+    },
+    {
+      "cal": "DodProduction",
+      "color": "#e8ff47",
+      "title": "🎯 Démarchage corporate",
+      "start": "2026-05-12T09:00:00",
+      "end": "2026-05-12T12:00:00",
+      "allDay": false,
+      "startTs": 1778569200
+    },
+    {
+      "cal": "DodProduction",
+      "color": "#e8ff47",
+      "title": "🎬 Showreel",
+      "start": "2026-05-12T13:00:00",
+      "end": "2026-05-12T17:00:00",
+      "allDay": false,
+      "startTs": 1778583600
+    },
+    {
+      "cal": "DodProduction",
+      "color": "#e8ff47",
+      "title": "🎥 Docu île de Ré",
+      "start": "2026-05-12T17:30:00",
+      "end": "2026-05-12T19:30:00",
+      "allDay": false,
+      "startTs": 1778599800
     },
     {
       "cal": "Nine & Dod ❤️",
