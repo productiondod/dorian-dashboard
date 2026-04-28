@@ -1,0 +1,149 @@
+{
+  "synced": "2026-04-28T23:37:36.378595",
+  "events": [
+    {
+      "cal": "Nine & Dod ❤️",
+      "color": "#47c4ff",
+      "title": "Ukkia",
+      "start": "2026-04-29T09:00:00",
+      "end": "2026-04-29T12:00:00",
+      "allDay": false,
+      "startTs": 1777446000
+    },
+    {
+      "cal": "Nine & Dod ❤️",
+      "color": "#47c4ff",
+      "title": "Call Flex Impact",
+      "start": "2026-04-29T19:30:00",
+      "end": "2026-04-29T20:00:00",
+      "allDay": false,
+      "startTs": 1777483800
+    },
+    {
+      "cal": "Nine & Dod ❤️",
+      "color": "#47c4ff",
+      "title": "Point vanille ",
+      "start": "2026-04-30T11:00:00",
+      "end": "2026-04-30T12:00:00",
+      "allDay": false,
+      "startTs": 1777539600
+    },
+    {
+      "cal": "Nine & Dod ❤️",
+      "color": "#47c4ff",
+      "title": "Deudeush Family Versailles ",
+      "start": "2026-04-30T14:00:00",
+      "end": "2026-05-04T01:00:00",
+      "allDay": false,
+      "startTs": 1777550400
+    },
+    {
+      "cal": "Nine & Dod ❤️",
+      "color": "#47c4ff",
+      "title": "Radio pied ",
+      "start": "2026-04-30T14:15:00",
+      "end": "2026-04-30T15:15:00",
+      "allDay": false,
+      "startTs": 1777551300
+    },
+    {
+      "cal": "Nine & Dod ❤️",
+      "color": "#47c4ff",
+      "title": "Charlotte Cardin Accor Arena",
+      "start": "2026-04-30T20:00:00",
+      "end": "2026-04-30T23:00:00",
+      "allDay": false,
+      "startTs": 1777572000
+    },
+    {
+      "cal": "Nine & Dod ❤️",
+      "color": "#47c4ff",
+      "title": "Vieilles voitures versailles ",
+      "start": "2026-05-03T00:00:00",
+      "end": "2026-05-03T23:59:59",
+      "allDay": true,
+      "startTs": 1777759200
+    },
+    {
+      "cal": "DodProduction",
+      "color": "#e8ff47",
+      "title": "Salle",
+      "start": "2026-05-04T07:30:00",
+      "end": "2026-05-04T10:00:00",
+      "allDay": false,
+      "startTs": 1777872600
+    },
+    {
+      "cal": "Nine & Dod ❤️",
+      "color": "#47c4ff",
+      "title": "ECRITURE MATHIAS",
+      "start": "2026-05-04T10:00:00",
+      "end": "2026-05-04T13:00:00",
+      "allDay": false,
+      "startTs": 1777881600
+    },
+    {
+      "cal": "Nine & Dod ❤️",
+      "color": "#47c4ff",
+      "title": "Psy Marine ",
+      "start": "2026-05-05T19:15:00",
+      "end": "2026-05-05T20:15:00",
+      "allDay": false,
+      "startTs": 1778001300
+    },
+    {
+      "cal": "Nine & Dod ❤️",
+      "color": "#47c4ff",
+      "title": "Psychologue Dorian ",
+      "start": "2026-05-05T21:15:00",
+      "end": "2026-05-05T22:15:00",
+      "allDay": false,
+      "startTs": 1778008500
+    },
+    {
+      "cal": "DodProduction",
+      "color": "#e8ff47",
+      "title": "Randonnée",
+      "start": "2026-05-06T07:00:00",
+      "end": "2026-05-06T13:00:00",
+      "allDay": false,
+      "startTs": 1778043600
+    },
+    {
+      "cal": "Nine & Dod ❤️",
+      "color": "#47c4ff",
+      "title": "Chalon",
+      "start": "2026-05-07T00:00:00",
+      "end": "2026-05-11T23:59:59",
+      "allDay": true,
+      "startTs": 1778104800
+    },
+    {
+      "cal": "DodProduction",
+      "color": "#e8ff47",
+      "title": "Salle",
+      "start": "2026-05-07T08:00:00",
+      "end": "2026-05-07T10:00:00",
+      "allDay": false,
+      "startTs": 1778133600
+    },
+    {
+      "cal": "Nine & Dod ❤️",
+      "color": "#47c4ff",
+      "title": "EVJF Danou ",
+      "start": "2026-05-08T00:00:00",
+      "end": "2026-05-10T23:59:59",
+      "allDay": true,
+      "startTs": 1778191200
+    },
+    {
+      "cal": "Nine & Dod ❤️",
+      "color": "#47c4ff",
+      "title": "Psy Marine",
+      "start": "2026-05-12T19:15:00",
+      "end": "2026-05-12T20:15:00",
+      "allDay": false,
+      "startTs": 1778606100
+    }
+  ]
+}
