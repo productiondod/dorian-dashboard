@@ -75,6 +75,44 @@ html,body{height:100%;background:var(--bg);color:var(--text);
   font-size:11px;color:var(--m);white-space:nowrap;pointer-events:none;
   transition:opacity 1s}
 
+/* ═══════════ AUJOURD'HUI ═══════════ */
+.today-greeting{font-size:26px;font-weight:800;letter-spacing:-.5px;margin-bottom:2px}
+.today-sub{font-size:12px;color:var(--m2);margin-bottom:20px}
+.today-sec{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--m);margin:20px 0 8px;display:flex;align-items:center;gap:8px}
+.today-sec-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.today-event{display:flex;align-items:center;gap:12px;background:var(--s1);
+  border:1px solid var(--bd);border-radius:12px;padding:12px 14px;margin-bottom:8px}
+.today-event-time{font-size:11px;font-weight:700;color:var(--m2);min-width:38px}
+.today-event-title{font-size:13px;font-weight:600;flex:1}
+.today-event-cal{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.today-focus{background:var(--s1);border:1px solid var(--bd);border-radius:12px;
+  padding:13px 14px;margin-bottom:8px;display:flex;align-items:flex-start;gap:12px;
+  position:relative;overflow:hidden}
+.today-focus::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px}
+.today-focus.pro::before{background:var(--y)}
+.today-focus.creatif::before{background:var(--o)}
+.today-focus.perso::before{background:var(--g)}
+.today-focus-num{width:20px;height:20px;border-radius:50%;background:var(--s2);
+  display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;
+  color:var(--m);flex-shrink:0;margin-top:1px}
+.today-focus-text{font-size:13px;line-height:1.4;flex:1}
+.today-focus-dl{font-size:10px;font-weight:600;margin-top:3px}
+.today-alert{background:rgba(255,107,71,.08);border:1px solid rgba(255,107,71,.25);
+  border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:10px}
+.today-alert-icon{font-size:16px;flex-shrink:0}
+.today-alert-text{font-size:12px;line-height:1.4;flex:1}
+.today-alert-days{font-size:15px;font-weight:800;color:var(--o);flex-shrink:0}
+.today-habit-row{display:flex;gap:8px;flex-wrap:wrap}
+.today-habit-chip{display:flex;align-items:center;gap:6px;padding:8px 12px;
+  background:var(--s1);border:1px solid var(--bd);border-radius:10px;cursor:pointer;
+  -webkit-tap-highlight-color:transparent;transition:border-color .15s;font-size:12px}
+.today-habit-chip.done{border-color:var(--g)}
+.today-habit-chip .th-check{width:16px;height:16px;border-radius:50%;border:1.5px solid var(--bd);
+  display:flex;align-items:center;justify-content:center;font-size:9px;transition:all .15s}
+.today-habit-chip.done .th-check{border-color:var(--g);background:var(--g);color:#000}
+.today-empty{text-align:center;padding:20px;color:var(--m);font-size:12px}
+
 /* ═══════════ RÉCAP ═══════════ */
 .recap-domain{margin-bottom:24px}
 .recap-domain-title{display:flex;align-items:center;gap:10px;margin-bottom:12px}
@@ -241,6 +279,55 @@ html,body{height:100%;background:var(--bg);color:var(--text);
   border-radius:8px;padding:8px 14px;margin-bottom:16px;
   font-size:12px;color:var(--y);text-align:center}
 
+/* ═══════════ DÉMARCHAGE ═══════════ */
+.dem-goal-bar{background:var(--s1);border:1px solid var(--bd);border-radius:14px;
+  padding:16px;margin-bottom:14px}
+.dem-goal-top{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:10px}
+.dem-goal-count{font-size:32px;font-weight:800;color:var(--y);line-height:1}
+.dem-goal-label{font-size:11px;color:var(--m2)}
+.dem-goal-target{font-size:12px;color:var(--m2);text-align:right}
+.dem-goal-target span{font-size:16px;font-weight:700;color:var(--text)}
+.dem-prog-bg{height:6px;background:var(--s2);border-radius:99px;overflow:hidden}
+.dem-prog-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--y),var(--g));transition:width .5s ease}
+.dem-add-btn{width:100%;padding:12px;background:var(--yg);border:1px solid rgba(232,255,71,.3);
+  border-radius:12px;color:var(--y);font-size:13px;font-weight:700;font-family:inherit;
+  cursor:pointer;margin-bottom:14px;-webkit-tap-highlight-color:transparent}
+.dem-contact{background:var(--s1);border:1px solid var(--bd);border-radius:12px;
+  padding:13px 14px;margin-bottom:8px;animation:si .2s ease}
+.dem-contact-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:4px}
+.dem-contact-name{font-size:13px;font-weight:700}
+.dem-contact-co{font-size:11px;color:var(--m2);margin-top:1px}
+.dem-contact-right{display:flex;align-items:center;gap:8px}
+.dem-contact-date{font-size:10px;color:var(--m)}
+.dem-status{font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  padding:3px 8px;border-radius:6px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.dem-status.contacté{background:rgba(232,255,71,.12);color:var(--y)}
+.dem-status.relancé{background:rgba(255,196,71,.12);color:#ffc447}
+.dem-status.répondu{background:rgba(71,196,255,.12);color:#47c4ff}
+.dem-status.signé{background:rgba(71,255,176,.12);color:var(--g)}
+.dem-status.sans-suite{background:rgba(100,100,100,.1);color:var(--m)}
+.dem-contact-del{background:none;border:none;color:var(--m);font-size:16px;cursor:pointer;
+  padding:0;-webkit-tap-highlight-color:transparent}
+.dem-contact-notes{font-size:11px;color:var(--m2);margin-top:4px;line-height:1.4}
+.dem-modal{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:500;
+  display:flex;align-items:flex-end;opacity:0;pointer-events:none;transition:opacity .2s}
+.dem-modal.open{opacity:1;pointer-events:all}
+.dem-sheet{background:var(--s1);border-radius:20px 20px 0 0;padding:24px 20px 40px;
+  width:100%;transform:translateY(100%);transition:transform .25s ease;border-top:1px solid var(--bd)}
+.dem-modal.open .dem-sheet{transform:translateY(0)}
+.dem-sheet h3{font-size:16px;font-weight:800;margin-bottom:16px}
+.dem-field{width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:10px;
+  color:var(--text);font-size:14px;font-family:inherit;padding:12px 14px;
+  outline:none;margin-bottom:10px}
+.dem-field:focus{border-color:var(--y)}
+.dem-status-sel{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.dem-status-sel button{padding:7px 14px;border-radius:8px;border:1px solid var(--bd);
+  background:none;color:var(--m2);font-size:12px;font-weight:600;font-family:inherit;
+  cursor:pointer;-webkit-tap-highlight-color:transparent;transition:all .15s}
+.dem-status-sel button.sel{border-color:var(--y);color:var(--y);background:var(--yg)}
+.dem-save{width:100%;padding:14px;background:var(--y);color:#000;border:none;
+  border-radius:12px;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer}
+
 @keyframes si{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
 @keyframes xpPop{0%{transform:scale(1)}50%{transform:scale(1.3)}100%{transform:scale(1)}}
 </style>
@@ -248,8 +335,16 @@ html,body{height:100%;background:var(--bg);color:var(--text);
 <body>
 <div id="app">
 
+  <!-- ══════════════ AUJOURD'HUI ══════════════ -->
+  <div class="view active" id="view-today">
+    <div class="pad">
+      <div id="today-header"></div>
+      <div id="today-content"></div>
+    </div>
+  </div>
+
   <!-- ══════════════ MIND MAP ══════════════ -->
-  <div class="view active" id="view-map">
+  <div class="view" id="view-map">
     <canvas id="map-canvas"></canvas>
     <div id="map-hint">Pinch pour zoomer · Glisse pour naviguer · Tape un nœud</div>
     <div id="node-panel">
@@ -318,6 +413,27 @@ html,body{height:100%;background:var(--bg);color:var(--text);
       <div class="habits-grid" id="prog-habits"></div>
       <p style="font-size:11px;color:var(--m);text-align:center;padding:8px 0 4px">
         Tape pour valider · 🔥 streak semaines consécutives</p>
+      <div class="sec" style="margin-top:24px">Démarchage</div>
+      <div id="prog-demarche"></div>
+    </div>
+  </div>
+
+  <!-- Modal ajout contact -->
+  <div class="dem-modal" id="dem-modal" onclick="closeDemModal(event)">
+    <div class="dem-sheet">
+      <h3>Nouveau contact</h3>
+      <input class="dem-field" id="dem-name" placeholder="Nom du contact"/>
+      <input class="dem-field" id="dem-company" placeholder="Société / Agence"/>
+      <input class="dem-field" id="dem-notes" placeholder="Notes (optionnel)"/>
+      <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--m);margin-bottom:8px">Statut</div>
+      <div class="dem-status-sel" id="dem-status-sel">
+        <button onclick="selDemStatus('contacté',this)" class="sel">Contacté</button>
+        <button onclick="selDemStatus('relancé',this)">Relancé</button>
+        <button onclick="selDemStatus('répondu',this)">Répondu</button>
+        <button onclick="selDemStatus('signé',this)">Signé ✦</button>
+        <button onclick="selDemStatus('sans suite',this)">Sans suite</button>
+      </div>
+      <button class="dem-save" onclick="saveDemContact()">Enregistrer</button>
     </div>
   </div>
 
@@ -332,8 +448,8 @@ html,body{height:100%;background:var(--bg);color:var(--text);
 
   <!-- NAV -->
   <nav id="nav">
-    <button class="nb active" onclick="show('map',this)"><span class="ni">🧠</span><span class="nl">Vision</span></button>
-    <button class="nb" onclick="show('recap',this)"><span class="ni">📋</span><span class="nl">Récap</span></button>
+    <button class="nb active" onclick="show('today',this)"><span class="ni">🌅</span><span class="nl">Aujourd'hui</span></button>
+    <button class="nb" onclick="show('map',this)"><span class="ni">🧠</span><span class="nl">Vision</span></button>
     <button class="nb" onclick="show('add',this)"><span class="ni">➕</span><span class="nl">Ajouter</span></button>
     <button class="nb" onclick="show('tasks',this)"><span class="ni">✅</span><span class="nl">Tâches</span></button>
     <button class="nb" onclick="show('prog',this)"><span class="ni">📊</span><span class="nl">Objectifs</span></button>
@@ -414,9 +530,10 @@ function show(tab,btn){
   document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
   document.getElementById('view-'+tab).classList.add('active');
   btn.classList.add('active');
+  if(tab==='today')renderToday();
   if(tab==='recap')renderRecap();
   if(tab==='tasks')renderTasks();
-  if(tab==='prog'){renderLevel();renderProgQuests();renderHabits('prog-habits');}
+  if(tab==='prog'){renderLevel();renderProgQuests();renderHabits('prog-habits');renderDemarche();}
   if(tab==='review')renderReview();
   if(tab==='map')resizeCanvas();
 }
@@ -686,6 +803,236 @@ function tapNode(mx,my){
     panel.classList.remove('show');
     hint.style.opacity='1';
   }
+}
+
+// ══════════════════════════════════════════════════════
+// AUJOURD'HUI
+// ══════════════════════════════════════════════════════
+let calEvents = [];
+async function fetchEvents(){
+  try{
+    const r = await fetch('./events.json?t='+Date.now());
+    const d = await r.json();
+    calEvents = d.events || [];
+  } catch(e){ calEvents = []; }
+}
+
+function todayDateStr(){return new Date().toISOString().slice(0,10);}
+
+function renderToday(){
+  const now = new Date();
+  const h = now.getHours();
+  const greeting = h < 6 ? 'Bonne nuit' : h < 12 ? 'Bonjour' : h < 18 ? 'Bon après-midi' : 'Bonsoir';
+  const dateStr = now.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
+
+  document.getElementById('today-header').innerHTML=`
+    <div class="today-greeting">${greeting}, Dorian 👋</div>
+    <div class="today-sub">${dateStr.charAt(0).toUpperCase()+dateStr.slice(1)}</div>`;
+
+  renderTodayContent();
+}
+
+function renderTodayContent(){
+  const today = todayDateStr();
+  let html = '';
+
+  // ── Alertes deadlines urgentes ──
+  const urgent = TREE.filter(n=>n.deadline&&n.progress!==undefined&&getProgress(n.id)<100)
+    .map(n=>({...n,dl:daysLeft(n.deadline)}))
+    .filter(n=>n.dl>=0&&n.dl<=14)
+    .sort((a,b)=>a.dl-b.dl);
+  if(urgent.length){
+    html += `<div class="today-sec"><div class="today-sec-dot" style="background:var(--o)"></div>Urgent</div>`;
+    urgent.forEach(n=>{
+      html += `<div class="today-alert">
+        <div class="today-alert-icon">⚡</div>
+        <div class="today-alert-text">${n.label.replace('\n',' ')}</div>
+        <div class="today-alert-days">J-${n.dl}</div>
+      </div>`;
+    });
+  }
+
+  // ── Événements du jour ──
+  const todayEvents = calEvents.filter(e=>{
+    if(!e.start) return false;
+    return e.start.slice(0,10) === today;
+  }).sort((a,b)=>a.startTs-b.startTs);
+
+  html += `<div class="today-sec"><div class="today-sec-dot" style="background:var(--y)"></div>Agenda du jour</div>`;
+  if(todayEvents.length){
+    todayEvents.forEach(e=>{
+      const startTime = e.allDay ? 'Journée' : new Date(e.start).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+      const calColor = e.color || '#888';
+      html += `<div class="today-event">
+        <div class="today-event-time">${startTime}</div>
+        <div class="today-event-title">${esc(e.title)}</div>
+        <div class="today-event-cal" style="background:${calColor}"></div>
+      </div>`;
+    });
+  } else {
+    html += `<div class="today-empty">Aucun événement aujourd'hui</div>`;
+  }
+
+  // ── Focus du jour — top 3 tâches ──
+  const focusTasks = tasks.filter(t=>!t.done).sort((a,b)=>{
+    if(a.deadline&&b.deadline) return new Date(a.deadline)-new Date(b.deadline);
+    if(a.deadline) return -1; if(b.deadline) return 1; return 0;
+  }).slice(0,3);
+
+  html += `<div class="today-sec"><div class="today-sec-dot" style="background:var(--g)"></div>Focus du jour</div>`;
+  if(focusTasks.length){
+    focusTasks.forEach((t,i)=>{
+      const dl = t.deadline ? daysLeft(t.deadline) : null;
+      const dlColor = dl!==null ? (dl<=3?'var(--o)':dl<=7?'#ffc447':'var(--m2)') : '';
+      html += `<div class="today-focus ${t.domain||'pro'}">
+        <div class="today-focus-num">${i+1}</div>
+        <div style="flex:1">
+          <div class="today-focus-text">${esc(t.text)}</div>
+          ${dl!==null?`<div class="today-focus-dl" style="color:${dlColor}">J-${dl}</div>`:''}
+        </div>
+      </div>`;
+    });
+  } else {
+    html += `<div class="today-empty">Aucune tâche en cours — ajoutes-en !</div>`;
+  }
+
+  // ── Habitudes du jour ──
+  html += `<div class="today-sec"><div class="today-sec-dot" style="background:var(--g)"></div>Habitudes</div>`;
+  html += `<div class="today-habit-row">`;
+  habits.forEach((h,i)=>{
+    const done = checkedToday(h);
+    html += `<div class="today-habit-chip ${done?'done':''}" onclick="toggleHabit(${i},'today-habits-ref');renderTodayContent()">
+      <div class="th-check">${done?'✓':''}</div>
+      <span>${h.emoji} ${h.name}</span>
+    </div>`;
+  });
+  html += `</div>`;
+
+  // ── Prochains jours (events dans les 3 jours) ──
+  const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate()+1);
+  const in3 = new Date(); in3.setDate(in3.getDate()+3);
+  const upcoming = calEvents.filter(e=>{
+    if(!e.start) return false;
+    const d = new Date(e.start);
+    return d >= tomorrow && d <= in3;
+  }).sort((a,b)=>a.startTs-b.startTs).slice(0,4);
+
+  if(upcoming.length){
+    html += `<div class="today-sec"><div class="today-sec-dot" style="background:var(--m)"></div>Dans 3 jours</div>`;
+    upcoming.forEach(e=>{
+      const day = new Date(e.start).toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'short'});
+      const startTime = e.allDay ? '' : ' · '+new Date(e.start).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+      html += `<div class="today-event">
+        <div class="today-event-time" style="font-size:10px">${day}${startTime}</div>
+        <div class="today-event-title">${esc(e.title)}</div>
+        <div class="today-event-cal" style="background:${e.color||'#888'}"></div>
+      </div>`;
+    });
+  }
+
+  html += '<div style="height:8px"></div>';
+  document.getElementById('today-content').innerHTML = html;
+}
+
+// ══════════════════════════════════════════════════════
+// DÉMARCHAGE
+// ══════════════════════════════════════════════════════
+let contacts = load('contacts', []);
+let demStatus = 'contacté';
+
+function thisMonthContacts(){
+  const ym = new Date().toISOString().slice(0,7);
+  return contacts.filter(c=>c.date.slice(0,7)===ym).length;
+}
+
+function renderDemarche(){
+  const monthCount = thisMonthContacts();
+  const target = 15;
+  const pct = Math.min(100, Math.round(monthCount/target*100));
+  const col = pct>=100?'var(--g)':pct>=60?'#ffc447':'var(--y)';
+
+  let html = `<div class="dem-goal-bar">
+    <div class="dem-goal-top">
+      <div>
+        <div class="dem-goal-count" style="color:${col}">${monthCount}</div>
+        <div class="dem-goal-label">contacts ce mois</div>
+      </div>
+      <div class="dem-goal-target">Objectif <span>${target}</span></div>
+    </div>
+    <div class="dem-prog-bg"><div class="dem-prog-fill" style="width:${pct}%"></div></div>
+  </div>
+  <button class="dem-add-btn" onclick="openDemModal()">+ Nouveau contact</button>`;
+
+  if(contacts.length){
+    const sorted = [...contacts].sort((a,b)=>new Date(b.date)-new Date(a.date));
+    sorted.forEach((c,i)=>{
+      const statusClass = c.status.replace(' ','-');
+      html += `<div class="dem-contact">
+        <div class="dem-contact-top">
+          <div>
+            <div class="dem-contact-name">${esc(c.name)}</div>
+            ${c.company?`<div class="dem-contact-co">${esc(c.company)}</div>`:''}
+          </div>
+          <div class="dem-contact-right">
+            <div class="dem-contact-date">${new Date(c.date).toLocaleDateString('fr-FR',{day:'numeric',month:'short'})}</div>
+            <div class="dem-status ${statusClass}" onclick="cycleDemStatus(${i})">${c.status}</div>
+            <button class="dem-contact-del" onclick="delContact(${i})">×</button>
+          </div>
+        </div>
+        ${c.notes?`<div class="dem-contact-notes">${esc(c.notes)}</div>`:''}
+      </div>`;
+    });
+  } else {
+    html += `<div style="text-align:center;padding:24px;color:var(--m);font-size:13px">Aucun contact encore — lance-toi !</div>`;
+  }
+
+  document.getElementById('prog-demarche').innerHTML = html;
+}
+
+const DEM_STATUSES = ['contacté','relancé','répondu','signé','sans suite'];
+function cycleDemStatus(i){
+  const c = contacts[i];
+  const idx = DEM_STATUSES.indexOf(c.status);
+  c.status = DEM_STATUSES[(idx+1)%DEM_STATUSES.length];
+  save('contacts',contacts); renderDemarche();
+}
+function delContact(i){
+  if(confirm('Supprimer ce contact ?')){contacts.splice(i,1);save('contacts',contacts);renderDemarche();}
+}
+function openDemModal(){
+  demStatus = 'contacté';
+  document.getElementById('dem-name').value='';
+  document.getElementById('dem-company').value='';
+  document.getElementById('dem-notes').value='';
+  document.querySelectorAll('.dem-status-sel button').forEach((b,i)=>{
+    b.classList.toggle('sel', i===0);
+  });
+  document.getElementById('dem-modal').classList.add('open');
+}
+function closeDemModal(e){
+  if(e.target===document.getElementById('dem-modal'))
+    document.getElementById('dem-modal').classList.remove('open');
+}
+function selDemStatus(s,btn){
+  demStatus=s;
+  document.querySelectorAll('.dem-status-sel button').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+}
+function saveDemContact(){
+  const name = document.getElementById('dem-name').value.trim();
+  if(!name){showToast('Saisis au moins un nom');return;}
+  contacts.unshift({
+    id: Date.now(), name,
+    company: document.getElementById('dem-company').value.trim(),
+    notes: document.getElementById('dem-notes').value.trim(),
+    status: demStatus,
+    date: new Date().toISOString()
+  });
+  save('contacts',contacts);
+  addXP(10);
+  document.getElementById('dem-modal').classList.remove('open');
+  renderDemarche();
+  showToast('✓ Contact ajouté +10 XP');
 }
 
 // ══════════════════════════════════════════════════════
@@ -1155,10 +1502,12 @@ function showToast(msg,dur=2500){
 // INIT
 // ══════════════════════════════════════════════════════
 // Wait for full layout before sizing the canvas
-window.addEventListener('load', () => {
-  resizeCanvas();
+window.addEventListener('load', async () => {
+  await fetchEvents();
+  renderToday();
   renderRecentAdd();
   checkCalendarSuggestions();
+  resizeCanvas(); // pre-load canvas in background
 });
 
 if('serviceWorker' in navigator)
