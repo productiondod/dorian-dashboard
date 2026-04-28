@@ -338,6 +338,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);
     <button class="nb" onclick="show('tasks',this)"><span class="ni">✅</span><span class="nl">Tâches</span></button>
     <button class="nb" onclick="show('prog',this)"><span class="ni">📊</span><span class="nl">Objectifs</span></button>
     <button class="nb" onclick="show('review',this)"><span class="ni">🗓</span><span class="nl">Review</span></button>
+    <button class="nb" onclick="openClaude()"><span class="ni">💬</span><span class="nl">Claude</span></button>
   </nav>
 </div>
 
@@ -1066,6 +1067,52 @@ function finishReview(){
       save('tasks2',tasks);
     }
   });
+}
+
+// ══════════════════════════════════════════════════════
+// OPEN CLAUDE WITH CONTEXT
+// ══════════════════════════════════════════════════════
+function openClaude(){
+  const today = new Date().toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+
+  // Tâches actives
+  const activeTasks = tasks.filter(t=>!t.done).slice(0,8)
+    .map(t=>`- [${t.domain}] ${t.text}${t.deadline?' (deadline: '+t.deadline+')':''}`)
+    .join('\n') || '(aucune)';
+
+  // Objectifs avec progression
+  const questLines = quests.filter(q=>q.progress<100).map(q=>{
+    const n = getNodeById(q.id);
+    return n ? `- ${n.label.replace('\n',' ')}: ${q.progress}%${n.deadline?' · deadline '+n.deadline:''}` : null;
+  }).filter(Boolean).join('\n') || '(aucun)';
+
+  // Habitudes semaine en cours
+  const habitLines = habits.map(h=>`- ${h.emoji} ${h.name}: ${thisWeekCount(h)}/${h.target} cette semaine`).join('\n');
+
+  const context = `Bonjour Claude ! Voici mon contexte du jour (${today}).
+
+Je suis Dorian Gauthey, vidéaste freelance à Versailles. Mon objectif principal : décrocher un client ancrage corporate avant août 2026, atteindre 3000€/mois net, développer la niche mariage, finir un docu sur l'île de Ré avant fin 2026.
+
+— TÂCHES EN COURS —
+${activeTasks}
+
+— OBJECTIFS (progression) —
+${questLines}
+
+— HABITUDES CETTE SEMAINE —
+${habitLines}
+
+---
+(Colle ce contexte et pose ta question)`;
+
+  navigator.clipboard.writeText(context).then(()=>{
+    showToast('📋 Contexte copié ! Colle-le dans Claude',3500);
+  }).catch(()=>{
+    // fallback si clipboard refusé (ex: http)
+    showToast('Ouverture de Claude…',2000);
+  });
+
+  setTimeout(()=>window.open('https://claude.ai','_blank'), 400);
 }
 
 // ══════════════════════════════════════════════════════
