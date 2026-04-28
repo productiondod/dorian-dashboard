@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <meta name="apple-mobile-web-app-title" content="Dashboard"/>
+  <meta name="theme-color" content="#0d0d0d"/>
+  <link rel="manifest" href="./manifest.json"/>
+  <title>Dashboard — Dorian</title>
+  <style>
+    :root {
+      --bg:     #0d0d0d;
+      --s1:     #161616;
+      --s2:     #1e1e1e;
+      --bd:     #2a2a2a;
+      --text:   #f0f0f0;
+      --muted:  #555;
+      --muted2: #888;
+      --y:  #e8ff47;
+      --b:  #47c4ff;
+      --o:  #ff6b47;
+      --g:  #47ffb0;
+      --nav-h: 64px;
+      --safe:  env(safe-area-inset-bottom, 0px);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; background: var(--bg); color: var(--text);
+      font-family: -apple-system, 'SF Pro Text', system-ui, sans-serif;
+      font-size: 15px; -webkit-font-smoothing: antialiased; overscroll-behavior: none; }
+
+    /* ── SHELL ── */
+    #app { display: flex; flex-direction: column; height: 100dvh; }
+    .view { display: none; flex: 1; overflow-y: auto;
+      padding: 20px 16px calc(var(--nav-h) + var(--safe) + 16px); }
+    .view.active { display: block; }
+
+    /* ── NAV ── */
+    #nav { position: fixed; bottom: 0; left: 0; right: 0;
+      height: calc(var(--nav-h) + var(--safe));
+      background: rgba(13,13,13,.94); backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px); border-top: 1px solid var(--bd);
+      display: flex; align-items: flex-start; padding-top: 8px; z-index: 100; }
+    .nav-btn { flex: 1; display: flex; flex-direction: column; align-items: center;
+      gap: 4px; background: none; border: none; cursor: pointer; padding: 0;
+      -webkit-tap-highlight-color: transparent; }
+    .nav-icon { font-size: 22px; line-height: 1; filter: grayscale(1) opacity(.4); transition: filter .15s; }
+    .nav-label { font-size: 10px; font-weight: 500; color: var(--muted2);
+      letter-spacing: .02em; transition: color .15s; }
+    .nav-btn.active .nav-icon { filter: none; }
+    .nav-btn.active .nav-label { color: var(--y); }
+
+    /* ── TYPE ── */
+    .page-title { font-size: 26px; font-weight: 700; letter-spacing: -.5px; margin-bottom: 4px; }
+    .page-sub { font-size: 12px; color: var(--muted2); letter-spacing: .05em;
+      text-transform: uppercase; margin-bottom: 24px; }
+    .sec-label { font-size: 11px; font-weight: 600; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--muted); margin: 24px 0 10px;
+      display: flex; align-items: center; justify-content: space-between; }
+    .edit-btn { background: none; border: none; color: var(--muted); font-size: 14px;
+      cursor: pointer; padding: 2px 6px; border-radius: 6px; transition: color .15s;
+      -webkit-tap-highlight-color: transparent; font-family: inherit; }
+    .edit-btn:active, .edit-btn.on { color: var(--y); }
+
+    /* ── CARDS ── */
+    .card { background: var(--s1); border: 1px solid var(--bd); border-radius: 12px;
+      padding: 16px; margin-bottom: 10px; }
+    .card-hd { font-size: 11px; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--muted2); margin-bottom: 12px; }
+
+    /* ── VISION ── */
+    .vision-wrap { background: var(--s1); border: 1px solid var(--bd);
+      border-radius: 12px; padding: 16px; margin-bottom: 10px;
+      display: flex; gap: 12px; align-items: flex-start; }
+    .vbadge { font-size: 9px; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase; background: var(--y); color: #000;
+      padding: 4px 8px; border-radius: 4px; white-space: nowrap;
+      flex-shrink: 0; margin-top: 1px; }
+    .vtext { font-size: 13px; line-height: 1.6; }
+    .vtext-edit { flex: 1; background: var(--s2); border: 1px solid var(--y);
+      border-radius: 8px; color: var(--text); font-size: 13px; font-family: inherit;
+      line-height: 1.6; padding: 8px 10px; resize: none; outline: none; width: 100%; }
+
+    /* ── HORIZON PILL ── */
+    .horizon { display: inline-flex; align-items: center; font-size: 11px;
+      font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+      padding: 5px 10px; border-radius: 20px; margin: 20px 0 10px; }
+    .h-y { background: rgba(232,255,71,.1);  color: var(--y); }
+    .h-b { background: rgba(71,196,255,.1);  color: var(--b); }
+    .h-o { background: rgba(255,107,71,.1);  color: var(--o); }
+    .h-g { background: rgba(71,255,176,.1);  color: var(--g); }
+
+    /* ── OBJ GROUP ── */
+    .obj-group { background: var(--s1); border: 1px solid var(--bd);
+      border-radius: 12px; overflow: hidden; margin-bottom: 10px; }
+    .obj-row { display: flex; border-bottom: 1px solid var(--bd); }
+    .obj-row:last-child { border-bottom: none; }
+    .obj-dom { width: 72px; min-width: 72px; padding: 12px; font-size: 9px;
+      font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--muted); border-right: 1px solid var(--bd);
+      display: flex; align-items: flex-start; padding-top: 14px; }
+    .obj-content { padding: 10px 12px; flex: 1; display: flex;
+      flex-direction: column; gap: 6px; }
+    .obj-item { display: flex; align-items: flex-start; gap: 8px;
+      font-size: 13px; line-height: 1.4; }
+    .dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+    .dy { background: var(--y); } .db { background: var(--b); }
+    .do { background: var(--o); } .dg { background: var(--g); }
+
+    /* ── EDITABLE ITEMS ── */
+    .item-edit { display: flex; align-items: flex-start; gap: 8px;
+      padding: 4px 0; border-bottom: 1px solid var(--bd); }
+    .item-edit:last-child { border-bottom: none; }
+    .item-input { flex: 1; background: none; border: none; color: var(--text);
+      font-size: 13px; font-family: inherit; line-height: 1.5; outline: none;
+      -webkit-tap-highlight-color: transparent; padding: 2px 0; }
+    .del-btn { background: none; border: none; color: var(--muted); font-size: 18px;
+      cursor: pointer; padding: 0 4px; flex-shrink: 0; line-height: 1;
+      -webkit-tap-highlight-color: transparent; }
+    .del-btn:active { color: var(--o); }
+    .add-item-btn { display: flex; align-items: center; gap: 6px;
+      background: none; border: none; color: var(--muted2); font-size: 12px;
+      font-family: inherit; cursor: pointer; padding: 8px 12px 4px;
+      -webkit-tap-highlight-color: transparent; width: 100%; }
+    .add-item-btn:active { color: var(--y); }
+
+    /* ── DEADLINES ── */
+    .dl-item { display: flex; align-items: center; justify-content: space-between;
+      padding: 13px 14px; border-bottom: 1px solid var(--bd); }
+    .dl-item:last-child { border-bottom: none; }
+    .dl-left { display: flex; align-items: center; gap: 10px; flex: 1; }
+    .dl-name { font-size: 13px; }
+    .dl-date { font-size: 12px; color: var(--muted2); font-weight: 500;
+      white-space: nowrap; margin-left: 8px; }
+    .dl-name-input { background: none; border: none; color: var(--text);
+      font-size: 13px; font-family: inherit; outline: none; flex: 1;
+      -webkit-tap-highlight-color: transparent; }
+    .dl-date-input { background: none; border: none; color: var(--muted2);
+      font-size: 12px; font-family: inherit; outline: none; width: 80px;
+      text-align: right; -webkit-tap-highlight-color: transparent; }
+
+    /* ── WEEK ── */
+    .week-grid { background: var(--s1); border: 1px solid var(--bd);
+      border-radius: 12px; overflow: hidden; }
+    .week-row { display: grid; grid-template-columns: 68px 1fr;
+      border-bottom: 1px solid var(--bd); }
+    .week-row:last-child { border-bottom: none; }
+    .week-day { padding: 12px; font-size: 10px; font-weight: 700;
+      color: var(--muted); text-transform: uppercase; letter-spacing: .06em;
+      border-right: 1px solid var(--bd); display: flex;
+      align-items: flex-start; padding-top: 14px; }
+    .week-blocks { padding: 10px 12px; display: flex; flex-wrap: wrap;
+      gap: 5px; align-items: flex-start; }
+    .blk { font-size: 11px; font-weight: 500; padding: 3px 8px; border-radius: 5px; }
+    .by { background: rgba(232,255,71,.1); color: var(--y); }
+    .bb { background: rgba(71,196,255,.1); color: var(--b); }
+    .bo { background: rgba(255,107,71,.1); color: var(--o); }
+    .bg { background: rgba(71,255,176,.1); color: var(--g); }
+    .bx { background: rgba(255,255,255,.05); color: var(--muted2); }
+
+    /* week edit */
+    .blk-edit-wrap { display: flex; align-items: center; gap: 4px;
+      border: 1px solid var(--bd); border-radius: 8px;
+      padding: 4px 8px; margin: 3px 0; width: 100%; }
+    .blk-edit-input { flex: 1; background: none; border: none; color: var(--text);
+      font-size: 12px; font-family: inherit; outline: none; min-width: 0; }
+    .color-dots { display: flex; gap: 4px; flex-shrink: 0; }
+    .cdot { width: 10px; height: 10px; border-radius: 50%; cursor: pointer;
+      border: 1.5px solid transparent; transition: border-color .1s; }
+    .cdot.sel { border-color: var(--text); }
+    .cdot-y { background: var(--y); } .cdot-b { background: var(--b); }
+    .cdot-o { background: var(--o); } .cdot-g { background: var(--g); }
+    .cdot-x { background: var(--muted2); }
+
+    /* ── REVIEW ── */
+    .review-step { display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px 14px; border-bottom: 1px solid var(--bd); }
+    .review-step:last-child { border-bottom: none; }
+    .step-n { width: 22px; height: 22px; border-radius: 50%; background: var(--s2);
+      border: 1px solid var(--bd); display: flex; align-items: center;
+      justify-content: center; font-size: 10px; font-weight: 700;
+      color: var(--muted2); flex-shrink: 0; }
+    .step-text { font-size: 13px; line-height: 1.5; padding-top: 2px; flex: 1; }
+    .step-input { background: none; border: none; color: var(--text);
+      font-size: 13px; font-family: inherit; outline: none; width: 100%;
+      -webkit-tap-highlight-color: transparent; }
+    .step-sub { color: var(--muted2); }
+
+    /* ── LINKS ── */
+    .links-grid { display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px; margin-bottom: 10px; }
+    .link-btn { display: flex; flex-direction: column; align-items: center;
+      justify-content: center; gap: 6px; padding: 14px 8px;
+      background: var(--s1); border: 1px solid var(--bd); border-radius: 12px;
+      text-decoration: none; color: var(--muted2); font-size: 11px;
+      font-weight: 500; -webkit-tap-highlight-color: transparent; }
+    .link-btn:active { border-color: var(--y); color: var(--y); }
+    .link-icon { font-size: 20px; }
+    .link-edit-card { background: var(--s1); border: 1px solid var(--bd);
+      border-radius: 12px; padding: 12px; margin-bottom: 8px;
+      display: flex; flex-direction: column; gap: 6px; }
+    .link-edit-row { display: flex; gap: 8px; align-items: center; }
+    .link-edit-input { flex: 1; background: var(--s2); border: 1px solid var(--bd);
+      border-radius: 6px; color: var(--text); font-size: 12px;
+      font-family: inherit; padding: 6px 8px; outline: none; }
+    .link-icon-input { width: 50px; text-align: center; }
+
+    /* ── IDÉES / TODO ── */
+    .ideas-list, #todo-list { display: flex; flex-direction: column; gap: 8px;
+      margin-bottom: 16px; }
+    .idea-item, .todo-item { display: flex; align-items: center; gap: 12px;
+      background: var(--s1); border: 1px solid var(--bd); border-radius: 12px;
+      padding: 14px 16px; animation: si .2s ease; }
+    @keyframes si { from { opacity:0; transform:translateY(-6px); }
+                    to   { opacity:1; transform:translateY(0); } }
+    .idea-bullet { width: 8px; height: 8px; border-radius: 50%;
+      background: var(--y); flex-shrink: 0; }
+    .idea-text, .todo-text { flex: 1; font-size: 14px; line-height: 1.4;
+      background: none; border: none; color: var(--text); font-family: inherit;
+      resize: none; outline: none; -webkit-tap-highlight-color: transparent; }
+    .idea-del { background: none; border: none; color: var(--muted); font-size: 18px;
+      cursor: pointer; padding: 0 0 0 8px; flex-shrink: 0;
+      -webkit-tap-highlight-color: transparent; }
+    .idea-del:active { color: var(--o); }
+
+    .add-row { display: flex; align-items: center; gap: 10px;
+      background: var(--s1); border: 1px solid var(--bd); border-radius: 12px;
+      padding: 12px 16px; margin-bottom: 24px; transition: border-color .15s; }
+    .add-row:focus-within { border-color: var(--y); }
+    .add-input { flex: 1; background: none; border: none; color: var(--text);
+      font-size: 14px; font-family: inherit; outline: none; }
+    .add-input::placeholder { color: var(--muted); }
+    .add-btn { background: var(--y); color: #000; border: none; border-radius: 6px;
+      width: 28px; height: 28px; font-size: 18px; font-weight: 700; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      -webkit-tap-highlight-color: transparent; }
+    .add-btn:active { opacity: .7; }
+
+    .todo-item.done { opacity: .4; }
+    .todo-check { width: 22px; height: 22px; border-radius: 50%;
+      border: 2px solid var(--bd); background: none; cursor: pointer;
+      flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+      font-size: 12px; transition: border-color .15s, background .15s;
+      -webkit-tap-highlight-color: transparent; }
+    .todo-item.done .todo-check { border-color: var(--g); background: var(--g); color: #000; }
+    .todo-item.done .todo-text { text-decoration: line-through; color: var(--muted); }
+
+    .clear-btn { display: flex; align-items: center; justify-content: center;
+      gap: 6px; width: 100%; padding: 12px; background: none;
+      border: 1px solid var(--bd); border-radius: 12px; color: var(--muted2);
+      font-size: 13px; font-family: inherit; cursor: pointer; margin-top: 8px;
+      -webkit-tap-highlight-color: transparent; }
+    .clear-btn:active { border-color: var(--o); color: var(--o); }
+
+    .empty { text-align: center; padding: 40px 20px; color: var(--muted);
+      font-size: 13px; line-height: 1.6; }
+    .empty-icon { font-size: 36px; display: block; margin-bottom: 10px; opacity: .5; }
+
+    ::-webkit-scrollbar { width: 0; }
+  </style>
+</head>
+<body>
+<div id="app">
+
+  <!-- ═══════════════ OBJECTIFS ═══════════════ -->
+  <div class="view active" id="view-objectifs">
+    <p class="page-sub" id="today-date"></p>
+    <h1 class="page-title">Objectifs</h1>
+
+    <!-- Links -->
+    <div class="sec-label">
+      <span>Accès rapide</span>
+      <button class="edit-btn" onclick="toggleEdit('links', this)">✏️ Modifier</button>
+    </div>
+    <div id="links-view"></div>
+
+    <!-- Vision -->
+    <div class="sec-label">
+      <span>Vision — 5 ans</span>
+      <button class="edit-btn" onclick="toggleEdit('vision', this)">✏️ Modifier</button>
+    </div>
+    <div id="vision-view"></div>
+
+    <!-- Long terme -->
+    <div id="lt-wrap">
+      <div class="horizon h-y">Long terme — 3 à 5 ans</div>
+      <div class="sec-label" style="margin-top:0">
+        <span></span>
+        <button class="edit-btn" onclick="toggleEdit('lt', this)">✏️ Modifier</button>
+      </div>
+      <div id="lt-view"></div>
+    </div>
+
+    <!-- Annuel -->
+    <div id="an-wrap">
+      <div class="horizon h-b">Annuel — 2026</div>
+      <div class="sec-label" style="margin-top:0">
+        <span></span>
+        <button class="edit-btn" onclick="toggleEdit('an', this)">✏️ Modifier</button>
+      </div>
+      <div id="an-view"></div>
+    </div>
+
+    <!-- Trimestriel -->
+    <div class="sec-label">
+      <span>Trimestriel — Mai → Juillet</span>
+      <button class="edit-btn" onclick="toggleEdit('deadlines', this)">✏️ Modifier</button>
+    </div>
+    <div id="deadlines-view"></div>
+
+    <!-- Semaine type -->
+    <div class="sec-label">
+      <span>Semaine type</span>
+      <button class="edit-btn" onclick="toggleEdit('week', this)">✏️ Modifier</button>
+    </div>
+    <div id="week-view"></div>
+
+    <!-- Weekly Review -->
+    <div class="sec-label">
+      <span>Weekly Review — Vendredi matin</span>
+      <button class="edit-btn" onclick="toggleEdit('review', this)">✏️ Modifier</button>
+    </div>
+    <div id="review-view"></div>
+  </div>
+
+  <!-- ═══════════════ IDÉES ═══════════════ -->
+  <div class="view" id="view-idees">
+    <p class="page-sub">Capture rapide</p>
+    <h1 class="page-title">Idées</h1>
+    <div class="add-row">
+      <input class="add-input" id="idea-input" type="text"
+        placeholder="Nouvelle idée…" autocomplete="off" autocorrect="on"/>
+      <button class="add-btn" onclick="addIdea()">+</button>
+    </div>
+    <div class="ideas-list" id="ideas-list"></div>
+    <div class="empty" id="ideas-empty" style="display:none">
+      <span class="empty-icon">💡</span>
+      Aucune idée pour l'instant.<br/>Note tout ce qui te passe par la tête.
+    </div>
+  </div>
+
+  <!-- ═══════════════ TODO ═══════════════ -->
+  <div class="view" id="view-todo">
+    <p class="page-sub">À faire</p>
+    <h1 class="page-title">Todo</h1>
+    <div class="add-row">
+      <input class="add-input" id="todo-input" type="text"
+        placeholder="Nouvelle tâche…" autocomplete="off" autocorrect="on"/>
+      <button class="add-btn" onclick="addTodo()">+</button>
+    </div>
+    <div id="todo-list"></div>
+    <div class="empty" id="todo-empty" style="display:none">
+      <span class="empty-icon">✅</span>Tout est fait. Profite.
+    </div>
+    <button class="clear-btn" onclick="clearDone()">Supprimer les tâches terminées</button>
+  </div>
+
+  <!-- ═══════════════ NAV ═══════════════ -->
+  <nav id="nav">
+    <button class="nav-btn active" onclick="show('objectifs',this)">
+      <span class="nav-icon">🎯</span><span class="nav-label">Objectifs</span>
+    </button>
+    <button class="nav-btn" onclick="show('idees',this)">
+      <span class="nav-icon">💡</span><span class="nav-label">Idées</span>
+    </button>
+    <button class="nav-btn" onclick="show('todo',this)">
+      <span class="nav-icon">✅</span><span class="nav-label">Todo</span>
+    </button>
+  </nav>
+</div>
+
+<script>
+// ════════════════════════════════════════
+// DEFAULT STATE
+// ════════════════════════════════════════
+const DEFAULTS = {
+  vision: "Freelance établi, 3 000 € net/mois, 4j/semaine max — montage à domicile, clients qui font voyager, mariage en niche complémentaire. Versailles + pied-à-terre en Bourgogne. Famille, santé, liberté.",
+  links: [
+    { icon:"📋", label:"Trello",       url:"https://trello.com" },
+    { icon:"📧", label:"Gmail",        url:"https://mail.google.com" },
+    { icon:"📅", label:"Agenda",       url:"https://calendar.google.com" },
+    { icon:"💼", label:"LinkedIn",     url:"https://www.linkedin.com/feed/" },
+    { icon:"📸", label:"Instagram",    url:"https://www.instagram.com" },
+    { icon:"💍", label:"Mariage.net",  url:"https://www.mariage.net" }
+  ],
+  horizons: {
+    lt: [
+      { name:"Pro",    dot:"dy", items:[
+        "Client ancrage corporate — montage domicile majoritaire",
+        "4 à 5 mariages/an — peut monter à 50% CA",
+        "Clients qui font voyager",
+        "3 000 € net/mois, 4 jours/semaine max",
+        "Présence LinkedIn active — visibilité B2B continue"
+      ]},
+      { name:"Créatif", dot:"do", items:[
+        "Court métrage terminé et diffusé",
+        "Présence Instagram incarnée — se mettre en scène"
+      ]},
+      { name:"Perso",  dot:"dg", items:[
+        "Versailles + pied-à-terre en Bourgogne avec la conjointe",
+        "Famille, enfants, vie paisible",
+        "Santé physique — sport, nature, voyages"
+      ]}
+    ],
+    an: [
+      { name:"Pro",    dot:"dy", items:[
+        "Client ancrage corporate signé avant fin août — 2 500 € net/mois",
+        "1 mariage booké via démarchage actif",
+        "Page mariage.net créée",
+        "2 posts LinkedIn par semaine"
+      ]},
+      { name:"Créatif", dot:"do", items:[
+        "Documentaire île de Ré — monté et exporté avant le 31 déc.",
+        "Instagram perso lancé"
+      ]},
+      { name:"Perso",  dot:"dg", items:[
+        "Blocs sport + nature verrouillés dans l'agenda — intouchables"
+      ]}
+    ]
+  },
+  deadlines: [
+    { name:"Showreel finalisé",                  date:"31 mai",       dot:"dy" },
+    { name:"Site en ligne",                      date:"30 juin",      dot:"dy" },
+    { name:"Vidéo mariage montée + mariage.net", date:"30 juin",      dot:"dy" },
+    { name:"15 contacts corporate / mois",       date:"Continu",      dot:"dy" },
+    { name:"Instagram : 1 post / semaine",       date:"Continu",      dot:"do" },
+    { name:"Emploi du temps perso verrouillé",   date:"Cette semaine",dot:"dg" }
+  ],
+  week: [
+    { day:"Lundi",    blocks:[{t:"Démarchage corporate",s:"by"},{t:"Docu perso (soir)",s:"bo"}] },
+    { day:"Mardi",    blocks:[{t:"Production / Montage",s:"by"},{t:"LinkedIn / Instagram",s:"bb"},{t:"Gym (soir)",s:"bg"}] },
+    { day:"Mercredi", blocks:[{t:"🏔 Nature — Rando / Bivouac · INTOUCHABLE",s:"bg"}], nature:true },
+    { day:"Jeudi",    blocks:[{t:"Mariage — montage / démarche",s:"by"},{t:"Site / Showreel",s:"by"},{t:"Court métrage (soir)",s:"bo"}] },
+    { day:"Vendredi", blocks:[{t:"Weekly Review",s:"bx"},{t:"Instagram / Contenu",s:"bb"},{t:"Gym (soir)",s:"bg"}] },
+    { day:"Week-end", blocks:[{t:"Famille · Perso · Récup",s:"bg"},{t:"Gym (1 séance)",s:"bg"}] }
+  ],
+  review: [
+    { title:"Vider",   desc:"tête + carnet → Trello INBOX" },
+    { title:"Trier",   desc:"étiquette : Client / Visibilité / Créatif / Perso / Parking" },
+    { title:"Choisir", desc:"3 priorités max pour la semaine suivante" },
+    { title:"Bloquer", desc:"placer les 3 priorités dans Google Calendar" }
+  ]
+};
+
+// ════════════════════════════════════════
+// STATE + STORAGE
+// ════════════════════════════════════════
+function load(k, fb) { try { return JSON.parse(localStorage.getItem(k)) ?? fb; } catch { return fb; } }
+function save(k, v)  { localStorage.setItem(k, JSON.stringify(v)); }
+
+let S = load('state', null);
+if (!S) { S = JSON.parse(JSON.stringify(DEFAULTS)); save('state', S); }
+
+let ideas = load('ideas', []);
+let todos = load('todos', []);
+let editing = {};
+
+function saveS() { save('state', S); }
+
+// ════════════════════════════════════════
+// NAV
+// ════════════════════════════════════════
+function show(tab, btn) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('view-' + tab).classList.add('active');
+  btn.classList.add('active');
+  document.getElementById('view-' + tab).scrollTop = 0;
+}
+
+function toggleEdit(section, btn) {
+  editing[section] = !editing[section];
+  btn.textContent = editing[section] ? '✓ Valider' : '✏️ Modifier';
+  btn.classList.toggle('on', editing[section]);
+  renderSection(section);
+}
+
+// ════════════════════════════════════════
+// RENDER HELPERS
+// ════════════════════════════════════════
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = el.scrollHeight + 'px';
+}
+
+function renderSection(section) {
+  const fns = {
+    links: renderLinks, vision: renderVision,
+    lt: renderHorizon, an: renderHorizon,
+    deadlines: renderDeadlines, week: renderWeek, review: renderReview
+  };
+  if (fns[section]) fns[section](section);
+}
+
+function renderAll() {
+  ['links','vision','lt','an','deadlines','week','review'].forEach(s => renderSection(s));
+}
+
+// ── LINKS ──────────────────────────────
+function renderLinks() {
+  const el = document.getElementById('links-view');
+  if (!editing.links) {
+    el.innerHTML = `<div class="links-grid">${
+      S.links.map(l => `<a class="link-btn" href="${esc(l.url)}" target="_blank">
+        <span class="link-icon">${esc(l.icon)}</span>${esc(l.label)}</a>`).join('')
+    }</div>`;
+  } else {
+    el.innerHTML = S.links.map((l,i) => `
+      <div class="link-edit-card">
+        <div class="link-edit-row">
+          <input class="link-edit-input link-icon-input" value="${esc(l.icon)}"
+            oninput="S.links[${i}].icon=this.value;saveS()" placeholder="🔗"/>
+          <input class="link-edit-input" value="${esc(l.label)}"
+            oninput="S.links[${i}].label=this.value;saveS()" placeholder="Nom"/>
+          <button class="del-btn" onclick="S.links.splice(${i},1);saveS();renderLinks()">×</button>
+        </div>
+        <input class="link-edit-input" value="${esc(l.url)}"
+          oninput="S.links[${i}].url=this.value;saveS()" placeholder="https://…" style="font-size:11px"/>
+      </div>`).join('') +
+      `<button class="add-item-btn" onclick="S.links.push({icon:'🔗',label:'Nouveau',url:'https://'});saveS();renderLinks()">
+        + Ajouter un lien</button>`;
+  }
+}
+
+// ── VISION ─────────────────────────────
+function renderVision() {
+  const el = document.getElementById('vision-view');
+  if (!editing.vision) {
+    el.innerHTML = `<div class="vision-wrap">
+      <span class="vbadge">2031</span>
+      <span class="vtext">${esc(S.vision)}</span>
+    </div>`;
+  } else {
+    el.innerHTML = `<div class="vision-wrap">
+      <span class="vbadge">2031</span>
+      <textarea class="vtext-edit" rows="4"
+        oninput="S.vision=this.value;saveS();autoResize(this)">${esc(S.vision)}</textarea>
+    </div>`;
+    const ta = el.querySelector('textarea');
+    setTimeout(() => autoResize(ta), 0);
+  }
+}
+
+// ── HORIZON ────────────────────────────
+function renderHorizon(hid) {
+  const domains = S.horizons[hid];
+  const el = document.getElementById(hid + '-view');
+  if (!editing[hid]) {
+    el.innerHTML = `<div class="obj-group">${
+      domains.map(d => `<div class="obj-row">
+        <div class="obj-dom">${esc(d.name)}</div>
+        <div class="obj-content">${
+          d.items.map(it => `<div class="obj-item">
+            <span class="dot ${esc(d.dot)}"></span>${esc(it)}</div>`).join('')
+        }</div></div>`).join('')
+    }</div>`;
+  } else {
+    el.innerHTML = `<div class="obj-group">${
+      domains.map((d,di) => `<div class="obj-row">
+        <div class="obj-dom">${esc(d.name)}</div>
+        <div class="obj-content">${
+          d.items.map((it,ii) => `<div class="item-edit">
+            <span class="dot ${esc(d.dot)}" style="margin-top:8px"></span>
+            <input class="item-input" value="${esc(it)}"
+              oninput="S.horizons['${hid}'][${di}].items[${ii}]=this.value;saveS()"/>
+            <button class="del-btn"
+              onclick="S.horizons['${hid}'][${di}].items.splice(${ii},1);saveS();renderHorizon('${hid}')">×</button>
+          </div>`).join('')
+        }
+        <button class="add-item-btn"
+          onclick="S.horizons['${hid}'][${di}].items.push('Nouvel objectif');saveS();renderHorizon('${hid}')">
+          + Ajouter</button>
+        </div></div>`).join('')
+    }</div>`;
+  }
+}
+
+// ── DEADLINES ──────────────────────────
+function renderDeadlines() {
+  const el = document.getElementById('deadlines-view');
+  const COLORS = ['dy','db','do','dg'];
+  if (!editing.deadlines) {
+    el.innerHTML = `<div class="obj-group">${
+      S.deadlines.map(d => `<div class="dl-item">
+        <div class="dl-left"><span class="dot ${esc(d.dot)}"></span>
+        <span class="dl-name">${esc(d.name)}</span></div>
+        <span class="dl-date">${esc(d.date)}</span>
+      </div>`).join('')
+    }</div>`;
+  } else {
+    el.innerHTML = `<div class="obj-group">${
+      S.deadlines.map((d,i) => `<div class="dl-item">
+        <div class="dl-left" style="gap:6px">
+          <span class="dot ${esc(d.dot)}"></span>
+          <input class="dl-name-input" value="${esc(d.name)}"
+            oninput="S.deadlines[${i}].name=this.value;saveS()"/>
+        </div>
+        <input class="dl-date-input" value="${esc(d.date)}"
+          oninput="S.deadlines[${i}].date=this.value;saveS()"/>
+        <button class="del-btn"
+          onclick="S.deadlines.splice(${i},1);saveS();renderDeadlines()">×</button>
+      </div>`).join('')
+    }
+    <div style="padding:8px 12px">
+      <button class="add-item-btn"
+        onclick="S.deadlines.push({name:'Nouvel objectif',date:'Date',dot:'dy'});saveS();renderDeadlines()">
+        + Ajouter</button>
+    </div></div>`;
+  }
+}
+
+// ── WEEK ───────────────────────────────
+const BLOCK_COLORS = ['by','bb','bo','bg','bx'];
+const BLOCK_DOTS   = ['cdot-y','cdot-b','cdot-o','cdot-g','cdot-x'];
+function colorIdx(s) { return BLOCK_COLORS.indexOf(s); }
+
+function renderWeek() {
+  const el = document.getElementById('week-view');
+  if (!editing.week) {
+    el.innerHTML = `<div class="week-grid">${
+      S.week.map(r => `<div class="week-row">
+        <div class="week-day">${esc(r.day)}</div>
+        <div class="week-blocks">${
+          r.blocks.map(b => `<span class="blk ${esc(b.s)}">${esc(b.t)}</span>`).join('')
+        }</div></div>`).join('')
+    }</div>`;
+  } else {
+    el.innerHTML = `<div class="week-grid">${
+      S.week.map((r,ri) => `<div class="week-row">
+        <div class="week-day">${esc(r.day)}</div>
+        <div class="week-blocks" style="flex-direction:column;padding:8px 10px">${
+          r.blocks.map((b,bi) => `<div class="blk-edit-wrap">
+            <input class="blk-edit-input" value="${esc(b.t)}"
+              oninput="S.week[${ri}].blocks[${bi}].t=this.value;saveS()"/>
+            <div class="color-dots">${
+              BLOCK_COLORS.map((c,ci) => `<span class="cdot ${BLOCK_DOTS[ci]}${colorIdx(b.s)===ci?' sel':''}"
+                onclick="S.week[${ri}].blocks[${bi}].s='${c}';saveS();renderWeek()"></span>`).join('')
+            }</div>
+            <button class="del-btn"
+              onclick="S.week[${ri}].blocks.splice(${bi},1);saveS();renderWeek()">×</button>
+          </div>`).join('')
+        }
+        <button class="add-item-btn"
+          onclick="S.week[${ri}].blocks.push({t:'Nouveau bloc',s:'bx'});saveS();renderWeek()">
+          + Ajouter</button>
+        </div></div>`).join('')
+    }</div>`;
+  }
+}
+
+// ── REVIEW ─────────────────────────────
+function renderReview() {
+  const el = document.getElementById('review-view');
+  if (!editing.review) {
+    el.innerHTML = `<div class="obj-group">${
+      S.review.map((s,i) => `<div class="review-step">
+        <div class="step-n">${i+1}</div>
+        <div class="step-text"><b>${esc(s.title)}</b>
+          <span class="step-sub"> — ${esc(s.desc)}</span></div>
+      </div>`).join('')
+    }</div>`;
+  } else {
+    el.innerHTML = `<div class="obj-group">${
+      S.review.map((s,i) => `<div class="review-step">
+        <div class="step-n">${i+1}</div>
+        <div class="step-text" style="display:flex;flex-direction:column;gap:4px;flex:1">
+          <input class="step-input" value="${esc(s.title)}" style="font-weight:600"
+            oninput="S.review[${i}].title=this.value;saveS()"/>
+          <input class="step-input" value="${esc(s.desc)}" style="color:var(--muted2)"
+            oninput="S.review[${i}].desc=this.value;saveS()"/>
+        </div>
+        <button class="del-btn"
+          onclick="S.review.splice(${i},1);saveS();renderReview()">×</button>
+      </div>`).join('')
+    }
+    <div style="padding:4px 12px">
+      <button class="add-item-btn"
+        onclick="S.review.push({title:'Étape',desc:'Description'});saveS();renderReview()">
+        + Ajouter</button>
+    </div></div>`;
+  }
+}
+
+// ════════════════════════════════════════
+// IDÉES
+// ════════════════════════════════════════
+function renderIdeas() {
+  const list = document.getElementById('ideas-list');
+  const empty = document.getElementById('ideas-empty');
+  list.innerHTML = '';
+  if (!ideas.length) { empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+  ideas.forEach((idea, i) => {
+    const div = document.createElement('div');
+    div.className = 'idea-item';
+    div.innerHTML = `<span class="idea-bullet"></span>
+      <textarea class="idea-text" rows="1"
+        oninput="autoResize(this);ideas[${i}]=this.value"
+        onblur="save('ideas',ideas)">${esc(idea)}</textarea>
+      <button class="idea-del" onclick="ideas.splice(${i},1);save('ideas',ideas);renderIdeas()">×</button>`;
+    list.appendChild(div);
+    autoResize(div.querySelector('textarea'));
+  });
+}
+
+function addIdea() {
+  const inp = document.getElementById('idea-input');
+  const val = inp.value.trim();
+  if (!val) return;
+  ideas.unshift(val); save('ideas', ideas); inp.value = ''; renderIdeas();
+}
+document.getElementById('idea-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') { e.preventDefault(); addIdea(); }
+});
+
+// ════════════════════════════════════════
+// TODO
+// ════════════════════════════════════════
+function renderTodos() {
+  const list = document.getElementById('todo-list');
+  const empty = document.getElementById('todo-empty');
+  list.innerHTML = '';
+  const sorted = [...todos.filter(t=>!t.done), ...todos.filter(t=>t.done)];
+  if (!sorted.length) { empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+  sorted.forEach(todo => {
+    const ri = todos.indexOf(todo);
+    const div = document.createElement('div');
+    div.className = 'todo-item' + (todo.done ? ' done' : '');
+    div.innerHTML = `
+      <button class="todo-check" onclick="todos[${ri}].done=!todos[${ri}].done;save('todos',todos);renderTodos()">
+        ${todo.done ? '✓' : ''}</button>
+      <textarea class="todo-text" rows="1"
+        oninput="autoResize(this);todos[${ri}].text=this.value"
+        onblur="save('todos',todos)">${esc(todo.text)}</textarea>
+      <button class="idea-del" onclick="todos.splice(${ri},1);save('todos',todos);renderTodos()">×</button>`;
+    list.appendChild(div);
+    autoResize(div.querySelector('textarea'));
+  });
+}
+
+function addTodo() {
+  const inp = document.getElementById('todo-input');
+  const val = inp.value.trim();
+  if (!val) return;
+  todos.unshift({ text: val, done: false }); save('todos', todos); inp.value = ''; renderTodos();
+}
+document.getElementById('todo-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') { e.preventDefault(); addTodo(); }
+});
+
+function clearDone() {
+  todos = todos.filter(t => !t.done); save('todos', todos); renderTodos();
+}
+
+// ════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════
+document.getElementById('today-date').textContent =
+  new Date().toLocaleDateString('fr-FR', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+
+renderAll(); renderIdeas(); renderTodos();
+
+if ('serviceWorker' in navigator)
+  navigator.serviceWorker.register('./sw.js').catch(()=>{});
+</script>
+</body>
+</html>

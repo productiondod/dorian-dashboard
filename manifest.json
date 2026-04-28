@@ -1,0 +1,18 @@
+{
+  "name": "Dorian — Dashboard",
+  "short_name": "Dashboard",
+  "description": "Objectifs, idées et todo de Dorian Gauthey",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0d0d0d",
+  "theme_color": "#0d0d0d",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
