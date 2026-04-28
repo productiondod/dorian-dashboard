@@ -697,15 +697,45 @@ function computeLayout(w,h){
     });
   });
 
+  // L_task — sous-tâches dynamiques depuis tasks[], même radius que le niveau suivant
+  const radiusByLevel = {0:R1,1:R2,2:R3,3:Math.min(w,h)*0.10};
+  const tasksByNode = {};
+  tasks.filter(t=>t.nodeId&&!t.done).forEach(t=>{
+    if(!tasksByNode[t.nodeId]) tasksByNode[t.nodeId]=[];
+    tasksByNode[t.nodeId].push(t);
+  });
+  Object.entries(tasksByNode).forEach(([nodeId, nodeTasks])=>{
+    const p = nodeMap[nodeId]; if(!p) return;
+    const parentLevel = p.level ?? 2;
+    const Rt = radiusByLevel[parentLevel] || Math.min(w,h)*0.10;
+    const visLevel = Math.min(parentLevel+1, 3); // same visual size as next TREE level
+    // offset the spread so task nodes don't overlap existing tree children
+    const existingChildren = Object.values(nodeMap).filter(n=>n.parent===nodeId&&!n.taskId);
+    const baseAngle = (p.angle||0) + (existingChildren.length>0 ? Math.PI*0.4 : 0);
+    const n = nodeTasks.length;
+    const spread = n>1 ? Math.PI*0.4 : 0;
+    nodeTasks.slice(0,6).forEach((t,i)=>{
+      const a = baseAngle + (n>1 ? -spread/2+(spread/(n-1))*i : 0);
+      nodeMap['task_'+t.id]={
+        id:'task_'+t.id, taskId:t.id,
+        label:t.text.slice(0,16)+(t.text.length>16?'…':''),
+        domain:p.domain, level:visLevel, isTask:true, parent:nodeId, angle:a,
+        x:p.x+Math.cos(a)*Rt, y:p.y+Math.sin(a)*Rt,
+        done:t.done, deadline:t.deadline
+      };
+    });
+  });
+
   return Object.values(nodeMap);
 }
 
-const NODE_R=[38,28,20,14]; // radii by level
+const NODE_R=[38,28,20,14,10]; // radii by level (L4=10)
 
 function initParticles(nodes){
   particles=[];
   const nodeMap={};nodes.forEach(n=>nodeMap[n.id]=n);
-  TREE.filter(n=>n.parent&&nodeMap[n.parent]&&nodeMap[n.id]).forEach(n=>{
+  nodes.filter(n=>n.parent&&nodeMap[n.parent]).forEach(n=>{
+    if(n.level===4) return; // no particles on task nodes
     for(let i=0;i<(n.level<=2?2:1);i++){
       particles.push({from:n.parent,to:n.id,domain:n.domain,
         t:Math.random(),speed:0.0006+Math.random()*0.0006,delay:Math.random()*2000});
@@ -763,10 +793,21 @@ function drawMap(nodes){
     ctx.fill();
   });
 
-  // nodes
-  nodes.forEach(n=>{
-    const r=NODE_R[n.level];
+  // task node edges — dashed line
+  nodes.filter(n=>n.isTask).forEach(n=>{
+    const p=nodeMap[n.parent]; if(!p) return;
     const col=DOMAIN_COLOR[n.domain]||'#fff';
+    ctx.save();ctx.setLineDash([3,4]);
+    ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(n.x,n.y);
+    ctx.strokeStyle=col+'30';ctx.lineWidth=1;ctx.stroke();
+    ctx.restore();
+  });
+
+  // nodes — tree nodes first, then task nodes on top
+  nodes.filter(n=>!n.isTask).concat(nodes.filter(n=>n.isTask)).forEach(n=>{
+    const r=NODE_R[Math.min(n.level,3)];
+    const col=DOMAIN_COLOR[n.domain]||'#fff';
+
     const pulse=1+.025*Math.sin(tick*.0015+n.id.charCodeAt(0)*.1);
     const rp=r*pulse;
     const isSel=selectedNode?.id===n.id;
@@ -781,10 +822,12 @@ function drawMap(nodes){
     ctx.beginPath();ctx.arc(n.x,n.y,rp,0,Math.PI*2);
     ctx.fillStyle=grad;ctx.fill();
 
-    // border
+    // border (dashed for task nodes)
     ctx.beginPath();ctx.arc(n.x,n.y,rp,0,Math.PI*2);
-    ctx.strokeStyle=col+(isSel?'ff':'66');
+    if(n.isTask){ctx.save();ctx.setLineDash([3,3]);}
+    ctx.strokeStyle=col+(isSel?'ff':n.isTask?'88':'66');
     ctx.lineWidth=(isSel?2:1);ctx.stroke();
+    if(n.isTask)ctx.restore();
 
     // progress arc (tasks or manual)
     const stats=getNodeTaskStats(n.id);
@@ -795,7 +838,7 @@ function drawMap(nodes){
       ctx.strokeStyle=col+'cc';ctx.lineWidth=2;ctx.stroke();
     }
 
-    // task badge (small dot top-right when subtasks exist)
+    // task badge
     if(stats.total>0){
       const bx=n.x+rp*.7,by=n.y-rp*.7,br=Math.max(5,rp*.28);
       ctx.beginPath();ctx.arc(bx,by,br,0,Math.PI*2);
@@ -858,7 +901,7 @@ canvas.addEventListener('touchmove',e=>{
     const dx=e.touches[0].clientX-drag.lastX,dy=e.touches[0].clientY-drag.lastY;
     transform.tx+=dx;transform.ty+=dy;
     drag.lastX=e.touches[0].clientX;drag.lastY=e.touches[0].clientY;
-    if(Math.abs(dx)+Math.abs(dy)>3)drag.moved=true;
+    if(Math.abs(dx)+Math.abs(dy)>6)drag.moved=true; // higher threshold = easier single tap
   } else if(drag.type==='pinch'&&e.touches.length===2){
     const d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
     transform.scale=Math.max(.35,Math.min(2.8,transform.scale*d/drag.pinchDist));
@@ -872,10 +915,16 @@ canvas.addEventListener('touchend',e=>{
   }
   drag.active=false;
 },{passive:false});
-canvas.addEventListener('mousedown',e=>{drag={active:true,type:'pan',lastX:e.clientX,lastY:e.clientY,moved:false,startX:e.clientX,startY:e.clientY}});
-canvas.addEventListener('mousemove',e=>{if(!drag.active)return;transform.tx+=e.clientX-drag.lastX;transform.ty+=e.clientY-drag.lastY;drag.lastX=e.clientX;drag.lastY=e.clientY;drag.moved=true;});
+canvas.addEventListener('mousedown',e=>{drag={active:true,type:'pan',lastX:e.clientX,lastY:e.clientY,moved:false,startX:e.clientX,startY:e.clientY,startTime:Date.now()}});
+canvas.addEventListener('mousemove',e=>{
+  if(!drag.active)return;
+  const dx=e.clientX-drag.lastX,dy=e.clientY-drag.lastY;
+  transform.tx+=dx;transform.ty+=dy;drag.lastX=e.clientX;drag.lastY=e.clientY;
+  if(Math.abs(e.clientX-drag.startX)+Math.abs(e.clientY-drag.startY)>6)drag.moved=true;
+});
 canvas.addEventListener('mouseup',e=>{if(!drag.moved)tapNode(e.clientX,e.clientY);drag.active=false;});
 canvas.addEventListener('wheel',e=>{transform.scale=Math.max(.35,Math.min(2.8,transform.scale*(e.deltaY>0?.9:1.1)));e.preventDefault();},{passive:false});
+// double-tap / double-click = reset zoom
 canvas.addEventListener('dblclick',()=>{transform={tx:0,ty:0,scale:1};});
 
 function tapNode(mx,my){
@@ -884,7 +933,7 @@ function tapNode(mx,my){
   const ny=(my-transform.ty-cy)/transform.scale+cy;
   let hit=null,best=Infinity;
   mapNodes.forEach(n=>{
-    const r=NODE_R[n.level]+6;
+    const r=(NODE_R[Math.min(n.level,3)]||10)+8; // bigger hit area
     const d=Math.hypot(nx-n.x,ny-n.y);
     if(d<=r&&d<best){hit=n;best=d;}
   });
@@ -894,13 +943,30 @@ function tapNode(mx,my){
   if(hit){
     const col=DOMAIN_COLOR[hit.domain];
     document.getElementById('np-domain').style.color=col;
-    document.getElementById('np-domain').textContent=DOMAIN_LABEL[hit.domain]+' · Niveau '+(hit.level===0?'Vision':hit.level===1?'Long terme':hit.level===2?'Moyen terme':'Court terme');
-    document.getElementById('np-title').textContent=hit.label.replace('\n',' ');
-    document.getElementById('np-sub').textContent=hit.sub||'';
-    updateNodePanel(hit);
+    if(hit.isTask){
+      // Sous-tâche tapée
+      document.getElementById('np-domain').textContent='Sous-tâche · '+DOMAIN_LABEL[hit.domain];
+      document.getElementById('np-title').textContent=hit.label;
+      const realTask = tasks.find(t=>String(t.id)===String(hit.taskId));
+      document.getElementById('np-sub').textContent=realTask?.deadline?'Deadline : '+realTask.deadline:'';
+      document.getElementById('np-subtasks').style.display='none';
+      document.getElementById('np-decomp-btn').style.display='none';
+      document.getElementById('np-meta').innerHTML=`
+        <span class="np-chip" style="background:rgba(71,255,176,.1);color:#47ffb0;cursor:pointer"
+          onclick="quickToggleTask('${hit.taskId}');tapNode(${mx},${my})">
+          ${hit.done?'✓ Terminé':'Marquer fait'}
+        </span>
+        ${realTask?.parentLabel?`<span class="np-chip" style="background:rgba(255,255,255,.07);color:#888">→ ${esc(realTask.parentLabel)}</span>`:''}`;
+    } else {
+      document.getElementById('np-domain').textContent=DOMAIN_LABEL[hit.domain]+' · '+(hit.level===0?'Vision':hit.level===1?'Long terme':hit.level===2?'Moyen terme':'Court terme');
+      document.getElementById('np-title').textContent=hit.label.replace('\n',' ');
+      document.getElementById('np-sub').textContent=hit.sub||'';
+      updateNodePanel(hit);
+    }
     panel.classList.add('show');
     hint.style.opacity='0';
   } else {
+    // Tap dans le vide → fermer le panel
     panel.classList.remove('show');
     hint.style.opacity='1';
   }
@@ -1208,10 +1274,11 @@ const NODE_SUGGESTIONS = {
   visibilite:   ['Audit de la présence actuelle','Optimiser LinkedIn','Lancer le site web','Poster régulièrement'],
 };
 
-function openDecompose(){
-  if(!selectedNode) return;
-  decompNodeId = selectedNode.id;
-  const node = selectedNode;
+function openDecompose(nodeId){
+  const id = nodeId || selectedNode?.id;
+  if(!id) return;
+  decompNodeId = id;
+  const node = getNodeById(id);
   const col  = DOMAIN_COLOR[node.domain]||'#fff';
   document.getElementById('decomp-title').textContent = 'Décomposer · '+node.label.replace('\n',' ');
   document.getElementById('decomp-title').style.color = col;
@@ -1283,7 +1350,9 @@ function saveDecomposition(){
   addXP(added*5);
   document.getElementById('decomp-modal').classList.remove('open');
   showToast(`✦ ${added} sous-tâche${added>1?'s':''} créées +${added*5} XP`);
-  // Refresh node panel
+  // Refresh mind map + node panel
+  mapNodes=computeLayout(W,H);
+  initParticles(mapNodes);
   if(selectedNode) updateNodePanel(selectedNode);
 }
 
@@ -1511,7 +1580,19 @@ function renderTasks(){
     });
   });
   if(!active.length&&!done.length)html=`<div class="tasks-empty">Aucune tâche.<br/>Ajoute-en via l'onglet ➕</div>`;
-  document.getElementById('tasks-content').innerHTML=html;
+
+  // Sélecteur de décomposition en haut
+  const decompNodes = TREE.filter(n=>n.level>=2);
+  const pickerHtml = `<div style="margin:16px 0 4px">
+    <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--m);margin-bottom:8px">Décomposer un objectif</div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap">
+      ${decompNodes.map(n=>`<button onclick="openDecompose('${n.id}')"
+        style="padding:5px 10px;border-radius:8px;border:1px solid var(--bd);background:none;
+        color:${DOMAIN_COLOR[n.domain]}88;font-size:11px;font-weight:600;font-family:inherit;cursor:pointer;
+        -webkit-tap-highlight-color:transparent">${n.label.replace('\n',' ')}</button>`).join('')}
+    </div>
+  </div>`;
+  document.getElementById('tasks-content').innerHTML = pickerHtml + html;
 }
 function toggleTask(id){
   const t=tasks.find(t=>t.id===id);
@@ -1580,6 +1661,12 @@ function renderProgQuests(){
           oninput="setProgress('${n.id}',+this.value);this.style.background='linear-gradient(90deg,${col} '+this.value+'%,var(--s2) '+this.value+'%)';renderProgQuests()"/>
         <button class="pq-btn" onclick="setProgress('${n.id}',${pct}+5);renderProgQuests()">+</button>
       </div>
+      <button onclick="openDecompose('${n.id}')"
+        style="width:100%;margin-top:10px;padding:8px;background:transparent;border:1px dashed ${col}44;
+        border-radius:9px;color:${col}88;font-size:11px;font-weight:600;font-family:inherit;cursor:pointer;
+        -webkit-tap-highlight-color:transparent">
+        ${getNodeTaskStats(n.id).total>0?`✎ ${getNodeTaskStats(n.id).done}/${getNodeTaskStats(n.id).total} sous-tâches`:'✦ Décomposer'}
+      </button>
     </div>`;
   }).join('');
 }
