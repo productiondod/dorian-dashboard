@@ -328,6 +328,79 @@ html,body{height:100%;background:var(--bg);color:var(--text);
 .dem-save{width:100%;padding:14px;background:var(--y);color:#000;border:none;
   border-radius:12px;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer}
 
+/* ═══════════ DÉCOMPOSITION ═══════════ */
+.np-subtasks{margin-top:10px;border-top:1px solid var(--bd);padding-top:10px}
+.np-st-item{display:flex;align-items:center;gap:8px;padding:5px 0;
+  border-bottom:1px solid rgba(255,255,255,.04);font-size:11px}
+.np-st-item:last-child{border-bottom:none}
+.np-st-check{width:14px;height:14px;border-radius:50%;border:1.5px solid var(--bd);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:8px}
+.np-st-check.done{background:var(--g);border-color:var(--g);color:#000}
+.np-st-text{flex:1;color:var(--m2)}.np-st-text.done{text-decoration:line-through;opacity:.5}
+.np-st-dl{font-size:9px;font-weight:600;flex-shrink:0}
+.np-decomp-btn{width:100%;margin-top:10px;padding:9px;background:transparent;
+  border:1px dashed rgba(255,255,255,.15);border-radius:10px;color:var(--m2);
+  font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;
+  -webkit-tap-highlight-color:transparent;transition:all .15s}
+.np-decomp-btn:active{border-color:var(--y);color:var(--y)}
+
+.decomp-modal{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:600;
+  display:flex;align-items:flex-end;opacity:0;pointer-events:none;transition:opacity .2s}
+.decomp-modal.open{opacity:1;pointer-events:all}
+.decomp-sheet{background:var(--s1);border-radius:20px 20px 0 0;padding:20px 18px 36px;
+  width:100%;max-height:90dvh;overflow-y:auto;
+  transform:translateY(100%);transition:transform .25s ease;border-top:1px solid var(--bd)}
+.decomp-modal.open .decomp-sheet{transform:translateY(0)}
+.decomp-sheet h3{font-size:16px;font-weight:800;margin-bottom:4px}
+.decomp-sheet p{font-size:12px;color:var(--m2);margin-bottom:14px}
+.decomp-row{display:flex;gap:8px;align-items:center;margin-bottom:8px;animation:si .15s ease}
+.decomp-row input[type=text]{flex:1;background:var(--bg);border:1px solid var(--bd);
+  border-radius:9px;color:var(--text);font-size:13px;font-family:inherit;
+  padding:10px 12px;outline:none}
+.decomp-row input[type=text]:focus{border-color:var(--y)}
+.decomp-row input[type=date]{width:118px;background:var(--bg);border:1px solid var(--bd);
+  border-radius:9px;color:var(--text);font-size:12px;font-family:inherit;
+  padding:10px 8px;outline:none;flex-shrink:0}
+.decomp-row-del{background:none;border:none;color:var(--m);font-size:18px;
+  cursor:pointer;flex-shrink:0;padding:0 4px;-webkit-tap-highlight-color:transparent}
+.decomp-add-row{width:100%;padding:9px;background:transparent;border:1px dashed rgba(255,255,255,.12);
+  border-radius:9px;color:var(--m);font-size:12px;font-family:inherit;cursor:pointer;margin:4px 0 14px}
+.decomp-save{width:100%;padding:14px;background:var(--y);color:#000;border:none;
+  border-radius:12px;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer}
+.decomp-auto{width:100%;padding:9px;background:rgba(71,255,176,.07);border:1px solid rgba(71,255,176,.2);
+  border-radius:9px;color:var(--g);font-size:12px;font-family:inherit;cursor:pointer;margin-bottom:10px}
+
+/* ═══════════ EN ATTENTE ═══════════ */
+.waiting-card{display:flex;align-items:flex-start;gap:10px;background:var(--s1);
+  border:1px solid rgba(71,196,255,.2);border-radius:12px;
+  padding:12px 14px;margin-bottom:8px;animation:si .2s ease}
+.waiting-card-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+.waiting-card-body{flex:1;min-width:0}
+.waiting-card-from{font-size:13px;font-weight:700}
+.waiting-card-subject{font-size:11px;color:var(--m2);margin-top:2px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.waiting-card-days{font-size:10px;font-weight:600;color:#47c4ff;margin-top:3px}
+.waiting-card-done{background:rgba(71,255,176,.08);border:1px solid rgba(71,255,176,.2);
+  border-radius:8px;padding:5px 10px;font-size:11px;font-weight:700;color:var(--g);
+  cursor:pointer;-webkit-tap-highlight-color:transparent;flex-shrink:0;white-space:nowrap}
+.waiting-add-btn{width:100%;padding:11px;background:rgba(71,196,255,.06);
+  border:1px dashed rgba(71,196,255,.2);border-radius:12px;color:#47c4ff;
+  font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;margin-bottom:10px;
+  -webkit-tap-highlight-color:transparent}
+
+.waiting-modal{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:600;
+  display:flex;align-items:flex-end;opacity:0;pointer-events:none;transition:opacity .2s}
+.waiting-modal.open{opacity:1;pointer-events:all}
+.waiting-sheet{background:var(--s1);border-radius:20px 20px 0 0;padding:24px 20px 40px;
+  width:100%;transform:translateY(100%);transition:transform .25s ease;border-top:1px solid var(--bd)}
+.waiting-modal.open .waiting-sheet{transform:translateY(0)}
+.waiting-field{width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:10px;
+  color:var(--text);font-size:14px;font-family:inherit;padding:12px 14px;
+  outline:none;margin-bottom:10px}
+.waiting-field:focus{border-color:#47c4ff}
+.waiting-save{width:100%;padding:14px;background:#47c4ff;color:#000;border:none;
+  border-radius:12px;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer}
+
 @keyframes si{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
 @keyframes xpPop{0%{transform:scale(1)}50%{transform:scale(1.3)}100%{transform:scale(1)}}
 </style>
@@ -352,6 +425,8 @@ html,body{height:100%;background:var(--bg);color:var(--text);
       <div class="np-title" id="np-title"></div>
       <div class="np-sub" id="np-sub"></div>
       <div class="np-meta" id="np-meta"></div>
+      <div class="np-subtasks" id="np-subtasks" style="display:none"></div>
+      <button class="np-decomp-btn" id="np-decomp-btn" style="display:none" onclick="openDecompose()">✦ Décomposer en sous-tâches</button>
     </div>
   </div>
 
@@ -434,6 +509,28 @@ html,body{height:100%;background:var(--bg);color:var(--text);
         <button onclick="selDemStatus('sans suite',this)">Sans suite</button>
       </div>
       <button class="dem-save" onclick="saveDemContact()">Enregistrer</button>
+    </div>
+  </div>
+
+  <!-- Modal décomposition -->
+  <div class="decomp-modal" id="decomp-modal" onclick="closeDecompModal(event)">
+    <div class="decomp-sheet">
+      <h3 id="decomp-title">Décomposer</h3>
+      <p id="decomp-desc"></p>
+      <button class="decomp-auto" onclick="autoFillDeadlines()">🪄 Répartir les deadlines automatiquement</button>
+      <div id="decomp-rows"></div>
+      <button class="decomp-add-row" onclick="addDecompRow()">+ Ajouter une sous-tâche</button>
+      <button class="decomp-save" onclick="saveDecomposition()">Décomposer ✦</button>
+    </div>
+  </div>
+
+  <!-- Modal En attente -->
+  <div class="waiting-modal" id="waiting-modal" onclick="closeWaitingModal(event)">
+    <div class="waiting-sheet">
+      <h3 style="font-size:16px;font-weight:800;margin-bottom:16px">En attente de réponse</h3>
+      <input class="waiting-field" id="w-from" placeholder="De qui ? (Agence X, Lucas, …)"/>
+      <input class="waiting-field" id="w-subject" placeholder="Sujet du mail"/>
+      <button class="waiting-save" onclick="saveWaiting()">Ajouter</button>
     </div>
   </div>
 
@@ -689,14 +786,23 @@ function drawMap(nodes){
     ctx.strokeStyle=col+(isSel?'ff':'66');
     ctx.lineWidth=(isSel?2:1);ctx.stroke();
 
-    // progress arc
-    if(n.progress!==undefined){
-      const prog=getProgress(n.id)/100;
-      if(prog>0){
-        ctx.beginPath();
-        ctx.arc(n.x,n.y,rp+2,-Math.PI/2,-Math.PI/2+prog*Math.PI*2);
-        ctx.strokeStyle=col+'cc';ctx.lineWidth=2;ctx.stroke();
-      }
+    // progress arc (tasks or manual)
+    const stats=getNodeTaskStats(n.id);
+    const progVal = stats.total>0 ? stats.done/stats.total : (n.progress!==undefined?getProgress(n.id)/100:0);
+    if(progVal>0){
+      ctx.beginPath();
+      ctx.arc(n.x,n.y,rp+2,-Math.PI/2,-Math.PI/2+progVal*Math.PI*2);
+      ctx.strokeStyle=col+'cc';ctx.lineWidth=2;ctx.stroke();
+    }
+
+    // task badge (small dot top-right when subtasks exist)
+    if(stats.total>0){
+      const bx=n.x+rp*.7,by=n.y-rp*.7,br=Math.max(5,rp*.28);
+      ctx.beginPath();ctx.arc(bx,by,br,0,Math.PI*2);
+      ctx.fillStyle=stats.done===stats.total?'#47ffb0':'#e8ff47';ctx.fill();
+      ctx.font=`700 ${Math.max(5,br*.9)}px -apple-system,sans-serif`;
+      ctx.fillStyle='#000';ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.fillText(stats.done+'/'+stats.total,bx,by);
     }
 
     // text
@@ -791,12 +897,7 @@ function tapNode(mx,my){
     document.getElementById('np-domain').textContent=DOMAIN_LABEL[hit.domain]+' · Niveau '+(hit.level===0?'Vision':hit.level===1?'Long terme':hit.level===2?'Moyen terme':'Court terme');
     document.getElementById('np-title').textContent=hit.label.replace('\n',' ');
     document.getElementById('np-sub').textContent=hit.sub||'';
-    let meta='';
-    if(hit.deadline){const dl=daysLeft(hit.deadline);meta+=`<span class="np-chip" style="background:${dl<30?'rgba(255,107,71,.15)':'rgba(232,255,71,.1)'};color:${dl<30?'#ff6b47':'#e8ff47'}">J-${dl}</span>`;}
-    if(hit.progress!==undefined)meta+=`<span class="np-chip" style="background:rgba(71,255,176,.1);color:#47ffb0">${getProgress(hit.id)}%</span>`;
-    const childrenNodes=TREE.filter(n=>n.parent===hit.id);
-    if(childrenNodes.length)meta+=`<span class="np-chip" style="background:rgba(255,255,255,.07);color:#888">${childrenNodes.length} sous-objectif${childrenNodes.length>1?'s':''}</span>`;
-    document.getElementById('np-meta').innerHTML=meta;
+    updateNodePanel(hit);
     panel.classList.add('show');
     hint.style.opacity='0';
   } else {
@@ -930,6 +1031,27 @@ function renderTodayContent(){
     });
   }
 
+  // ── En attente de réponse ──
+  const waiting = load('waiting',[]);
+  if(waiting.length || true){
+    html += `<div class="today-sec"><div class="today-sec-dot" style="background:#47c4ff"></div>En attente de réponse</div>`;
+    html += `<button class="waiting-add-btn" onclick="openWaitingModal()">+ En attente de…</button>`;
+    if(waiting.length){
+      waiting.forEach((w,i)=>{
+        const daysSince = Math.floor((Date.now()-new Date(w.date))/(1000*60*60*24));
+        html += `<div class="waiting-card">
+          <div class="waiting-card-icon">📬</div>
+          <div class="waiting-card-body">
+            <div class="waiting-card-from">${esc(w.from)}</div>
+            ${w.subject?`<div class="waiting-card-subject">${esc(w.subject)}</div>`:''}
+            <div class="waiting-card-days">Envoyé il y a ${daysSince===0?'aujourd\'hui':daysSince+' jour'+(daysSince>1?'s':'')}</div>
+          </div>
+          <div class="waiting-card-done" onclick="removeWaiting(${i})">Répondu ✓</div>
+        </div>`;
+      });
+    }
+  }
+
   html += '<div style="height:8px"></div>';
   document.getElementById('today-content').innerHTML = html;
 }
@@ -1033,6 +1155,189 @@ function saveDemContact(){
   document.getElementById('dem-modal').classList.remove('open');
   renderDemarche();
   showToast('✓ Contact ajouté +10 XP');
+}
+
+// ══════════════════════════════════════════════════════
+// EN ATTENTE DE RÉPONSE
+// ══════════════════════════════════════════════════════
+function openWaitingModal(){
+  document.getElementById('w-from').value='';
+  document.getElementById('w-subject').value='';
+  document.getElementById('waiting-modal').classList.add('open');
+  setTimeout(()=>document.getElementById('w-from').focus(),300);
+}
+function closeWaitingModal(e){
+  if(e.target===document.getElementById('waiting-modal'))
+    document.getElementById('waiting-modal').classList.remove('open');
+}
+function saveWaiting(){
+  const from = document.getElementById('w-from').value.trim();
+  if(!from){showToast('Saisis au moins un nom');return;}
+  const waiting = load('waiting',[]);
+  waiting.unshift({id:Date.now(), from,
+    subject:document.getElementById('w-subject').value.trim(),
+    date:new Date().toISOString()});
+  save('waiting',waiting);
+  document.getElementById('waiting-modal').classList.remove('open');
+  renderTodayContent();
+}
+function removeWaiting(i){
+  const waiting = load('waiting',[]);
+  waiting.splice(i,1);
+  save('waiting',waiting);
+  renderTodayContent();
+  showToast('✓ Réponse reçue !');
+}
+
+// ══════════════════════════════════════════════════════
+// DÉCOMPOSITION EN SOUS-TÂCHES
+// ══════════════════════════════════════════════════════
+let decompNodeId = null;
+let decompRowCount = 0;
+
+const NODE_SUGGESTIONS = {
+  showreel:     ['Sélectionner les meilleurs rushs','Écrire le storyboard','Montage v1','Corrections couleur + son','Export final + mise en ligne'],
+  site_web:     ['Choisir le CMS / template','Rédiger les textes (bio, offres)','Intégrer photos et vidéos','SEO + nom de domaine','Mise en ligne'],
+  mariage_vid:  ['Créer un book mariage','Créer profil Mariage.net','Contacter 10 wedding planners','Offre pilote + tarifs','Signer un premier contrat'],
+  linkedin_p:   ['Optimiser bio et bannière','Rédiger 5 posts piliers','Planifier 8 semaines de posts','Engager les commentaires régulièrement'],
+  docu_mont:    ['Structure narrative et arc','Dégrossissage montage','Fine cut + son','Étalonnage','Exports + diffusion YouTube'],
+  client_ancrage:['Définir l\'offre corporate','Créer un dossier commercial','Identifier 5 agences cibles','Envoyer 15 mails de prospection','Premier rendez-vous client'],
+  insta:        ['Définir le concept éditorial','Filmer 5 premiers contenus','Poster 1x/semaine pendant 1 mois','Analyser les stats et ajuster'],
+  demarche:     ['Identifier 15 cibles','Rédiger emails personnalisés','Envoyer les 15 mails','Relancer les non-réponses'],
+  mariage:      ['Créer un book mariage','Contacter wedding planners','Créer profil Mariage.net','Premier contrat signé'],
+  visibilite:   ['Audit de la présence actuelle','Optimiser LinkedIn','Lancer le site web','Poster régulièrement'],
+};
+
+function openDecompose(){
+  if(!selectedNode) return;
+  decompNodeId = selectedNode.id;
+  const node = selectedNode;
+  const col  = DOMAIN_COLOR[node.domain]||'#fff';
+  document.getElementById('decomp-title').textContent = 'Décomposer · '+node.label.replace('\n',' ');
+  document.getElementById('decomp-title').style.color = col;
+  document.getElementById('decomp-desc').textContent =
+    node.deadline ? `Deadline : ${node.deadline} (J-${daysLeft(node.deadline)})` : 'Pas de deadline définie';
+
+  decompRowCount = 0;
+  const suggestions = NODE_SUGGESTIONS[node.id] || ['Sous-tâche 1','Sous-tâche 2','Sous-tâche 3'];
+  const deadlines = autoDeadlines(node.deadline, suggestions.length);
+  document.getElementById('decomp-rows').innerHTML='';
+  suggestions.forEach((s,i)=>addDecompRow(s, deadlines[i]));
+  document.getElementById('decomp-modal').classList.add('open');
+}
+function closeDecompModal(e){
+  if(e.target===document.getElementById('decomp-modal'))
+    document.getElementById('decomp-modal').classList.remove('open');
+}
+function autoDeadlines(parentDeadline, count){
+  if(!parentDeadline||!count) return Array(count||0).fill('');
+  const today = new Date();
+  const end   = new Date(parentDeadline);
+  const totalDays = Math.max(count, Math.round((end-today)/86400000));
+  return Array.from({length:count},(_,i)=>{
+    const d = new Date(today);
+    d.setDate(d.getDate()+Math.round(totalDays*(i+1)/count));
+    return d.toISOString().slice(0,10);
+  });
+}
+function addDecompRow(text='', deadline=''){
+  const i = decompRowCount++;
+  const div = document.createElement('div');
+  div.className='decomp-row';
+  div.id='decomp-row-'+i;
+  div.innerHTML=`<input type="text" placeholder="Sous-tâche…" value="${esc(text)}"/>
+    <input type="date" value="${deadline}"/>
+    <button class="decomp-row-del" onclick="this.parentElement.remove()">×</button>`;
+  document.getElementById('decomp-rows').appendChild(div);
+}
+function autoFillDeadlines(){
+  const node = getNodeById(decompNodeId);
+  if(!node||!node.deadline){showToast('Pas de deadline sur cet objectif');return;}
+  const rows = document.querySelectorAll('.decomp-row');
+  const deadlines = autoDeadlines(node.deadline, rows.length);
+  rows.forEach((row,i)=>{
+    const dateInput = row.querySelectorAll('input')[1];
+    if(dateInput) dateInput.value = deadlines[i]||'';
+  });
+}
+function saveDecomposition(){
+  const node = getNodeById(decompNodeId);
+  if(!node){showToast('Erreur : nœud introuvable');return;}
+  const rows = document.querySelectorAll('.decomp-row');
+  let added = 0;
+  rows.forEach(row=>{
+    const inputs = row.querySelectorAll('input');
+    const text = inputs[0]?.value.trim();
+    const deadline = inputs[1]?.value||null;
+    if(!text) return;
+    tasks.unshift({
+      id:Date.now()+Math.random(), text,
+      type:'tache', domain:node.domain,
+      nodeId:node.id, parentLabel:node.label.replace('\n',' '),
+      deadline, done:false,
+      createdAt:new Date().toISOString()
+    });
+    added++;
+  });
+  save('tasks2',tasks);
+  addXP(added*5);
+  document.getElementById('decomp-modal').classList.remove('open');
+  showToast(`✦ ${added} sous-tâche${added>1?'s':''} créées +${added*5} XP`);
+  // Refresh node panel
+  if(selectedNode) updateNodePanel(selectedNode);
+}
+
+function getNodeTaskStats(nodeId){
+  const nodeTasks = tasks.filter(t=>t.nodeId===nodeId);
+  return { total:nodeTasks.length, done:nodeTasks.filter(t=>t.done).length };
+}
+
+function updateNodePanel(node){
+  const col = DOMAIN_COLOR[node.domain]||'#fff';
+  // Compute progress from tasks if available
+  const stats = getNodeTaskStats(node.id);
+  const taskPct = stats.total>0 ? Math.round(stats.done/stats.total*100) : null;
+
+  // Show sub-tasks
+  const nodeTasks = tasks.filter(t=>t.nodeId===node.id);
+  const stDiv = document.getElementById('np-subtasks');
+  const dbtn  = document.getElementById('np-decomp-btn');
+  if(nodeTasks.length){
+    stDiv.style.display='block';
+    stDiv.innerHTML = nodeTasks.slice(0,6).map(t=>{
+      const dl = t.deadline ? daysLeft(t.deadline) : null;
+      const dlColor = dl!==null?(dl<=3?'var(--o)':dl<=7?'#ffc447':'var(--m2)'):'var(--m)';
+      return `<div class="np-st-item">
+        <div class="np-st-check ${t.done?'done':''}" onclick="quickToggleTask('${t.id}')">${t.done?'✓':''}</div>
+        <div class="np-st-text ${t.done?'done':''}">${esc(t.text)}</div>
+        ${dl!==null?`<div class="np-st-dl" style="color:${dlColor}">J-${dl}</div>`:''}
+      </div>`;
+    }).join('');
+    if(nodeTasks.length>6) stDiv.innerHTML+=`<div style="font-size:10px;color:var(--m);padding:4px 0">+${nodeTasks.length-6} autres</div>`;
+    dbtn.style.display='block';
+    dbtn.textContent='✎ Modifier la décomposition';
+  } else {
+    stDiv.style.display='none';
+    dbtn.style.display = node.level>=2 ? 'block':'none';
+    dbtn.textContent = '✦ Décomposer en sous-tâches';
+  }
+  // Update meta chips
+  let meta='';
+  if(node.deadline){const dl=daysLeft(node.deadline);meta+=`<span class="np-chip" style="background:${dl<30?'rgba(255,107,71,.15)':'rgba(232,255,71,.1)'};color:${dl<30?'#ff6b47':'#e8ff47'}">J-${dl}</span>`;}
+  const pct = taskPct!==null ? taskPct : getProgress(node.id);
+  if(node.progress!==undefined||stats.total>0) meta+=`<span class="np-chip" style="background:rgba(71,255,176,.1);color:#47ffb0">${pct}%${stats.total>0?' ('+stats.done+'/'+stats.total+')':''}</span>`;
+  const childrenNodes=TREE.filter(n=>n.parent===node.id);
+  if(childrenNodes.length) meta+=`<span class="np-chip" style="background:rgba(255,255,255,.07);color:#888">${childrenNodes.length} sous-objectif${childrenNodes.length>1?'s':''}</span>`;
+  document.getElementById('np-meta').innerHTML=meta;
+}
+
+function quickToggleTask(id){
+  const t = tasks.find(t=>String(t.id)===String(id));
+  if(!t) return;
+  t.done=!t.done;
+  if(t.done) addXP(20);
+  save('tasks2',tasks);
+  if(selectedNode) updateNodePanel(selectedNode);
 }
 
 // ══════════════════════════════════════════════════════
