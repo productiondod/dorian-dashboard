@@ -1,15 +1,6 @@
 {
-  "synced": "2026-04-29T11:28:25.557745",
+  "synced": "2026-04-29T19:59:30.597459",
   "events": [
-    {
-      "cal": "Nine & Dod ❤️",
-      "color": "#47c4ff",
-      "title": "Call Flex Impact",
-      "start": "2026-04-29T19:30:00",
-      "end": "2026-04-29T20:00:00",
-      "allDay": false,
-      "startTs": 1777483800
-    },
     {
       "cal": "Nine & Dod ❤️",
       "color": "#47c4ff",
@@ -216,6 +207,33 @@
       "end": "2026-05-13T12:00:00",
       "allDay": false,
       "startTs": 1778655600
+    },
+    {
+      "cal": "DodProduction",
+      "color": "#e8ff47",
+      "title": "💍 Mariage.net — création page",
+      "start": "2026-05-13T13:00:00",
+      "end": "2026-05-13T15:00:00",
+      "allDay": false,
+      "startTs": 1778670000
+    },
+    {
+      "cal": "DodProduction",
+      "color": "#e8ff47",
+      "title": "💼 LinkedIn — post + prospection",
+      "start": "2026-05-13T15:00:00",
+      "end": "2026-05-13T17:00:00",
+      "allDay": false,
+      "startTs": 1778677200
+    },
+    {
+      "cal": "DodProduction",
+      "color": "#e8ff47",
+      "title": "💪 Gym",
+      "start": "2026-05-13T17:30:00",
+      "end": "2026-05-13T19:00:00",
+      "allDay": false,
+      "startTs": 1778686200
     }
   ]
 }
