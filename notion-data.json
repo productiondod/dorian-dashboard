@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-04-29T16:04:11Z",
+  "updated_at": "2026-04-29T20:43:18Z",
   "projets": [
     {
       "nom": "Shooting photo Ayodele",
@@ -9,32 +9,11 @@
       "reste": 600
     },
     {
-      "nom": "Vidéo 2 ans Table de Givry",
-      "montant": 650,
-      "avancement": "Facture envoyée",
-      "deadline": "2026-04-26",
-      "reste": 0
-    },
-    {
       "nom": "Festival de danse",
       "montant": null,
-      "avancement": "En négociation",
+      "avancement": "En cours",
       "deadline": "2026-04-29",
       "reste": null
-    },
-    {
-      "nom": "Réact “Merci internet”",
-      "montant": 500,
-      "avancement": "Facture envoyée",
-      "deadline": "2024-04-20",
-      "reste": 0
-    },
-    {
-      "nom": "Vlog #143",
-      "montant": null,
-      "avancement": "Facture envoyée",
-      "deadline": "2024-04-13",
-      "reste": 0
     }
   ],
   "financier": {
