@@ -1,0 +1,18 @@
+{
+  "updated_at": "2026-04-29T08:00:00Z",
+  "projets": [
+    {
+      "nom": "Shooting photo Ayodele",
+      "montant": 600,
+      "avancement": "À facturer :",
+      "deadline": "2026-04-27",
+      "reste": 600
+    }
+  ],
+  "financier": {
+    "ca_mois": 0,
+    "depenses_mois": 0,
+    "a_encaisser": 600
+  },
+  "opportunites": []
+}

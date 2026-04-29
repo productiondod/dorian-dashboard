@@ -430,6 +430,15 @@ html,body{height:100%;background:var(--bg);color:var(--text);
     </div>
   </div>
 
+  <!-- ══════════════ BUSINESS ══════════════ -->
+  <div class="view" id="view-biz">
+    <div class="pad">
+      <p style="font-size:11px;color:var(--m2);letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px">Notion · Freelance Flow</p>
+      <h1 style="font-size:24px;font-weight:800;letter-spacing:-.5px;margin-bottom:20px">Business</h1>
+      <div id="biz-content"><div class="today-empty">Chargement…</div></div>
+    </div>
+  </div>
+
   <!-- ══════════════ RÉCAP ══════════════ -->
   <div class="view" id="view-recap">
     <div class="pad">
@@ -547,6 +556,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);
   <nav id="nav">
     <button class="nb active" onclick="show('today',this)"><span class="ni">🌅</span><span class="nl">Aujourd'hui</span></button>
     <button class="nb" onclick="show('map',this)"><span class="ni">🧠</span><span class="nl">Vision</span></button>
+    <button class="nb" onclick="show('biz',this)"><span class="ni">💼</span><span class="nl">Business</span></button>
     <button class="nb" onclick="show('add',this)"><span class="ni">➕</span><span class="nl">Ajouter</span></button>
     <button class="nb" onclick="show('tasks',this)"><span class="ni">✅</span><span class="nl">Tâches</span></button>
     <button class="nb" onclick="show('prog',this)"><span class="ni">📊</span><span class="nl">Objectifs</span></button>
@@ -629,6 +639,7 @@ function show(tab,btn){
   btn.classList.add('active');
   if(tab==='today')renderToday();
   if(tab==='recap')renderRecap();
+  if(tab==='biz')renderBiz();
   if(tab==='tasks')renderTasks();
   if(tab==='prog'){renderLevel();renderProgQuests();renderHabits('prog-habits');renderDemarche();}
   if(tab==='review')renderReview();
@@ -699,8 +710,9 @@ function computeLayout(w,h){
 
   // L_task — sous-tâches dynamiques depuis tasks[], même radius que le niveau suivant
   const radiusByLevel = {0:R1,1:R2,2:R3,3:Math.min(w,h)*0.10};
+  const PLACEHOLDER_RE = /^sous-tâche\s*\d*$/i;
   const tasksByNode = {};
-  tasks.filter(t=>t.nodeId&&!t.done).forEach(t=>{
+  tasks.filter(t=>t.nodeId&&!t.done&&t.text&&!PLACEHOLDER_RE.test(t.text.trim())).forEach(t=>{
     if(!tasksByNode[t.nodeId]) tasksByNode[t.nodeId]=[];
     tasksByNode[t.nodeId].push(t);
   });
@@ -976,12 +988,22 @@ function tapNode(mx,my){
 // AUJOURD'HUI
 // ══════════════════════════════════════════════════════
 let calEvents = [];
+let remoteWaiting = [];
 async function fetchEvents(){
   try{
     const r = await fetch('./events.json?t='+Date.now());
     const d = await r.json();
     calEvents = d.events || [];
   } catch(e){ calEvents = []; }
+}
+async function fetchWaiting(){
+  try{
+    const r = await fetch('./waiting.json?t='+Date.now());
+    const d = await r.json();
+    // Merge auto emails with manual localStorage ones
+    const resolved = load('waitingResolved',[]);
+    remoteWaiting = (d.waiting||[]).filter(w=>!resolved.includes(w.id));
+  } catch(e){ remoteWaiting = []; }
 }
 
 function todayDateStr(){return new Date().toISOString().slice(0,10);}
@@ -1097,26 +1119,29 @@ function renderTodayContent(){
     });
   }
 
-  // ── En attente de réponse ──
-  const waiting = load('waiting',[]);
-  if(waiting.length || true){
-    html += `<div class="today-sec"><div class="today-sec-dot" style="background:#47c4ff"></div>En attente de réponse</div>`;
-    html += `<button class="waiting-add-btn" onclick="openWaitingModal()">+ En attente de…</button>`;
-    if(waiting.length){
-      waiting.forEach((w,i)=>{
-        const daysSince = Math.floor((Date.now()-new Date(w.date))/(1000*60*60*24));
-        html += `<div class="waiting-card">
-          <div class="waiting-card-icon">📬</div>
-          <div class="waiting-card-body">
-            <div class="waiting-card-from">${esc(w.from)}</div>
-            ${w.subject?`<div class="waiting-card-subject">${esc(w.subject)}</div>`:''}
-            <div class="waiting-card-days">Envoyé il y a ${daysSince===0?'aujourd\'hui':daysSince+' jour'+(daysSince>1?'s':'')}</div>
-          </div>
-          <div class="waiting-card-done" onclick="removeWaiting(${i})">Répondu ✓</div>
-        </div>`;
-      });
-    }
-  }
+  // ── En attente de réponse (manuel + auto Gmail) ──
+  const manualWaiting = load('waiting',[]);
+  const allWaiting = [
+    ...remoteWaiting.map(w=>({...w, isAuto:true})),
+    ...manualWaiting.map((w,i)=>({...w, manualIndex:i, isAuto:false}))
+  ];
+  html += `<div class="today-sec"><div class="today-sec-dot" style="background:#47c4ff"></div>En attente de réponse${allWaiting.length?` <span style="color:#47c4ff;font-weight:800">${allWaiting.length}</span>`:''}</div>`;
+  html += `<button class="waiting-add-btn" onclick="openWaitingModal()">+ Ajouter manuellement</button>`;
+  allWaiting.forEach((w,i)=>{
+    const daysSince = w.daysSince ?? Math.floor((Date.now()-new Date(w.date))/(1000*60*60*24));
+    const urgent = daysSince >= 5;
+    html += `<div class="waiting-card" style="${urgent?'border-color:rgba(255,107,71,.3)':''}">
+      <div class="waiting-card-icon">${w.isAuto?'🤖':'📬'}</div>
+      <div class="waiting-card-body">
+        <div class="waiting-card-from">${esc(w.from)}</div>
+        ${w.subject?`<div class="waiting-card-subject">${esc(w.subject)}</div>`:''}
+        <div class="waiting-card-days" style="${urgent?'color:var(--o)':''}">
+          ${daysSince===0?'Aujourd\'hui':daysSince+' jour'+(daysSince>1?'s':'')} sans réponse
+        </div>
+      </div>
+      <div class="waiting-card-done" onclick="${w.isAuto?`resolveAutoWaiting('${w.id}')`:`removeWaiting(${w.manualIndex})`}">Répondu ✓</div>
+    </div>`;
+  });
 
   html += '<div style="height:8px"></div>';
   document.getElementById('today-content').innerHTML = html;
@@ -1380,6 +1405,7 @@ function updateNodePanel(node){
         <div class="np-st-check ${t.done?'done':''}" onclick="quickToggleTask('${t.id}')">${t.done?'✓':''}</div>
         <div class="np-st-text ${t.done?'done':''}">${esc(t.text)}</div>
         ${dl!==null?`<div class="np-st-dl" style="color:${dlColor}">J-${dl}</div>`:''}
+        <button onclick="quickDeleteTask('${t.id}')" style="background:none;border:none;color:var(--m);font-size:14px;cursor:pointer;padding:0 2px;flex-shrink:0;-webkit-tap-highlight-color:transparent">🗑</button>
       </div>`;
     }).join('');
     if(nodeTasks.length>6) stDiv.innerHTML+=`<div style="font-size:10px;color:var(--m);padding:4px 0">+${nodeTasks.length-6} autres</div>`;
@@ -1406,10 +1432,116 @@ function quickToggleTask(id){
   t.done=!t.done;
   if(t.done) addXP(20);
   save('tasks2',tasks);
+  mapNodes=computeLayout(W,H); initParticles(mapNodes);
   if(selectedNode) updateNodePanel(selectedNode);
+}
+function quickDeleteTask(id){
+  tasks=tasks.filter(t=>String(t.id)!==String(id));
+  save('tasks2',tasks);
+  mapNodes=computeLayout(W,H); initParticles(mapNodes);
+  if(selectedNode) updateNodePanel(selectedNode);
+  showToast('Sous-tâche supprimée');
 }
 
 // ══════════════════════════════════════════════════════
+// BUSINESS (Notion)
+// ══════════════════════════════════════════════════════
+async function renderBiz(){
+  const el=document.getElementById('biz-content');
+  try{
+    const r=await fetch('./notion-data.json?t='+Date.now());
+    if(!r.ok)throw new Error('no data');
+    const d=await r.json();
+    const fin=d.financier||{};
+    const projets=d.projets||[];
+    const opps=d.opportunites||[];
+    const updAt=d.updated_at?new Date(d.updated_at).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}):'—';
+
+    const fmtEur=v=>v!=null?new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(v):'—';
+    const daysLeft=s=>{if(!s)return null;const d=Math.round((new Date(s)-Date.now())/864e5);return d;};
+
+    const statusColor=s=>{
+      if(!s)return'var(--m)';
+      if(s.includes('cours')||s.includes('session'))return'var(--y)';
+      if(s.includes('facturer')||s.includes('Facture'))return'var(--o)';
+      if(s.includes('Terminé'))return'var(--g)';
+      return'var(--m2)';
+    };
+    const oppColor=s=>{
+      if(!s)return'var(--m)';
+      if(s==='Négociation')return'var(--y)';
+      if(s==='Réponse reçue')return'var(--o)';
+      if(s==='Signé'||s==='Validé')return'var(--g)';
+      return'var(--m2)';
+    };
+
+    let html='';
+
+    // KPIs
+    html+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px">
+      <div class="card" style="text-align:center;padding:14px 10px">
+        <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--m);margin-bottom:6px">CA ce mois</div>
+        <div style="font-size:22px;font-weight:800;color:var(--g)">${fmtEur(fin.ca_mois)}</div>
+      </div>
+      <div class="card" style="text-align:center;padding:14px 10px">
+        <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--m);margin-bottom:6px">À encaisser</div>
+        <div style="font-size:22px;font-weight:800;color:var(--y)">${fmtEur(fin.a_encaisser)}</div>
+      </div>
+      <div class="card" style="text-align:center;padding:14px 10px;grid-column:1/-1">
+        <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--m);margin-bottom:6px">Dépenses ce mois</div>
+        <div style="font-size:22px;font-weight:800;color:var(--o)">${fmtEur(fin.depenses_mois)}</div>
+      </div>
+    </div>`;
+
+    // Projets actifs
+    html+=`<div class="today-sec"><span class="today-sec-dot" style="background:var(--y)"></span>Projets actifs<span style="color:var(--m2)">${projets.length}</span></div>`;
+    if(!projets.length){
+      html+=`<div class="today-empty">Aucun projet actif</div>`;
+    } else {
+      projets.forEach(p=>{
+        const dl=daysLeft(p.deadline);
+        const dlColor=dl!=null&&dl<7?'var(--o)':dl!=null&&dl<30?'var(--y)':'var(--m2)';
+        html+=`<div class="card" style="margin-bottom:8px">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
+            <div style="font-size:14px;font-weight:700;flex:1;line-height:1.3">${p.nom}</div>
+            ${p.montant!=null?`<div style="font-size:13px;font-weight:700;color:var(--g);white-space:nowrap">${fmtEur(p.montant)}</div>`:''}
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:6px;flex-wrap:wrap">
+            <span style="font-size:10px;font-weight:700;color:${statusColor(p.avancement)}">${p.avancement||'—'}</span>
+            ${dl!=null?`<span style="font-size:10px;color:${dlColor}">J-${dl}</span>`:''}
+            ${p.reste?`<span style="font-size:10px;color:var(--o)">Reste ${fmtEur(p.reste)}</span>`:''}
+          </div>
+        </div>`;
+      });
+    }
+
+    // Opportunités
+    const relances=opps.filter(o=>o.relance&&o.relance.includes('relancer'));
+    html+=`<div class="today-sec"><span class="today-sec-dot" style="background:var(--o)"></span>Pipeline<span style="color:var(--m2)">${opps.length}</span>${relances.length?`<span style="color:var(--o);font-size:10px">🚨 ${relances.length} relance${relances.length>1?'s':''}</span>`:''}</div>`;
+    if(!opps.length){
+      html+=`<div class="today-empty">Aucune opportunité</div>`;
+    } else {
+      opps.forEach(o=>{
+        html+=`<div class="card" style="margin-bottom:8px">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
+            <div style="font-size:13px;font-weight:600;flex:1">${o.nom}</div>
+            ${o.montant!=null?`<div style="font-size:12px;font-weight:700;color:var(--m2);white-space:nowrap">${fmtEur(o.montant)}</div>`:''}
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:5px">
+            <span style="font-size:10px;font-weight:700;color:${oppColor(o.statut)}">${o.statut||'—'}</span>
+            ${o.relance?`<span style="font-size:10px">${o.relance}</span>`:''}
+          </div>
+        </div>`;
+      });
+    }
+
+    html+=`<div style="text-align:center;font-size:10px;color:var(--m);margin-top:16px;padding-bottom:8px">Mis à jour à ${updAt}</div>`;
+    el.innerHTML=html;
+  } catch(e){
+    el.innerHTML=`<div class="today-alert"><span class="today-alert-icon">⚠️</span><div class="today-alert-text">Données Notion indisponibles.<br>Vérifier que <code>notion-data.json</code> existe et que le workflow GitHub Actions est configuré.</div></div>`;
+  }
+}
+
 // RÉCAP
 // ══════════════════════════════════════════════════════
 function renderRecap(){
