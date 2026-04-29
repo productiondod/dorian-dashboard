@@ -32,30 +32,59 @@ html,body{height:100%;background:var(--bg);color:var(--text);
 /* NAV */
 #nav{position:fixed;bottom:0;left:0;right:0;
   height:calc(var(--nav-h)+var(--safe));
-  background:rgba(8,8,16,.96);backdrop-filter:blur(24px);
-  -webkit-backdrop-filter:blur(24px);border-top:1px solid var(--bd);
-  display:flex;align-items:flex-start;padding-top:6px;z-index:200}
+  background:rgba(8,8,16,.97);backdrop-filter:blur(32px) saturate(180%);
+  -webkit-backdrop-filter:blur(32px) saturate(180%);
+  border-top:1px solid rgba(255,255,255,.06);
+  display:flex;align-items:flex-start;padding:6px 4px 0;z-index:200}
 .nb{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
-  background:none;border:none;cursor:pointer;padding:0;
+  background:none;border:none;cursor:pointer;padding:6px 2px 4px;
+  border-radius:12px;transition:background .15s;
   -webkit-tap-highlight-color:transparent}
-.ni{font-size:20px;line-height:1;filter:grayscale(1) opacity(.3);transition:filter .2s}
-.nl{font-size:9px;font-weight:600;color:var(--m);letter-spacing:.04em;transition:color .2s}
-.nb.active .ni{filter:none}
+.nb:active{background:rgba(255,255,255,.06)}
+.ni{font-size:20px;line-height:1;filter:grayscale(1) opacity(.28);
+  transition:filter .2s,transform .2s}
+.nl{font-size:9px;font-weight:600;color:var(--m);letter-spacing:.02em;transition:color .2s}
+.nb.active{background:rgba(232,255,71,.07)}
+.nb.active .ni{filter:none;transform:scale(1.08)}
 .nb.active .nl{color:var(--y)}
 
 /* SHARED */
-.pad{padding:20px 16px 0}
-.sec{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--m);margin:20px 0 10px;display:flex;align-items:center;justify-content:space-between}
-.card{background:var(--s1);border:1px solid var(--bd);border-radius:14px;padding:16px;margin-bottom:10px}
-.pill{display:inline-flex;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  padding:3px 9px;border-radius:20px}
+.pad{padding:22px 16px 0}
+.sec{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--m);margin:22px 0 10px;display:flex;align-items:center;justify-content:space-between}
+.card{background:var(--s1);border:1px solid rgba(255,255,255,.07);border-radius:16px;
+  padding:16px;margin-bottom:10px;
+  box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 2px 8px rgba(0,0,0,.25);
+  transition:transform .12s,border-color .15s}
+.card:active{transform:scale(.985)}
+.pill{display:inline-flex;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  padding:4px 10px;border-radius:20px}
 .pill-y{background:var(--yg);color:var(--y)}
 .pill-o{background:var(--og);color:var(--o)}
 .pill-g{background:var(--gg);color:var(--g)}
 .dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:5px}
 .dy{background:var(--y)}.do{background:var(--o)}.dg{background:var(--g)}
 ::-webkit-scrollbar{width:0}
+
+/* KPI CARDS (Business) */
+.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.kpi-card{border-radius:16px;padding:16px 14px;text-align:center;position:relative;overflow:hidden;
+  border:1px solid rgba(255,255,255,.07);
+  box-shadow:0 2px 12px rgba(0,0,0,.3);transition:transform .12s}
+.kpi-card:active{transform:scale(.97)}
+.kpi-card.full{grid-column:1/-1}
+.kpi-card.kpi-green{background:linear-gradient(135deg,rgba(71,255,176,.1),rgba(71,255,176,.04));
+  border-color:rgba(71,255,176,.2)}
+.kpi-card.kpi-yellow{background:linear-gradient(135deg,rgba(232,255,71,.1),rgba(232,255,71,.04));
+  border-color:rgba(232,255,71,.2)}
+.kpi-card.kpi-orange{background:linear-gradient(135deg,rgba(255,107,71,.1),rgba(255,107,71,.04));
+  border-color:rgba(255,107,71,.2)}
+.kpi-label{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--m2);margin-bottom:8px}
+.kpi-value{font-size:26px;font-weight:800;line-height:1;letter-spacing:-.5px}
+.kpi-card.kpi-green .kpi-value{color:var(--g)}
+.kpi-card.kpi-yellow .kpi-value{color:var(--y)}
+.kpi-card.kpi-orange .kpi-value{color:var(--o)}
 
 /* ═══════════ MIND MAP ═══════════ */
 #map-canvas{display:block;touch-action:none;cursor:grab}
@@ -76,8 +105,8 @@ html,body{height:100%;background:var(--bg);color:var(--text);
   transition:opacity 1s}
 
 /* ═══════════ AUJOURD'HUI ═══════════ */
-.today-greeting{font-size:26px;font-weight:800;letter-spacing:-.5px;margin-bottom:2px}
-.today-sub{font-size:12px;color:var(--m2);margin-bottom:20px}
+.today-greeting{font-size:28px;font-weight:800;letter-spacing:-.8px;margin-bottom:3px}
+.today-sub{font-size:12px;color:var(--m2);margin-bottom:22px;letter-spacing:.01em}
 .today-sec{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
   color:var(--m);margin:20px 0 8px;display:flex;align-items:center;gap:8px}
 .today-sec-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
@@ -403,6 +432,8 @@ html,body{height:100%;background:var(--bg);color:var(--text);
 
 @keyframes si{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
 @keyframes xpPop{0%{transform:scale(1)}50%{transform:scale(1.3)}100%{transform:scale(1)}}
+@keyframes viewIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.view.active{animation:viewIn .22s cubic-bezier(.25,.46,.45,.94) both}
 </style>
 </head>
 <body>
@@ -1478,18 +1509,18 @@ async function renderBiz(){
     let html='';
 
     // KPIs
-    html+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px">
-      <div class="card" style="text-align:center;padding:14px 10px">
-        <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--m);margin-bottom:6px">CA ce mois</div>
-        <div style="font-size:22px;font-weight:800;color:var(--g)">${fmtEur(fin.ca_mois)}</div>
+    html+=`<div class="kpi-grid">
+      <div class="kpi-card kpi-green">
+        <div class="kpi-label">CA ce mois</div>
+        <div class="kpi-value">${fmtEur(fin.ca_mois)}</div>
       </div>
-      <div class="card" style="text-align:center;padding:14px 10px">
-        <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--m);margin-bottom:6px">À encaisser</div>
-        <div style="font-size:22px;font-weight:800;color:var(--y)">${fmtEur(fin.a_encaisser)}</div>
+      <div class="kpi-card kpi-yellow">
+        <div class="kpi-label">À encaisser</div>
+        <div class="kpi-value">${fmtEur(fin.a_encaisser)}</div>
       </div>
-      <div class="card" style="text-align:center;padding:14px 10px;grid-column:1/-1">
-        <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--m);margin-bottom:6px">Dépenses ce mois</div>
-        <div style="font-size:22px;font-weight:800;color:var(--o)">${fmtEur(fin.depenses_mois)}</div>
+      <div class="kpi-card kpi-orange full">
+        <div class="kpi-label">Dépenses ce mois</div>
+        <div class="kpi-value">${fmtEur(fin.depenses_mois)}</div>
       </div>
     </div>`;
 
@@ -1501,15 +1532,15 @@ async function renderBiz(){
       projets.forEach(p=>{
         const dl=daysLeft(p.deadline);
         const dlColor=dl!=null&&dl<7?'var(--o)':dl!=null&&dl<30?'var(--y)':'var(--m2)';
-        html+=`<div class="card" style="margin-bottom:8px">
+        html+=`<div class="card today-focus" style="padding:14px 16px">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
             <div style="font-size:14px;font-weight:700;flex:1;line-height:1.3">${p.nom}</div>
-            ${p.montant!=null?`<div style="font-size:13px;font-weight:700;color:var(--g);white-space:nowrap">${fmtEur(p.montant)}</div>`:''}
+            ${p.montant!=null?`<div style="font-size:14px;font-weight:800;color:var(--g);white-space:nowrap">${fmtEur(p.montant)}</div>`:''}
           </div>
-          <div style="display:flex;align-items:center;gap:8px;margin-top:6px;flex-wrap:wrap">
-            <span style="font-size:10px;font-weight:700;color:${statusColor(p.avancement)}">${p.avancement||'—'}</span>
-            ${dl!=null?`<span style="font-size:10px;color:${dlColor}">J-${dl}</span>`:''}
-            ${p.reste?`<span style="font-size:10px;color:var(--o)">Reste ${fmtEur(p.reste)}</span>`:''}
+          <div style="display:flex;align-items:center;gap:8px;margin-top:8px;flex-wrap:wrap">
+            <span class="pill" style="background:rgba(255,255,255,.05);color:${statusColor(p.avancement)};font-size:9px">${p.avancement||'—'}</span>
+            ${dl!=null?`<span style="font-size:10px;font-weight:600;color:${dlColor}">J-${dl}</span>`:''}
+            ${p.reste?`<span style="font-size:10px;font-weight:600;color:var(--o)">Reste ${fmtEur(p.reste)}</span>`:''}
           </div>
         </div>`;
       });
@@ -1522,14 +1553,14 @@ async function renderBiz(){
       html+=`<div class="today-empty">Aucune opportunité</div>`;
     } else {
       opps.forEach(o=>{
-        html+=`<div class="card" style="margin-bottom:8px">
+        html+=`<div class="card" style="border-left:3px solid ${oppColor(o.statut)};padding:13px 14px 13px 16px">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
-            <div style="font-size:13px;font-weight:600;flex:1">${o.nom}</div>
+            <div style="font-size:13px;font-weight:700;flex:1;line-height:1.3">${o.nom}</div>
             ${o.montant!=null?`<div style="font-size:12px;font-weight:700;color:var(--m2);white-space:nowrap">${fmtEur(o.montant)}</div>`:''}
           </div>
-          <div style="display:flex;align-items:center;gap:8px;margin-top:5px">
-            <span style="font-size:10px;font-weight:700;color:${oppColor(o.statut)}">${o.statut||'—'}</span>
-            ${o.relance?`<span style="font-size:10px">${o.relance}</span>`:''}
+          <div style="display:flex;align-items:center;gap:8px;margin-top:6px">
+            <span class="pill" style="background:rgba(255,255,255,.05);color:${oppColor(o.statut)}">${o.statut||'—'}</span>
+            ${o.relance?`<span style="font-size:11px">${o.relance}</span>`:''}
           </div>
         </div>`;
       });
