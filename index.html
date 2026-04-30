@@ -132,25 +132,31 @@ body::before{
 #map-canvas{display:block;touch-action:none;cursor:grab}
 #map-canvas:active{cursor:grabbing}
 #node-panel{
-  position:fixed;bottom:calc(var(--nav-h) + var(--safe) + 24px);
-  left:14px;right:14px;
-  background:rgba(8,8,20,.94);
-  backdrop-filter:blur(40px) saturate(180%);
-  -webkit-backdrop-filter:blur(40px) saturate(180%);
-  border:1px solid rgba(255,255,255,.12);border-radius:24px;
-  padding:20px 22px;z-index:150;
-  transform:translateY(28px);opacity:0;
-  transition:transform .28s cubic-bezier(.25,.46,.45,.94),opacity .28s;
+  position:fixed;bottom:calc(var(--nav-h) + var(--safe) + 16px);
+  left:12px;right:12px;
+  background:rgba(5,8,16,.96);
+  backdrop-filter:blur(56px) saturate(220%);
+  -webkit-backdrop-filter:blur(56px) saturate(220%);
+  border:1px solid rgba(255,255,255,.1);border-radius:26px;
+  padding:20px 22px 18px;z-index:150;
+  transform:translateY(32px);opacity:0;
+  transition:transform .3s cubic-bezier(.25,.46,.45,.94),opacity .3s;
   pointer-events:none;
-  box-shadow:0 12px 50px rgba(0,0,0,.7);
+  box-shadow:0 16px 60px rgba(0,0,0,.85),inset 0 1px 0 rgba(255,255,255,.07);
 }
 #node-panel.show{transform:translateY(0);opacity:1;pointer-events:all}
-.np-domain{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:5px}
-.np-title{font-size:18px;font-weight:800;line-height:1.2;margin-bottom:4px;letter-spacing:-.4px}
-.np-sub{font-size:12px;color:var(--m2);margin-bottom:10px}
-.np-meta{display:flex;gap:8px;flex-wrap:wrap}
-.np-chip{font-size:10px;font-weight:600;padding:4px 10px;border-radius:8px;letter-spacing:.04em}
-#map-hint{display:none}
+.np-domain{font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px}
+.np-title{font-size:19px;font-weight:800;line-height:1.2;margin-bottom:3px;letter-spacing:-.5px}
+.np-sub{font-size:13px;color:rgba(255,255,255,.45);margin-bottom:12px;font-weight:400}
+.np-meta{display:flex;gap:7px;flex-wrap:wrap}
+.np-chip{font-size:10px;font-weight:600;padding:4px 11px;border-radius:10px;letter-spacing:.04em}
+#map-hint{
+  position:absolute;bottom:calc(var(--nav-h) + var(--safe) + 14px);
+  left:50%;transform:translateX(-50%);
+  font-size:10px;font-weight:500;color:rgba(255,255,255,.2);
+  white-space:nowrap;pointer-events:none;letter-spacing:.04em;
+  transition:opacity 1.2s;
+}
 #map-canvas{display:none}
 
 /* ═══ VISION — premium redesign ═════════════════════════════ */
@@ -818,17 +824,16 @@ body::before{
 
   <!-- ══════════════ VISION ══════════════ -->
   <div class="view" id="view-map">
-    <canvas id="map-canvas" style="display:none"></canvas>
-    <div id="map-hint" style="display:none"></div>
-    <div id="node-panel" style="display:none">
+    <canvas id="map-canvas"></canvas>
+    <div id="map-hint">Pinch · Glisse · Tape un nœud</div>
+    <div id="node-panel">
       <div class="np-domain" id="np-domain"></div>
       <div class="np-title" id="np-title"></div>
       <div class="np-sub" id="np-sub"></div>
       <div class="np-meta" id="np-meta"></div>
-      <div class="np-subtasks" id="np-subtasks"></div>
+      <div class="np-subtasks" id="np-subtasks" style="display:none"></div>
       <button class="np-decomp-btn" id="np-decomp-btn" style="display:none" onclick="openDecompose()">✦ Décomposer en sous-tâches</button>
     </div>
-    <div id="vision-wrap"></div>
   </div>
 
   <!-- ══════════════ BUSINESS ══════════════ -->
@@ -1068,7 +1073,7 @@ function show(tab,btn){
   if(tab==='tasks')renderTasks();
   if(tab==='prog'){renderLevel();renderProgQuests();renderHabits('prog-habits');renderDemarche();}
   if(tab==='review')renderReview();
-  if(tab==='map')renderVision();
+  if(tab==='map')resizeCanvas();
 }
 
 // ══════════════════════════════════════════════════════
@@ -1186,16 +1191,19 @@ function drawMap(nodes){
   ctx.save();
   ctx.clearRect(0,0,W,H);
 
-  // bg gradient
-  const bg=ctx.createRadialGradient(W/2,H/2,0,W/2,H/2,Math.max(W,H)*.8);
-  bg.addColorStop(0,'#0d0d1a');bg.addColorStop(1,'#050508');
-  ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+  // ── Background OLED + ambient glow
+  ctx.fillStyle='#050810';ctx.fillRect(0,0,W,H);
+  const bgGlow=ctx.createRadialGradient(W/2,H*.15,0,W/2,H*.15,Math.max(W,H)*.7);
+  bgGlow.addColorStop(0,'rgba(98,126,234,.11)');
+  bgGlow.addColorStop(.5,'rgba(98,126,234,.03)');
+  bgGlow.addColorStop(1,'transparent');
+  ctx.fillStyle=bgGlow;ctx.fillRect(0,0,W,H);
 
-  // bg dots
-  for(let i=0;i<50;i++){
-    const x=(i*137.5*W/50)%W,y=(i*97.3*H/50)%H,r=.5+(i%3)*.5;
-    ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);
-    ctx.fillStyle=`rgba(100,100,180,${0.03+.02*(i%3)})`;ctx.fill();
+  // subtle dot grid
+  for(let i=0;i<60;i++){
+    const x=(i*137.508*W/60)%W,y=(i*97.314*H/60)%H;
+    ctx.beginPath();ctx.arc(x,y,.8+(i%3)*.6,0,Math.PI*2);
+    ctx.fillStyle=`rgba(129,140,248,${.018+.012*(i%3)})`;ctx.fill();
   }
 
   ctx.save();
@@ -1203,18 +1211,21 @@ function drawMap(nodes){
   ctx.scale(transform.scale,transform.scale);
   ctx.translate(-W/2,-H/2);
 
-  // edges
+  // ── Edges — gradient from parent → child color
   TREE.filter(n=>n.parent&&nodeMap[n.parent]&&nodeMap[n.id]).forEach(n=>{
     const f=nodeMap[n.parent],t=nodeMap[n.id];
     const col=DOMAIN_COLOR[n.domain]||'#fff';
+    const pCol=DOMAIN_COLOR[nodeMap[n.parent]?.domain]||col;
     const cp1x=f.x+(t.x-f.x)*.35,cp1y=f.y+(t.y-f.y)*.1;
     const cp2x=f.x+(t.x-f.x)*.65,cp2y=f.y+(t.y-f.y)*.9;
+    const g=ctx.createLinearGradient(f.x,f.y,t.x,t.y);
+    g.addColorStop(0,pCol+'30');g.addColorStop(1,col+'20');
     ctx.beginPath();ctx.moveTo(f.x,f.y);
     ctx.bezierCurveTo(cp1x,cp1y,cp2x,cp2y,t.x,t.y);
-    ctx.strokeStyle=col+'28';ctx.lineWidth=1.2;ctx.stroke();
+    ctx.strokeStyle=g;ctx.lineWidth=1.4;ctx.stroke();
   });
 
-  // particles
+  // ── Particles — brighter, slightly bigger
   particles.forEach(p=>{
     const f=nodeMap[p.from],t=nodeMap[p.to];if(!f||!t)return;
     const col=DOMAIN_COLOR[p.domain]||'#fff';
@@ -1225,76 +1236,94 @@ function drawMap(nodes){
     const bx=(1-pt)**3*f.x+3*(1-pt)**2*pt*cp1x+3*(1-pt)*pt**2*cp2x+pt**3*t.x;
     const by=(1-pt)**3*f.y+3*(1-pt)**2*pt*cp1y+3*(1-pt)*pt**2*cp2y+pt**3*t.y;
     const alpha=Math.sin(pt*Math.PI);
-    ctx.beginPath();ctx.arc(bx,by,1.5,0,Math.PI*2);
-    ctx.fillStyle=col+Math.round(alpha*255).toString(16).padStart(2,'0');
-    ctx.fill();
+    ctx.beginPath();ctx.arc(bx,by,1.8,0,Math.PI*2);
+    ctx.fillStyle=col+Math.round(alpha*220).toString(16).padStart(2,'0');ctx.fill();
   });
 
-  // task node edges — dashed line
+  // ── Task node edges — dashed
   nodes.filter(n=>n.isTask).forEach(n=>{
-    const p=nodeMap[n.parent]; if(!p) return;
+    const p=nodeMap[n.parent];if(!p)return;
     const col=DOMAIN_COLOR[n.domain]||'#fff';
-    ctx.save();ctx.setLineDash([3,4]);
+    ctx.save();ctx.setLineDash([3,5]);
     ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(n.x,n.y);
-    ctx.strokeStyle=col+'30';ctx.lineWidth=1;ctx.stroke();
+    ctx.strokeStyle=col+'28';ctx.lineWidth=1;ctx.stroke();
     ctx.restore();
   });
 
-  // nodes — tree nodes first, then task nodes on top
+  // ── Nodes
   nodes.filter(n=>!n.isTask).concat(nodes.filter(n=>n.isTask)).forEach(n=>{
     const r=NODE_R[Math.min(n.level,3)];
     const col=DOMAIN_COLOR[n.domain]||'#fff';
-
-    const pulse=1+.025*Math.sin(tick*.0015+n.id.charCodeAt(0)*.1);
+    const pulse=1+.022*Math.sin(tick*.0014+n.id.charCodeAt(0)*.11);
     const rp=r*pulse;
     const isSel=selectedNode?.id===n.id;
 
-    // glow
-    ctx.beginPath();ctx.arc(n.x,n.y,rp+6,0,Math.PI*2);
-    ctx.fillStyle=col+(isSel?'30':'0e');ctx.fill();
+    // outer glow
+    const glowR=rp+(isSel?14:7);
+    const glowG=ctx.createRadialGradient(n.x,n.y,rp*.4,n.x,n.y,glowR);
+    glowG.addColorStop(0,col+(isSel?'28':'10'));
+    glowG.addColorStop(1,col+'00');
+    ctx.beginPath();ctx.arc(n.x,n.y,glowR,0,Math.PI*2);
+    ctx.fillStyle=glowG;ctx.fill();
 
-    // circle
-    const grad=ctx.createRadialGradient(n.x-rp*.2,n.y-rp*.2,0,n.x,n.y,rp);
-    grad.addColorStop(0,'#1e1e30');grad.addColorStop(1,'#0c0c18');
+    // node fill — dark with domain color tint
+    const fill=ctx.createRadialGradient(n.x-rp*.25,n.y-rp*.25,0,n.x,n.y,rp);
+    fill.addColorStop(0,col+(n.level===0?'20':'18'));
+    fill.addColorStop(.6,'#0A0E1C');
+    fill.addColorStop(1,'#050810');
     ctx.beginPath();ctx.arc(n.x,n.y,rp,0,Math.PI*2);
-    ctx.fillStyle=grad;ctx.fill();
+    ctx.fillStyle=fill;ctx.fill();
 
-    // border (dashed for task nodes)
+    // inner rim highlight
+    ctx.beginPath();ctx.arc(n.x,n.y-rp*.35,rp*.7,Math.PI*1.1,Math.PI*1.9);
+    ctx.strokeStyle='rgba(255,255,255,.07)';ctx.lineWidth=1;ctx.stroke();
+
+    // border
     ctx.beginPath();ctx.arc(n.x,n.y,rp,0,Math.PI*2);
     if(n.isTask){ctx.save();ctx.setLineDash([3,3]);}
-    ctx.strokeStyle=col+(isSel?'ff':n.isTask?'88':'66');
-    ctx.lineWidth=(isSel?2:1);ctx.stroke();
+    ctx.strokeStyle=col+(isSel?'ee':n.isTask?'70':'55');
+    ctx.lineWidth=isSel?2.5:1.2;ctx.stroke();
     if(n.isTask)ctx.restore();
 
-    // progress arc (tasks or manual)
+    // selected ring pulse
+    if(isSel){
+      ctx.beginPath();ctx.arc(n.x,n.y,rp+4,0,Math.PI*2);
+      ctx.strokeStyle=col+'44';ctx.lineWidth=1;ctx.stroke();
+    }
+
+    // progress arc
     const stats=getNodeTaskStats(n.id);
-    const progVal = stats.total>0 ? stats.done/stats.total : (n.progress!==undefined?getProgress(n.id)/100:0);
+    const progVal=stats.total>0?stats.done/stats.total:(n.progress!==undefined?getProgress(n.id)/100:0);
     if(progVal>0){
       ctx.beginPath();
-      ctx.arc(n.x,n.y,rp+2,-Math.PI/2,-Math.PI/2+progVal*Math.PI*2);
-      ctx.strokeStyle=col+'cc';ctx.lineWidth=2;ctx.stroke();
+      ctx.arc(n.x,n.y,rp+3,-Math.PI/2,-Math.PI/2+progVal*Math.PI*2);
+      ctx.strokeStyle=col+'cc';ctx.lineWidth=2.5;ctx.lineCap='round';ctx.stroke();
     }
 
     // task badge
     if(stats.total>0){
-      const bx=n.x+rp*.7,by=n.y-rp*.7,br=Math.max(5,rp*.28);
+      const bx=n.x+rp*.72,by=n.y-rp*.72,br=Math.max(6,rp*.3);
+      ctx.beginPath();ctx.arc(bx,by,br,0,Math.PI*2);
+      ctx.fillStyle='#050810';ctx.fill();
       ctx.beginPath();ctx.arc(bx,by,br,0,Math.PI*2);
       ctx.fillStyle=stats.done===stats.total?'#12D590':'#F0B429';ctx.fill();
-      ctx.font=`700 ${Math.max(5,br*.9)}px -apple-system,sans-serif`;
+      ctx.font=`700 ${Math.max(6,br*.95)}px Inter,-apple-system,sans-serif`;
       ctx.fillStyle='#000';ctx.textAlign='center';ctx.textBaseline='middle';
       ctx.fillText(stats.done+'/'+stats.total,bx,by);
     }
 
-    // text
-    const fs=Math.max(6,r*.42);
-    ctx.font=`${n.level<=1?700:600} ${fs}px -apple-system,system-ui,sans-serif`;
-    ctx.fillStyle=n.level===0?'#fff':col;
+    // label
+    const fs=Math.max(7,r*.44);
+    ctx.font=`${n.level<=1?'800':'700'} ${fs}px Inter,-apple-system,sans-serif`;
     ctx.textAlign='center';ctx.textBaseline='middle';
     const lines=n.label.split('\n');
-    const lh=fs*1.25;
-    lines.forEach((line,i)=>{
-      ctx.fillText(line,n.x,n.y+(i-(lines.length-1)/2)*lh);
-    });
+    const lh=fs*1.28;
+    // text shadow
+    ctx.fillStyle='rgba(5,8,16,.6)';
+    lines.forEach((line,i)=>ctx.fillText(line,n.x+.5,n.y+.5+(i-(lines.length-1)/2)*lh));
+    // text
+    ctx.fillStyle=n.level===0?'#fff':col;
+    lines.forEach((line,i)=>ctx.fillText(line,n.x,n.y+(i-(lines.length-1)/2)*lh));
   });
 
   ctx.restore();
