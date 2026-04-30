@@ -802,6 +802,47 @@ body::before{
   box-shadow:var(--glow-b);
 }
 
+/* ═══ PLANNING / JOURS DE TRAVAIL ═══════════════════════════ */
+.workdays-scroll{
+  display:flex;gap:7px;overflow-x:auto;padding:2px 0 8px;
+  scrollbar-width:none;-webkit-overflow-scrolling:touch;
+}
+.workdays-scroll::-webkit-scrollbar{display:none}
+.wd-chip{
+  flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:4px;
+  padding:10px 11px;border-radius:16px;cursor:pointer;min-width:46px;
+  border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.03);
+  -webkit-tap-highlight-color:transparent;
+  transition:background .15s,border-color .15s,transform .1s;
+}
+.wd-chip:active{transform:scale(.9)}
+.wd-chip.wd-today{border-color:rgba(255,255,255,.2)}
+.wd-chip.wd-work{background:rgba(240,180,41,.1);border-color:rgba(240,180,41,.3)}
+.wd-chip.wd-work.wd-today{border-color:var(--y);box-shadow:0 0 12px rgba(240,180,41,.2)}
+.wd-name{font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  color:rgba(255,255,255,.35);transition:color .15s}
+.wd-num{font-size:16px;font-weight:800;letter-spacing:-.5px;color:rgba(255,255,255,.6);transition:color .15s}
+.wd-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.12);transition:background .15s}
+.wd-chip.wd-work .wd-name{color:var(--y)}
+.wd-chip.wd-work .wd-num{color:var(--y)}
+.wd-chip.wd-work .wd-dot{background:var(--y)}
+
+.menage-summary{
+  display:flex;align-items:center;gap:12px;
+  background:rgba(18,213,144,.06);border:1px solid rgba(18,213,144,.15);
+  border-radius:14px;padding:12px 14px;margin-top:8px;
+}
+.menage-icon{width:34px;height:34px;border-radius:10px;
+  background:rgba(18,213,144,.12);display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.menage-body{flex:1;min-width:0}
+.menage-title{font-size:13px;font-weight:700;letter-spacing:-.2px}
+.menage-sub{font-size:11px;color:rgba(255,255,255,.42);margin-top:2px}
+
+.today-focus.menage{border-left:3px solid var(--g)}
+.today-focus.menage::before{background:linear-gradient(180deg,var(--g),transparent)}
+
 /* ═══ ANIMATIONS ═════════════════════════════════════════════ */
 @keyframes si{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
 @keyframes xpPop{0%{transform:scale(1)}50%{transform:scale(1.3)}100%{transform:scale(1)}}
@@ -1043,10 +1084,32 @@ function save(k,v){localStorage.setItem(k,JSON.stringify(v))}
 
 let quests  = load('quests2', TREE.filter(n=>n.progress!==undefined).map(n=>({id:n.id,progress:n.progress??0})));
 let habits  = load('habits2', [{id:'gym',emoji:'💪',name:'Gym',target:3,streak:0,checks:[]},{id:'nature',emoji:'🏔',name:'Nature',target:1,streak:0,checks:[]},{id:'review',emoji:'📋',name:'Review',target:1,streak:0,checks:[]},{id:'linkedin',emoji:'💼',name:'LinkedIn',target:2,streak:0,checks:[]},{id:'demarche',emoji:'🎯',name:'Démarchage',target:4,streak:0,checks:[]}]);
-let tasks   = load('tasks2',  []);
-let xp      = load('xp2',     0);
-let wrState = load('wrState', {});
-let addType = 'tache';
+let tasks    = load('tasks2',  []);
+let xp       = load('xp2',     0);
+let wrState  = load('wrState', {});
+let workDays = load('workDays', {});  // { 'YYYY-MM-DD': true }
+let addType  = 'tache';
+
+// ── Work days helpers ──────────────────────────────────────
+function dateStr(offset=0){
+  const d=new Date();d.setDate(d.getDate()+offset);
+  return d.toISOString().slice(0,10);
+}
+function toggleWorkDay(ds){
+  if(workDays[ds])delete workDays[ds];else workDays[ds]=true;
+  save('workDays',workDays);renderTodayContent();
+}
+function getWorkDaysInWindow(startOffset=0,days=7){
+  let count=0;
+  for(let i=startOffset;i<startOffset+days;i++)if(workDays[dateStr(i)])count++;
+  return count;
+}
+function getMenageMinutes(){
+  // 240 min (4h) sur 7j glissants — répartis sur les jours de taff
+  const wdCount=getWorkDaysInWindow(0,7);
+  return wdCount>0?Math.round(240/wdCount):0;
+}
+function isTodayWork(){return!!workDays[dateStr(0)]}
 let detectedNode = null;
 
 function getNodeById(id){return TREE.find(n=>n.id===id)}
@@ -1515,13 +1578,79 @@ function renderTodayContent(){
     html += `<div class="today-empty">Aucun événement aujourd'hui</div>`;
   }
 
-  // ── Focus du jour — top 3 tâches ──
+  // ── Jours de travail (14 jours) ──
+  {
+    const wdCount7 = getWorkDaysInWindow(0,7);
+    const menMin   = getMenageMinutes();
+    const todayWork = isTodayWork();
+
+    html += `<div class="today-sec"><div class="today-sec-dot" style="background:var(--b)"></div>Jours de travail</div>`;
+    html += `<div class="workdays-scroll">`;
+    const JOURS=['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+    for(let i=0;i<14;i++){
+      const ds=dateStr(i);
+      const d=new Date();d.setDate(d.getDate()+i);
+      const isWork=!!workDays[ds];
+      const isToday=i===0;
+      html += `<div class="wd-chip${isWork?' wd-work':''}${isToday?' wd-today':''}" onclick="toggleWorkDay('${ds}')">
+        <div class="wd-name">${JOURS[d.getDay()]}</div>
+        <div class="wd-num">${d.getDate()}</div>
+        <div class="wd-dot"></div>
+      </div>`;
+    }
+    html += `</div>`;
+
+    if(wdCount7>0){
+      const sessions = wdCount7;
+      const h = Math.floor(menMin/60), m = menMin%60;
+      const durStr = h>0?(m>0?`${h}h${m.toString().padStart(2,'0')}`:`${h}h`):`${m} min`;
+      html += `<div class="menage-summary">
+        <div class="menage-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" stroke="var(--g)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+        </div>
+        <div class="menage-body">
+          <div class="menage-title">Ménage · ${durStr} par jour de taff</div>
+          <div class="menage-sub">${sessions} séance${sessions>1?'s':''} × ${durStr} sur 7j · 4h total</div>
+        </div>
+      </div>`;
+    } else {
+      html += `<div class="menage-summary" style="background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.07)">
+        <div class="menage-icon" style="background:rgba(255,255,255,.06)">
+          <svg width="18" height="18" viewBox="0 0 24 24" stroke="rgba(255,255,255,.3)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+        </div>
+        <div class="menage-body">
+          <div class="menage-title" style="color:rgba(255,255,255,.4)">Ménage non planifié</div>
+          <div class="menage-sub">Marque tes jours de taff pour distribuer 4h/7j</div>
+        </div>
+      </div>`;
+    }
+  }
+
+  // ── Focus du jour — ménage + top 3 tâches ──
   const focusTasks = tasks.filter(t=>!t.done).sort((a,b)=>{
     if(a.deadline&&b.deadline) return new Date(a.deadline)-new Date(b.deadline);
     if(a.deadline) return -1; if(b.deadline) return 1; return 0;
   }).slice(0,3);
+  const menMin = getMenageMinutes();
+  const todayWork = isTodayWork();
 
   html += `<div class="today-sec"><div class="today-sec-dot" style="background:var(--g)"></div>Focus du jour</div>`;
+
+  if(todayWork && menMin>0){
+    const h=Math.floor(menMin/60),m=menMin%60;
+    const durStr=h>0?(m>0?`${h}h${m.toString().padStart(2,'0')}`:`${h}h`):`${m} min`;
+    html += `<div class="today-focus menage">
+      <div class="today-focus-num">🧹</div>
+      <div style="flex:1">
+        <div class="today-focus-text">Ménage & Rangement</div>
+        <div class="today-focus-dl" style="color:var(--g)">${durStr} · aujourd'hui</div>
+      </div>
+    </div>`;
+  }
   if(focusTasks.length){
     focusTasks.forEach((t,i)=>{
       const dl = t.deadline ? daysLeft(t.deadline) : null;
@@ -1534,7 +1663,7 @@ function renderTodayContent(){
         </div>
       </div>`;
     });
-  } else {
+  } else if(!todayWork||menMin===0){
     html += `<div class="today-empty">Aucune tâche en cours — ajoutes-en !</div>`;
   }
 
