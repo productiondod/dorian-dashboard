@@ -153,86 +153,129 @@ body::before{
 #map-hint{display:none}
 #map-canvas{display:none}
 
-/* ═══ VISION (HTML view) ═════════════════════════════════════ */
-#vision-wrap{
-  overflow-y:auto;height:100%;-webkit-overflow-scrolling:touch;
-  padding-bottom:calc(var(--nav-h) + var(--safe) + 32px);
-}
+/* ═══ VISION — premium redesign ═════════════════════════════ */
+#vision-wrap{overflow-y:auto;height:100%;-webkit-overflow-scrolling:touch;
+  padding-bottom:calc(var(--nav-h) + var(--safe) + 40px)}
+
+/* ── Hero ─────────────────────────────────────────────────── */
 .vision-hero{
-  padding:52px 20px 28px;
-  background:linear-gradient(155deg,rgba(98,126,234,.14) 0%,rgba(18,213,144,.05) 65%,transparent 100%);
-  border-bottom:1px solid rgba(255,255,255,.055);
+  padding:56px 20px 32px;
   position:relative;overflow:hidden;
 }
-.vision-hero::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse 110% 80% at 10% 10%,rgba(98,126,234,.09),transparent 60%);
-  pointer-events:none;
+.vision-hero-bg{
+  position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 120% 90% at 50% -10%,rgba(98,126,234,.22),transparent 60%),
+    radial-gradient(ellipse 60% 40% at 90% 80%,rgba(240,180,41,.09),transparent);
 }
-.vision-year{
-  font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
-  color:var(--b);margin-bottom:10px;position:relative;
+.vision-hero-label{
+  font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--b);margin-bottom:12px;position:relative;
+  display:flex;align-items:center;gap:8px;
+}
+.vision-hero-label::before{
+  content:'';display:inline-block;width:20px;height:1px;
+  background:var(--b);opacity:.6;
 }
 .vision-title{
-  font-size:clamp(28px,8.5vw,40px);font-weight:800;letter-spacing:-1.8px;
-  line-height:1.08;margin-bottom:7px;position:relative;
+  font-size:clamp(30px,9vw,44px);font-weight:800;letter-spacing:-2px;
+  line-height:1.06;margin-bottom:8px;position:relative;
 }
 .vision-subtitle{
-  font-size:14px;color:rgba(255,255,255,.42);font-weight:400;
-  margin-bottom:26px;position:relative;line-height:1.5;
+  font-size:15px;color:rgba(255,255,255,.4);font-weight:400;
+  margin-bottom:32px;position:relative;
 }
-.vision-stats{display:flex;align-items:flex-start;gap:0;position:relative}
-.vision-stat{flex:1;padding:0 16px 0 0}
-.vision-stat:first-child{padding-left:0}
-.vision-stat+.vision-stat{border-left:1px solid rgba(255,255,255,.08);padding-left:16px}
-.vision-stat-val{font-size:24px;font-weight:800;letter-spacing:-1px;line-height:1}
-.vision-stat-lbl{font-size:10px;color:rgba(255,255,255,.38);font-weight:500;margin-top:3px;letter-spacing:.02em}
+.vision-kpis{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:10px;position:relative;
+}
+.vision-kpi{
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);
+  border-radius:16px;padding:14px 12px;text-align:center;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
+}
+.vision-kpi-val{font-size:22px;font-weight:800;letter-spacing:-1px;line-height:1}
+.vision-kpi-lbl{font-size:9px;color:rgba(255,255,255,.35);font-weight:500;
+  margin-top:4px;letter-spacing:.04em;text-transform:uppercase}
 
-.vision-section{padding:0 14px;margin-top:24px}
-.vision-sec-hdr{
-  display:flex;align-items:center;gap:8px;margin-bottom:12px;padding:0 2px;
-}
-.vision-sec-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-.vision-sec-title{
-  font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
-  color:rgba(255,255,255,.38);flex:1;
-}
-.vision-sec-sub{font-size:11px;color:rgba(255,255,255,.25);font-weight:400}
-
-.vision-obj{
-  background:rgba(255,255,255,.032);
+/* ── Domain sections ──────────────────────────────────────── */
+.vision-domain{margin-top:20px}
+.vision-domain-banner{
+  margin:0 14px 14px;border-radius:20px;
+  padding:20px 18px 18px;
+  position:relative;overflow:hidden;
+  background:rgba(255,255,255,.03);
   border:1px solid rgba(255,255,255,.07);
-  border-radius:20px;padding:16px;margin-bottom:10px;
+}
+.vision-domain-banner::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 100% 80% at -10% 30%,var(--domain-glow),transparent 60%);
+}
+.vision-domain-top{
+  display:flex;align-items:flex-start;justify-content:space-between;gap:8px;
+  position:relative;margin-bottom:14px;
+}
+.vision-domain-name{
+  font-size:clamp(20px,5.5vw,26px);font-weight:800;letter-spacing:-1px;line-height:1.1;
+}
+.vision-domain-sub{
+  font-size:12px;color:rgba(255,255,255,.38);margin-top:4px;font-weight:400;
+}
+.vision-domain-avg{
+  font-size:28px;font-weight:800;letter-spacing:-1.2px;text-align:right;line-height:1;flex-shrink:0;
+}
+.vision-domain-avg-lbl{font-size:9px;color:rgba(255,255,255,.35);font-weight:500;
+  text-align:right;margin-top:3px;letter-spacing:.06em;text-transform:uppercase}
+.vision-prog-track{height:3px;background:rgba(255,255,255,.08);border-radius:99px;overflow:hidden;position:relative}
+.vision-prog-fill{height:100%;border-radius:99px;
+  transition:width .5s cubic-bezier(.25,.46,.45,.94)}
+
+/* ── Objective rows ──────────────────────────────────────── */
+.vision-objs{padding:0 14px;display:flex;flex-direction:column;gap:9px;margin-bottom:4px}
+.vision-obj{
+  border-radius:18px;padding:15px 16px;
   position:relative;overflow:hidden;
   cursor:pointer;-webkit-tap-highlight-color:transparent;
   transition:transform .15s;
+  display:flex;align-items:center;gap:16px;
+  border:1px solid var(--obj-border);
+  background:var(--obj-bg);
 }
 .vision-obj:active{transform:scale(.982)}
-.vision-obj-top{display:flex;align-items:flex-start;gap:14px}
-.vision-obj-ring{flex-shrink:0;cursor:pointer}
-.vision-obj-body{flex:1;min-width:0}
+.vision-obj-text{flex:1;min-width:0}
 .vision-obj-name{
   font-size:15px;font-weight:700;letter-spacing:-.3px;
-  line-height:1.3;margin-bottom:4px;
+  line-height:1.25;margin-bottom:2px;
 }
-.vision-obj-sub{font-size:13px;color:rgba(255,255,255,.42);line-height:1.45}
-.vision-badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
-.vision-badge{
-  font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-  padding:4px 9px;border-radius:20px;
+.vision-obj-sub{font-size:12px;color:rgba(255,255,255,.38);line-height:1.4}
+.vision-obj-dl{
+  font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  padding:3px 8px;border-radius:20px;margin-top:8px;display:inline-flex;align-items:center;gap:3px;
 }
+.vision-obj-ring-wrap{flex-shrink:0}
 
-.vision-sub-list{
-  margin-top:13px;padding-top:13px;
-  border-top:1px solid rgba(255,255,255,.052);
-  display:flex;flex-direction:column;gap:9px;
+/* ── Sub-items ───────────────────────────────────────────── */
+.vision-subs{
+  padding:0 14px 4px 14px;
+  display:flex;flex-direction:column;gap:0;
+  margin-bottom:6px;
 }
-.vision-sub-item{display:flex;align-items:flex-start;gap:10px}
-.vision-sub-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:6px}
-.vision-sub-body{flex:1;min-width:0}
-.vision-sub-name{font-size:13px;font-weight:600;letter-spacing:-.2px;line-height:1.35}
-.vision-sub-desc{font-size:11px;color:rgba(255,255,255,.32);margin-top:2px}
-.vision-sub-dl{font-size:10px;font-weight:600;flex-shrink:0;margin-top:3px;padding:2px 7px;border-radius:20px}
+.vision-sub{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:10px 14px;
+  border-left:1px solid var(--sub-border);
+  margin-left:20px;
+}
+.vision-sub:last-child{padding-bottom:4px}
+.vision-sub-line{
+  position:absolute;left:34px;top:0;bottom:0;width:1px;
+  background:rgba(255,255,255,.06);
+}
+.vision-sub-name{font-size:13px;font-weight:600;letter-spacing:-.2px;flex:1;line-height:1.35}
+.vision-sub-desc{font-size:11px;color:rgba(255,255,255,.3);margin-top:1px}
+.vision-sub-dl{
+  font-size:10px;font-weight:600;flex-shrink:0;
+  padding:2px 7px;border-radius:20px;
+}
 
 /* ═══ AUJOURD'HUI ════════════════════════════════════════════ */
 .today-greeting{font-size:clamp(32px,9vw,42px);font-weight:800;letter-spacing:-1.8px;margin-bottom:4px;line-height:1.02}
@@ -1830,51 +1873,51 @@ function quickDeleteTask(id){
 // ══════════════════════════════════════════════════════
 function renderVision(){
   const el=document.getElementById('vision-wrap');
-
   const CONF={
-    pro:  {color:'var(--y)',rgb:'240,180,41'},
-    creatif:{color:'var(--o)',rgb:'255,92,141'},
-    perso:{color:'var(--g)',rgb:'18,213,144'},
+    pro:    {color:'var(--y)',hex:'#F0B429',rgb:'240,180,41',glow:'rgba(240,180,41,.14)',border:'rgba(240,180,41,.18)',bg:'rgba(240,180,41,.055)'},
+    creatif:{color:'var(--o)',hex:'#FF5C8D',rgb:'255,92,141', glow:'rgba(255,92,141,.14)',border:'rgba(255,92,141,.18)',bg:'rgba(255,92,141,.055)'},
+    perso:  {color:'var(--g)',hex:'#12D590',rgb:'18,213,144', glow:'rgba(18,213,144,.14)',border:'rgba(18,213,144,.18)',bg:'rgba(18,213,144,.055)'},
   };
 
-  // hero stats
-  const tracked=quests.filter(q=>q.progress>0);
+  const tracked=quests.filter(q=>q.progress>0).length;
   const avgProg=quests.length?Math.round(quests.reduce((s,q)=>s+q.progress,0)/quests.length):0;
-  const objectifsCount=TREE.filter(n=>n.level===2).length;
+  const total=TREE.filter(n=>n.level===2).length;
 
-  // Progress ring SVG — tap to cycle +25%
-  function ring(id,progress,color,rgb){
-    const R=19,circ=2*Math.PI*R;
-    const off=(circ*(1-progress/100)).toFixed(1);
-    return `<svg width="48" height="48" viewBox="0 0 48 48" onclick="cycleProgress('${id}')" style="cursor:pointer">
-      <circle cx="24" cy="24" r="${R}" fill="none" stroke="rgba(${rgb},.14)" stroke-width="3.5"/>
-      <circle cx="24" cy="24" r="${R}" fill="none" stroke="${color}" stroke-width="3.5"
+  function ring(id,prog,conf,size=56){
+    const R=(size/2)-5, circ=2*Math.PI*R, off=(circ*(1-prog/100)).toFixed(1);
+    const c=size/2;
+    return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}"
+      onclick="cycleProgress('${id}')" style="cursor:pointer;display:block">
+      <circle cx="${c}" cy="${c}" r="${R}" fill="none" stroke="rgba(${conf.rgb},.12)" stroke-width="4"/>
+      <circle cx="${c}" cy="${c}" r="${R}" fill="none" stroke="${conf.color}" stroke-width="4"
         stroke-linecap="round"
         stroke-dasharray="${circ.toFixed(1)}" stroke-dashoffset="${off}"
-        transform="rotate(-90 24 24)"
-        style="transition:stroke-dashoffset .4s cubic-bezier(.25,.46,.45,.94)"/>
-      <text x="24" y="28" text-anchor="middle" font-size="10" font-weight="700"
-        fill="${color}" font-family="Inter,sans-serif">${progress}%</text>
+        transform="rotate(-90 ${c} ${c})"
+        style="transition:stroke-dashoffset .45s cubic-bezier(.25,.46,.45,.94)"/>
+      <text x="${c}" y="${c+4}" text-anchor="middle"
+        font-size="${size<48?9:11}" font-weight="800"
+        fill="${conf.hex}" font-family="Inter,sans-serif">${prog}%</text>
     </svg>`;
   }
 
-  let html=`
-  <div class="vision-hero">
-    <div class="vision-year">Vision 2031</div>
+  // ── Hero
+  let html=`<div class="vision-hero">
+    <div class="vision-hero-bg"></div>
+    <div class="vision-hero-label">Vision 2031</div>
     <div class="vision-title">Freelance établi<br>Famille · Liberté</div>
-    <div class="vision-subtitle">Indépendance, création, équilibre</div>
-    <div class="vision-stats">
-      <div class="vision-stat">
-        <div class="vision-stat-val" style="color:var(--y)">${tracked.length}</div>
-        <div class="vision-stat-lbl">En progression</div>
+    <div class="vision-subtitle">Indépendance · Création · Équilibre</div>
+    <div class="vision-kpis">
+      <div class="vision-kpi">
+        <div class="vision-kpi-val" style="color:var(--y)">${tracked}</div>
+        <div class="vision-kpi-lbl">Actifs</div>
       </div>
-      <div class="vision-stat">
-        <div class="vision-stat-val" style="color:var(--b)">${objectifsCount}</div>
-        <div class="vision-stat-lbl">Objectifs</div>
+      <div class="vision-kpi">
+        <div class="vision-kpi-val" style="color:var(--b)">${total}</div>
+        <div class="vision-kpi-lbl">Objectifs</div>
       </div>
-      <div class="vision-stat">
-        <div class="vision-stat-val" style="color:var(--g)">${avgProg}%</div>
-        <div class="vision-stat-lbl">Moy. avancement</div>
+      <div class="vision-kpi">
+        <div class="vision-kpi-val" style="color:var(--g)">${avgProg}%</div>
+        <div class="vision-kpi-lbl">Moyen</div>
       </div>
     </div>
   </div>`;
@@ -1883,52 +1926,62 @@ function renderVision(){
     const conf=CONF[domain];
     const l1=TREE.find(n=>n.id===domain);
     const l2=TREE.filter(n=>n.domain===domain&&n.level===2);
+    const domAvg=l2.filter(n=>n.progress!==undefined).length
+      ? Math.round(l2.filter(n=>n.progress!==undefined).reduce((s,n)=>s+getProgress(n.id),0)/l2.filter(n=>n.progress!==undefined).length)
+      : 0;
 
-    html+=`<div class="vision-section">
-      <div class="vision-sec-hdr">
-        <div class="vision-sec-dot" style="background:${conf.color}"></div>
-        <div class="vision-sec-title">${l1.label.replace('\n',' ')}</div>
-        <div class="vision-sec-sub">${l1.sub}</div>
-      </div>`;
+    html+=`<div class="vision-domain">
+      <div class="vision-domain-banner" style="--domain-glow:${conf.glow}">
+        <div class="vision-domain-top">
+          <div>
+            <div class="vision-domain-name" style="color:${conf.color}">${l1.label.replace('\n',' ')}</div>
+            <div class="vision-domain-sub">${l1.sub}</div>
+          </div>
+          <div>
+            <div class="vision-domain-avg" style="color:${conf.color}">${domAvg}%</div>
+            <div class="vision-domain-avg-lbl">Avancement</div>
+          </div>
+        </div>
+        <div class="vision-prog-track">
+          <div class="vision-prog-fill" style="width:${domAvg}%;background:linear-gradient(90deg,${conf.hex},${conf.hex}88)"></div>
+        </div>
+      </div>
+      <div class="vision-objs">`;
 
     l2.forEach(obj=>{
       const prog=getProgress(obj.id);
-      const stats=getNodeTaskStats(obj.id);
       const dl=obj.deadline?Math.round((new Date(obj.deadline)-Date.now())/864e5):null;
-      const dlUrgent=dl!=null&&dl<30;
+      const urgent=dl!=null&&dl<30;
+      const dlColor=urgent?'var(--o)':'var(--y)';
+      const dlBg=urgent?'rgba(255,92,141,.1)':'rgba(240,180,41,.1)';
       const l3=TREE.filter(n=>n.parent===obj.id);
 
-      html+=`<div class="vision-obj">
-        <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,${conf.color},transparent);border-radius:20px 20px 0 0"></div>
-        <div class="vision-obj-top">
-          <div class="vision-obj-ring">${ring(obj.id,prog,conf.color,conf.rgb)}</div>
-          <div class="vision-obj-body">
+      html+=`<div class="vision-obj"
+          style="--obj-bg:${conf.bg};--obj-border:${conf.border}">
+          <div class="vision-obj-text">
             <div class="vision-obj-name">${obj.label.replace('\n',' ')}</div>
             <div class="vision-obj-sub">${obj.sub||''}</div>
-            <div class="vision-badges">
-              ${dl!=null?`<span class="vision-badge" style="background:rgba(${dlUrgent?'255,92,141':'240,180,41'},.1);color:${dlUrgent?'var(--o)':'var(--y)'}">J-${dl}</span>`:''}
-              ${stats.total>0?`<span class="vision-badge" style="background:rgba(${conf.rgb},.08);color:${conf.color}">${stats.done}/${stats.total} tâches</span>`:''}
-              ${prog===100?`<span class="vision-badge" style="background:rgba(18,213,144,.12);color:var(--g)">✓ Terminé</span>`:''}
-            </div>
+            ${dl!=null?`<span class="vision-obj-dl" style="background:${dlBg};color:${dlColor}">
+              J-${dl}${urgent?' · Urgent':''}
+            </span>`:''}
           </div>
+          <div class="vision-obj-ring-wrap">${ring(obj.id,prog,conf,56)}</div>
         </div>
-        ${l3.length?`<div class="vision-sub-list">${l3.map(sub=>{
-          const subDl=sub.deadline?Math.round((new Date(sub.deadline)-Date.now())/864e5):null;
-          const subProg=sub.progress!==undefined?getProgress(sub.id):null;
-          const subUrgent=subDl!=null&&subDl<14;
-          return `<div class="vision-sub-item">
-            <div class="vision-sub-dot" style="background:${conf.color};opacity:.7"></div>
-            <div class="vision-sub-body">
-              <div class="vision-sub-name">${sub.label.replace('\n',' ')}${subProg!==null?` <span style="color:${conf.color};font-size:11px;font-weight:600">${subProg}%</span>`:''}</div>
+        ${l3.length?`<div class="vision-subs">${l3.map(sub=>{
+          const sd=sub.deadline?Math.round((new Date(sub.deadline)-Date.now())/864e5):null;
+          const su=sd!=null&&sd<14;
+          const sp=sub.progress!==undefined?getProgress(sub.id):null;
+          return `<div class="vision-sub" style="--sub-border:${conf.border.replace('.18)','.12)')}">
+            <div style="flex:1;min-width:0">
+              <div class="vision-sub-name">${sub.label.replace('\n',' ')}${sp!==null?`<span style="color:${conf.color};font-weight:700;font-size:11px;margin-left:6px">${sp}%</span>`:''}</div>
               <div class="vision-sub-desc">${sub.sub||''}</div>
             </div>
-            ${subDl!=null?`<span class="vision-sub-dl" style="background:rgba(${subUrgent?'255,92,141':'240,180,41'},.08);color:${subUrgent?'var(--o)':'var(--y)'}">J-${subDl}</span>`:''}
+            ${sd!=null?`<span class="vision-sub-dl" style="background:rgba(${su?'255,92,141':'240,180,41'},.08);color:${su?'var(--o)':'var(--y)'}">J-${sd}</span>`:''}
           </div>`;
-        }).join('')}</div>`:''}
-      </div>`;
+        }).join('')}</div>`:''}`;
     });
 
-    html+='</div>';
+    html+=`</div></div>`;
   });
 
   el.innerHTML=html;
@@ -1936,8 +1989,7 @@ function renderVision(){
 
 function cycleProgress(id){
   const cur=getProgress(id);
-  const next=cur>=100?0:cur+25;
-  setProgress(id,next);
+  setProgress(id,cur>=100?0:cur+25);
   renderVision();
 }
 
