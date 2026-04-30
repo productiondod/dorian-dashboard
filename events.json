@@ -1,24 +1,6 @@
 {
-  "synced": "2026-04-30T11:49:24.154681",
+  "synced": "2026-04-30T16:47:48.078319",
   "events": [
-    {
-      "cal": "Nine & Dod ❤️",
-      "color": "#47c4ff",
-      "title": "Deudeush Family Versailles ",
-      "start": "2026-04-30T14:00:00",
-      "end": "2026-05-04T01:00:00",
-      "allDay": false,
-      "startTs": 1777550400
-    },
-    {
-      "cal": "Nine & Dod ❤️",
-      "color": "#47c4ff",
-      "title": "Radio pied ",
-      "start": "2026-04-30T14:15:00",
-      "end": "2026-04-30T15:15:00",
-      "allDay": false,
-      "startTs": 1777551300
-    },
     {
       "cal": "Nine & Dod ❤️",
       "color": "#47c4ff",
@@ -225,6 +207,15 @@
       "end": "2026-05-13T19:00:00",
       "allDay": false,
       "startTs": 1778686200
+    },
+    {
+      "cal": "Nine & Dod ❤️",
+      "color": "#47c4ff",
+      "title": "Point Vanille",
+      "start": "2026-05-13T19:30:00",
+      "end": "2026-05-13T21:00:00",
+      "allDay": false,
+      "startTs": 1778693400
     }
   ]
 }
