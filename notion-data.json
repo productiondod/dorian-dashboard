@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-05-02T10:11:55Z",
+  "updated_at": "2026-05-02T14:15:59Z",
   "projets": [
     {
       "nom": "Shooting Photo",
@@ -23,10 +23,45 @@
       "reste": 650
     },
     {
+      "nom": "Edit Semi-Marathon",
+      "montant": null,
+      "avancement": "A faire",
+      "deadline": "2026-06-30",
+      "reste": null
+    },
+    {
+      "nom": "Edit Marathon",
+      "montant": null,
+      "avancement": "En négociation",
+      "deadline": null,
+      "reste": null
+    },
+    {
+      "nom": "Vidéo VLOG Shaga",
+      "montant": null,
+      "avancement": "En négociation",
+      "deadline": null,
+      "reste": null
+    },
+    {
       "nom": "Ouverture du bar Tapas",
       "montant": null,
       "avancement": "En négociation",
       "deadline": "2026-09-30",
+      "reste": null
+    },
+    {
+      "nom": "Vidéo Mariage Leony Mélanie",
+      "montant": null,
+      "avancement": "Montage",
+      "deadline": "2026-06-30",
+      "reste": null
+    },
+    {
+      "nom": "ShowReel",
+      "montant": null,
+      "avancement": "A faire",
+      "deadline": "2026-05-31",
       "reste": null
     },
     {
