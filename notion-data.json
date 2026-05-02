@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-05-02T06:23:24Z",
+  "updated_at": "2026-05-02T10:11:55Z",
   "projets": [
     {
       "nom": "Shooting Photo",
@@ -18,9 +18,23 @@
     {
       "nom": "Montage vidéo (au mois)",
       "montant": 650,
-      "avancement": "En négociation",
+      "avancement": "En attentes des médias",
       "deadline": "2026-05-01",
       "reste": 650
+    },
+    {
+      "nom": "Ouverture du bar Tapas",
+      "montant": null,
+      "avancement": "En négociation",
+      "deadline": "2026-09-30",
+      "reste": null
+    },
+    {
+      "nom": "Shooting Photo Cabinet Médical",
+      "montant": null,
+      "avancement": "Attente retours clients",
+      "deadline": null,
+      "reste": null
     }
   ],
   "financier": {
