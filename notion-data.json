@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-05-04T16:21:31Z",
+  "updated_at": "2026-05-04T20:52:34Z",
   "projets": [
     {
       "nom": "Shooting Photo",
@@ -17,10 +17,10 @@
     },
     {
       "nom": "Montage vidéo (au mois)",
-      "montant": 650,
+      "montant": 0,
       "avancement": "En attentes des médias",
       "deadline": "2026-05-01",
-      "reste": 650
+      "reste": null
     },
     {
       "nom": "Videl’Fest",
@@ -89,7 +89,7 @@
   "financier": {
     "ca_mois": 0.0,
     "depenses_mois": 0.0,
-    "a_encaisser": 650
+    "a_encaisser": 0
   },
   "opportunites": [
     {
