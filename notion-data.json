@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-05-04T09:06:34Z",
+  "updated_at": "2026-05-04T16:21:31Z",
   "projets": [
     {
       "nom": "Shooting Photo",
@@ -21,6 +21,13 @@
       "avancement": "En attentes des médias",
       "deadline": "2026-05-01",
       "reste": 650
+    },
+    {
+      "nom": "Videl’Fest",
+      "montant": null,
+      "avancement": "Attente retours clients",
+      "deadline": "2026-04-24",
+      "reste": null
     },
     {
       "nom": "Edit Semi-Marathon",
@@ -68,6 +75,13 @@
       "nom": "Shooting Photo Cabinet Médical",
       "montant": null,
       "avancement": "Attente retours clients",
+      "deadline": null,
+      "reste": null
+    },
+    {
+      "nom": "Content Creator & Vidéaste Social Media",
+      "montant": null,
+      "avancement": "En négociation",
       "deadline": null,
       "reste": null
     }
