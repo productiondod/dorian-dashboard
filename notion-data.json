@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-05-05T08:36:24Z",
+  "updated_at": "2026-05-05T12:15:18Z",
   "projets": [
     {
       "nom": "Shooting Photo",
@@ -18,7 +18,7 @@
     {
       "nom": "Montage vidéo (au mois)",
       "montant": 0,
-      "avancement": "En attentes des médias",
+      "avancement": "Montage",
       "deadline": "2026-05-01",
       "reste": null
     },
@@ -93,6 +93,12 @@
   },
   "opportunites": [
     {
+      "nom": "La Forêt - Versailles",
+      "statut": "Attente réponse",
+      "montant": null,
+      "relance": ""
+    },
+    {
       "nom": "Expertim Immobilier",
       "statut": "À contacter",
       "montant": null,
@@ -130,12 +136,6 @@
     },
     {
       "nom": "Studio Anne Fortier",
-      "statut": "À contacter",
-      "montant": null,
-      "relance": ""
-    },
-    {
-      "nom": "Welcome to the Jungle",
       "statut": "À contacter",
       "montant": null,
       "relance": ""
@@ -189,12 +189,6 @@
       "relance": ""
     },
     {
-      "nom": "Payfit",
-      "statut": "À contacter",
-      "montant": null,
-      "relance": ""
-    },
-    {
       "nom": "Mairie de Versailles",
       "statut": "À contacter",
       "montant": null,
@@ -220,12 +214,6 @@
     },
     {
       "nom": "Agence Principale Versailles",
-      "statut": "À contacter",
-      "montant": null,
-      "relance": ""
-    },
-    {
-      "nom": "Pennylane",
       "statut": "À contacter",
       "montant": null,
       "relance": ""
