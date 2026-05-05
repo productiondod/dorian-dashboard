@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-05-05T00:09:42Z",
+  "updated_at": "2026-05-05T08:36:24Z",
   "projets": [
     {
       "nom": "Shooting Photo",
@@ -93,28 +93,142 @@
   },
   "opportunites": [
     {
-      "nom": "Carlito recherche monteur",
-      "statut": "Négociation",
-      "montant": null,
-      "relance": "🚨 À relancer"
-    },
-    {
-      "nom": "Contacter telle entreprise",
+      "nom": "Expertim Immobilier",
       "statut": "À contacter",
       "montant": null,
       "relance": ""
     },
     {
-      "nom": "Squeezie GP 3",
-      "statut": "Devis envoyé",
+      "nom": "Bachmann Interior Design",
+      "statut": "À contacter",
       "montant": null,
-      "relance": "🚨 À relancer"
+      "relance": ""
     },
     {
-      "nom": "Gotaga demande de monteur",
-      "statut": "Attente réponse",
+      "nom": "Christiansen Design",
+      "statut": "À contacter",
       "montant": null,
-      "relance": "🚨 À relancer"
+      "relance": ""
+    },
+    {
+      "nom": "Les Lumières Versailles",
+      "statut": "À contacter",
+      "montant": null,
+      "relance": ""
+    },
+    {
+      "nom": "Saint Louis Immobilier",
+      "statut": "À contacter",
+      "montant": null,
+      "relance": ""
+    },
+    {
+      "nom": "FACTOCOM",
+      "statut": "À contacter",
+      "montant": null,
+      "relance": ""
+    },
+    {
+      "nom": "Studio Anne Fortier",
+      "statut": "À contacter",
+      "montant": null,
+      "relance": ""
+    },
+    {
+      "nom": "Welcome to the Jungle",
+      "statut": "À contacter",
+      "montant": null,
+      "relance": ""
+    },
+    {
+      "nom": "Centre de Musique Baroque de Versailles",
+      "statut": "À contacter",
+      "montant": null,
+      "relance": ""
+    },
+    {
+      "nom": "Nid de Charme — Le Chesnay",
+      "statut": "À contacter",
+      "montant": null,
+      "relance": ""
+    },
+    {
+      "nom": "Atelier des Arômes",
+      "statut": "À contacter",
+      "montant": null,
+      "relance": ""
+    },
+    {
+      "nom": "Agence TAG",
+      "statut": "À contacter",
+      "montant": null,
+      "relance": ""
+    },
+    {
+      "nom": "Delloly Design",
+      "statut": "À contacter",
+      "montant": null,
+      "relance": ""
+    },
+    {
+      "nom": "Clinique des Franciscaines",
+      "statut": "À contacter",
+      "montant": null,
+      "relance": ""
+    },
+    {
+      "nom": "MagniSkin Versailles",
+      "statut": "À contacter",
+      "montant": null,
+      "relance": ""
+    },
+    {
+      "nom": "Daniel Féau — Versailles",
+      "statut": "À contacter",
+      "montant": null,
+      "relance": ""
+    },
+    {
+      "nom": "Payfit",
+      "statut": "À contacter",
+      "montant": null,
+      "relance": ""
+    },
+    {
+      "nom": "Mairie de Versailles",
+      "statut": "À contacter",
+      "montant": null,
+      "relance": ""
+    },
+    {
+      "nom": "K Traiteur",
+      "statut": "À contacter",
+      "montant": null,
+      "relance": ""
+    },
+    {
+      "nom": "Esprit Gaïa",
+      "statut": "À contacter",
+      "montant": null,
+      "relance": ""
+    },
+    {
+      "nom": "Gaulupeau Réception",
+      "statut": "À contacter",
+      "montant": null,
+      "relance": ""
+    },
+    {
+      "nom": "Agence Principale Versailles",
+      "statut": "À contacter",
+      "montant": null,
+      "relance": ""
+    },
+    {
+      "nom": "Pennylane",
+      "statut": "À contacter",
+      "montant": null,
+      "relance": ""
     },
     {
       "nom": "FAQ 16M Tibo",
