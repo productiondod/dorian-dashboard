@@ -1,6 +1,13 @@
 {
-  "updated_at": "2026-05-13T08:21:15Z",
+  "updated_at": "2026-05-13T17:22:51Z",
   "projets": [
+    {
+      "nom": "Gala 2026",
+      "montant": 1100,
+      "avancement": "En cours",
+      "deadline": "2026-04-29",
+      "reste": null
+    },
     {
       "nom": "Content Creator & Vidéaste Social Media",
       "montant": null,
@@ -58,32 +65,18 @@
       "reste": null
     },
     {
-      "nom": "Videl’Fest",
-      "montant": null,
-      "avancement": "Attente retours clients",
-      "deadline": "2026-04-24",
-      "reste": null
-    },
-    {
-      "nom": "Montage vidéo (au mois)",
-      "montant": 0,
-      "avancement": "Montage",
+      "nom": "Forfait mois de MAI",
+      "montant": 1000,
+      "avancement": "En cours",
       "deadline": "2026-05-01",
       "reste": null
     },
     {
       "nom": "Festival de danse",
-      "montant": null,
-      "avancement": "En négociation",
+      "montant": 800,
+      "avancement": "En cours",
       "deadline": "2026-04-29",
       "reste": null
-    },
-    {
-      "nom": "Shooting Photo",
-      "montant": 600,
-      "avancement": "Facture envoyée",
-      "deadline": "2026-04-27",
-      "reste": 0
     }
   ],
   "financier": {
