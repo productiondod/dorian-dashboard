@@ -1,230 +1,167 @@
 {
-  "synced": "2026-04-30T17:43:42.126883",
+  "synced": "2026-05-25T16:01:07.523920",
   "events": [
     {
       "cal": "Nine & Dod ❤️",
       "color": "#47c4ff",
-      "title": "Charlotte Cardin Accor Arena",
-      "start": "2026-04-30T20:00:00",
-      "end": "2026-04-30T23:00:00",
+      "title": "Psy Marine",
+      "start": "2026-05-25T19:15:00",
+      "end": "2026-05-25T20:15:00",
       "allDay": false,
-      "startTs": 1777572000
+      "startTs": 1779729300
     },
     {
       "cal": "Nine & Dod ❤️",
       "color": "#47c4ff",
-      "title": "Vieilles voitures versailles ",
-      "start": "2026-05-03T00:00:00",
-      "end": "2026-05-03T23:59:59",
-      "allDay": true,
-      "startTs": 1777759200
-    },
-    {
-      "cal": "DodProduction",
-      "color": "#e8ff47",
-      "title": "Salle",
-      "start": "2026-05-04T07:30:00",
-      "end": "2026-05-04T10:00:00",
+      "title": "Félicita Mathias",
+      "start": "2026-05-26T09:30:00",
+      "end": "2026-05-26T16:30:00",
       "allDay": false,
-      "startTs": 1777872600
+      "startTs": 1779780600
     },
     {
       "cal": "Nine & Dod ❤️",
       "color": "#47c4ff",
-      "title": "ECRITURE MATHIAS",
-      "start": "2026-05-04T10:00:00",
-      "end": "2026-05-04T13:00:00",
+      "title": "Call Xavier ",
+      "start": "2026-05-28T17:30:00",
+      "end": "2026-05-28T18:30:00",
       "allDay": false,
-      "startTs": 1777881600
+      "startTs": 1779982200
     },
     {
-      "cal": "DodProduction",
-      "color": "#e8ff47",
-      "title": "🎬 Showreel",
-      "start": "2026-05-04T13:30:00",
-      "end": "2026-05-04T17:30:00",
+      "cal": "Nine & Dod ❤️",
+      "color": "#47c4ff",
+      "title": "Live Hypnose : Appronfondir l'état de transe",
+      "start": "2026-05-28T19:00:00",
+      "end": "2026-05-28T21:00:00",
       "allDay": false,
-      "startTs": 1777894200
+      "startTs": 1779987600
     },
     {
-      "cal": "DodProduction",
-      "color": "#e8ff47",
-      "title": "🎥 Docu île de Ré",
-      "start": "2026-05-04T18:00:00",
-      "end": "2026-05-04T19:30:00",
+      "cal": "Nine & Dod ❤️",
+      "color": "#47c4ff",
+      "title": "Call avec Tina",
+      "start": "2026-05-29T09:30:00",
+      "end": "2026-05-29T10:30:00",
       "allDay": false,
-      "startTs": 1777910400
+      "startTs": 1780039800
     },
     {
-      "cal": "DodProduction",
-      "color": "#e8ff47",
-      "title": "🎯 Démarchage corporate",
-      "start": "2026-05-05T09:00:00",
-      "end": "2026-05-05T11:30:00",
+      "cal": "Nine & Dod ❤️",
+      "color": "#47c4ff",
+      "title": "Live Hypnose : Effets hypnotiques",
+      "start": "2026-05-29T19:00:00",
+      "end": "2026-05-29T21:00:00",
       "allDay": false,
-      "startTs": 1777964400
+      "startTs": 1780074000
     },
     {
-      "cal": "DodProduction",
-      "color": "#e8ff47",
-      "title": "🎬 Showreel",
-      "start": "2026-05-05T13:00:00",
-      "end": "2026-05-05T17:00:00",
+      "cal": "Nine & Dod ❤️",
+      "color": "#47c4ff",
+      "title": "Fatals picard ",
+      "start": "2026-05-30T18:00:00",
+      "end": "2026-05-30T22:45:00",
       "allDay": false,
-      "startTs": 1777978800
+      "startTs": 1780156800
+    },
+    {
+      "cal": "Nine & Dod ❤️",
+      "color": "#47c4ff",
+      "title": "Rendez-vous chez M. Rémy Aoun",
+      "start": "2026-06-01T12:00:00",
+      "end": "2026-06-01T12:20:00",
+      "allDay": false,
+      "startTs": 1780308000
     },
     {
       "cal": "Nine & Dod ❤️",
       "color": "#47c4ff",
       "title": "Psy Marine ",
-      "start": "2026-05-05T19:15:00",
-      "end": "2026-05-05T20:15:00",
+      "start": "2026-06-02T19:15:00",
+      "end": "2026-06-02T20:15:00",
       "allDay": false,
-      "startTs": 1778001300
+      "startTs": 1780420500
     },
     {
       "cal": "Nine & Dod ❤️",
       "color": "#47c4ff",
-      "title": "Psychologue Dorian ",
-      "start": "2026-05-05T21:15:00",
-      "end": "2026-05-05T22:15:00",
-      "allDay": false,
-      "startTs": 1778008500
-    },
-    {
-      "cal": "DodProduction",
-      "color": "#e8ff47",
-      "title": "Randonnée",
-      "start": "2026-05-06T07:00:00",
-      "end": "2026-05-06T13:00:00",
-      "allDay": false,
-      "startTs": 1778043600
-    },
-    {
-      "cal": "DodProduction",
-      "color": "#e8ff47",
-      "title": "🎯 Démarchage corporate",
-      "start": "2026-05-06T15:00:00",
-      "end": "2026-05-06T16:30:00",
-      "allDay": false,
-      "startTs": 1778072400
-    },
-    {
-      "cal": "Nine & Dod ❤️",
-      "color": "#47c4ff",
-      "title": "Chalon",
-      "start": "2026-05-07T00:00:00",
-      "end": "2026-05-11T23:59:59",
+      "title": "Opération Maman / Papa maison ",
+      "start": "2026-06-03T00:00:00",
+      "end": "2026-06-07T23:59:59",
       "allDay": true,
-      "startTs": 1778104800
-    },
-    {
-      "cal": "DodProduction",
-      "color": "#e8ff47",
-      "title": "Salle",
-      "start": "2026-05-07T08:00:00",
-      "end": "2026-05-07T10:00:00",
-      "allDay": false,
-      "startTs": 1778133600
+      "startTs": 1780437600
     },
     {
       "cal": "Nine & Dod ❤️",
       "color": "#47c4ff",
-      "title": "EVJF Danou ",
-      "start": "2026-05-08T00:00:00",
-      "end": "2026-05-10T23:59:59",
+      "title": "Rendez-vous chez M. Rémy Aoun",
+      "start": "2026-06-03T12:40:00",
+      "end": "2026-06-03T13:00:00",
+      "allDay": false,
+      "startTs": 1780483200
+    },
+    {
+      "cal": "Nine & Dod ❤️",
+      "color": "#47c4ff",
+      "title": "Opération Maman 14h ",
+      "start": "2026-06-03T14:00:00",
+      "end": "2026-06-03T15:00:00",
+      "allDay": false,
+      "startTs": 1780488000
+    },
+    {
+      "cal": "Nine & Dod ❤️",
+      "color": "#47c4ff",
+      "title": "Désabonnement 404Works ",
+      "start": "2026-06-05T00:00:00",
+      "end": "2026-06-05T23:59:59",
       "allDay": true,
-      "startTs": 1778191200
+      "startTs": 1780610400
     },
     {
       "cal": "Nine & Dod ❤️",
       "color": "#47c4ff",
-      "title": "Plazza Beaune ",
-      "start": "2026-05-11T09:30:00",
-      "end": "2026-05-11T10:30:00",
+      "title": "kiné",
+      "start": "2026-06-05T09:30:00",
+      "end": "2026-06-05T10:00:00",
       "allDay": false,
-      "startTs": 1778484600
-    },
-    {
-      "cal": "DodProduction",
-      "color": "#e8ff47",
-      "title": "🎯 Démarchage corporate",
-      "start": "2026-05-12T09:00:00",
-      "end": "2026-05-12T12:00:00",
-      "allDay": false,
-      "startTs": 1778569200
-    },
-    {
-      "cal": "DodProduction",
-      "color": "#e8ff47",
-      "title": "🎬 Showreel",
-      "start": "2026-05-12T13:00:00",
-      "end": "2026-05-12T17:00:00",
-      "allDay": false,
-      "startTs": 1778583600
-    },
-    {
-      "cal": "DodProduction",
-      "color": "#e8ff47",
-      "title": "🎥 Docu île de Ré",
-      "start": "2026-05-12T17:30:00",
-      "end": "2026-05-12T19:30:00",
-      "allDay": false,
-      "startTs": 1778599800
+      "startTs": 1780644600
     },
     {
       "cal": "Nine & Dod ❤️",
       "color": "#47c4ff",
-      "title": "Psy Marine",
-      "start": "2026-05-12T19:15:00",
-      "end": "2026-05-12T20:15:00",
+      "title": "Live Hypnose : La posture en séance",
+      "start": "2026-06-05T19:00:00",
+      "end": "2026-06-05T21:00:00",
       "allDay": false,
-      "startTs": 1778606100
-    },
-    {
-      "cal": "DodProduction",
-      "color": "#e8ff47",
-      "title": "💍 Montage vidéo mariage",
-      "start": "2026-05-13T09:00:00",
-      "end": "2026-05-13T12:00:00",
-      "allDay": false,
-      "startTs": 1778655600
-    },
-    {
-      "cal": "DodProduction",
-      "color": "#e8ff47",
-      "title": "💍 Mariage.net — création page",
-      "start": "2026-05-13T13:00:00",
-      "end": "2026-05-13T15:00:00",
-      "allDay": false,
-      "startTs": 1778670000
-    },
-    {
-      "cal": "DodProduction",
-      "color": "#e8ff47",
-      "title": "💼 LinkedIn — post + prospection",
-      "start": "2026-05-13T15:00:00",
-      "end": "2026-05-13T17:00:00",
-      "allDay": false,
-      "startTs": 1778677200
-    },
-    {
-      "cal": "DodProduction",
-      "color": "#e8ff47",
-      "title": "💪 Gym",
-      "start": "2026-05-13T17:30:00",
-      "end": "2026-05-13T19:00:00",
-      "allDay": false,
-      "startTs": 1778686200
+      "startTs": 1780678800
     },
     {
       "cal": "Nine & Dod ❤️",
       "color": "#47c4ff",
-      "title": "Point Vanille",
-      "start": "2026-05-13T19:30:00",
-      "end": "2026-05-13T21:00:00",
+      "title": "Foire Photo Bievres ",
+      "start": "2026-06-06T00:00:00",
+      "end": "2026-06-07T23:59:59",
+      "allDay": true,
+      "startTs": 1780696800
+    },
+    {
+      "cal": "Nine & Dod ❤️",
+      "color": "#47c4ff",
+      "title": "Vieilles voitures versailles ",
+      "start": "2026-06-07T00:00:00",
+      "end": "2026-06-07T23:59:59",
+      "allDay": true,
+      "startTs": 1780783200
+    },
+    {
+      "cal": "Nine & Dod ❤️",
+      "color": "#47c4ff",
+      "title": "Appel entre témoins ",
+      "start": "2026-06-07T09:00:00",
+      "end": "2026-06-07T10:00:00",
       "allDay": false,
-      "startTs": 1778693400
+      "startTs": 1780815600
     }
   ]
 }
