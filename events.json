@@ -1,15 +1,6 @@
 {
-  "synced": "2026-05-25T18:02:50.491941",
+  "synced": "2026-05-25T21:20:41.787929",
   "events": [
-    {
-      "cal": "Nine & Dod ❤️",
-      "color": "#47c4ff",
-      "title": "Psy Marine",
-      "start": "2026-05-25T19:15:00",
-      "end": "2026-05-25T20:15:00",
-      "allDay": false,
-      "startTs": 1779729300
-    },
     {
       "cal": "Nine & Dod ❤️",
       "color": "#47c4ff",
@@ -18,6 +9,15 @@
       "end": "2026-05-26T16:30:00",
       "allDay": false,
       "startTs": 1779780600
+    },
+    {
+      "cal": "Nine & Dod ❤️",
+      "color": "#47c4ff",
+      "title": "Uckia maison 🏡 ",
+      "start": "2026-05-27T12:30:00",
+      "end": "2026-05-27T18:30:00",
+      "allDay": false,
+      "startTs": 1779877800
     },
     {
       "cal": "Nine & Dod ❤️",
