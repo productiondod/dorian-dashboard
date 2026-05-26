@@ -1,5 +1,5 @@
 {
-  "synced": "2026-05-26T18:44:52.120486",
+  "synced": "2026-05-26T19:45:37.991470",
   "events": [
     {
       "cal": "Nine & Dod ❤️",
@@ -180,6 +180,15 @@
       "end": "2026-06-07T10:00:00",
       "allDay": false,
       "startTs": 1780815600
+    },
+    {
+      "cal": "Nine & Dod ❤️",
+      "color": "#47c4ff",
+      "title": "Restau Gaelle Nono, Albe ",
+      "start": "2026-06-09T19:00:00",
+      "end": "2026-06-09T23:00:00",
+      "allDay": false,
+      "startTs": 1781024400
     }
   ]
 }
