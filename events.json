@@ -1,6 +1,15 @@
 {
-  "synced": "2026-05-26T20:46:17.701015",
+  "synced": "2026-05-27T01:18:05.031679",
   "events": [
+    {
+      "cal": "Nine & Dod ❤️",
+      "color": "#47c4ff",
+      "title": "Appeler annonce ",
+      "start": "2026-05-27T09:05:00",
+      "end": "2026-05-27T10:05:00",
+      "allDay": false,
+      "startTs": 1779865500
+    },
     {
       "cal": "Nine & Dod ❤️",
       "color": "#47c4ff",
@@ -14,10 +23,10 @@
       "cal": "Nine & Dod ❤️",
       "color": "#47c4ff",
       "title": "Call Xavier ",
-      "start": "2026-05-28T17:30:00",
-      "end": "2026-05-28T18:30:00",
+      "start": "2026-05-28T17:00:00",
+      "end": "2026-05-28T18:00:00",
       "allDay": false,
-      "startTs": 1779982200
+      "startTs": 1779980400
     },
     {
       "cal": "Nine & Dod ❤️",
