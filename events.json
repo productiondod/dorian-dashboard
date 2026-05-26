@@ -1,5 +1,5 @@
 {
-  "synced": "2026-05-26T16:43:22.592018",
+  "synced": "2026-05-26T17:44:09.730627",
   "events": [
     {
       "cal": "Nine & Dod ❤️",
@@ -54,6 +54,15 @@
       "end": "2026-05-29T21:00:00",
       "allDay": false,
       "startTs": 1780074000
+    },
+    {
+      "cal": "Nine & Dod ❤️",
+      "color": "#47c4ff",
+      "title": "Visite appartement M.BUISSON ",
+      "start": "2026-05-30T11:00:00",
+      "end": "2026-05-30T12:00:00",
+      "allDay": false,
+      "startTs": 1780131600
     },
     {
       "cal": "Nine & Dod ❤️",
