@@ -1,6 +1,15 @@
 {
-  "synced": "2026-05-26T09:38:53.927692",
+  "synced": "2026-05-26T10:39:05.791258",
   "events": [
+    {
+      "cal": "Nine & Dod ❤️",
+      "color": "#47c4ff",
+      "title": "Rdv crêperie ",
+      "start": "2026-05-26T14:30:00",
+      "end": "2026-05-26T15:30:00",
+      "allDay": false,
+      "startTs": 1779798600
+    },
     {
       "cal": "Nine & Dod ❤️",
       "color": "#47c4ff",
@@ -36,6 +45,15 @@
       "end": "2026-05-29T10:30:00",
       "allDay": false,
       "startTs": 1780039800
+    },
+    {
+      "cal": "Nine & Dod ❤️",
+      "color": "#47c4ff",
+      "title": "Rendez-vous chez Amandine Moine",
+      "start": "2026-05-29T11:30:00",
+      "end": "2026-05-29T12:15:00",
+      "allDay": false,
+      "startTs": 1780047000
     },
     {
       "cal": "Nine & Dod ❤️",
