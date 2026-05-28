@@ -1,5 +1,5 @@
 {
-  "synced": "2026-05-28T20:43:09.217063",
+  "synced": "2026-05-28T21:43:41.815589",
   "events": [
     {
       "cal": "Nine & Dod ❤️",
@@ -27,6 +27,15 @@
       "end": "2026-05-29T21:00:00",
       "allDay": false,
       "startTs": 1780074000
+    },
+    {
+      "cal": "Nine & Dod ❤️",
+      "color": "#47c4ff",
+      "title": "Envoie SCRIPT Caroline",
+      "start": "2026-05-30T00:00:00",
+      "end": "2026-05-31T23:59:59",
+      "allDay": true,
+      "startTs": 1780092000
     },
     {
       "cal": "Nine & Dod ❤️",
