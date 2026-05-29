@@ -1,15 +1,6 @@
 {
-  "synced": "2026-05-29T10:20:26.407758",
+  "synced": "2026-05-29T11:33:43.497781",
   "events": [
-    {
-      "cal": "Nine & Dod ❤️",
-      "color": "#47c4ff",
-      "title": "Rendez-vous chez Amandine Moine",
-      "start": "2026-05-29T11:30:00",
-      "end": "2026-05-29T12:15:00",
-      "allDay": false,
-      "startTs": 1780047000
-    },
     {
       "cal": "Nine & Dod ❤️",
       "color": "#47c4ff",
@@ -52,6 +43,15 @@
       "title": "Rendez-vous chez M. Rémy Aoun",
       "start": "2026-06-01T12:00:00",
       "end": "2026-06-01T12:20:00",
+      "allDay": false,
+      "startTs": 1780308000
+    },
+    {
+      "cal": "Nine & Dod ❤️",
+      "color": "#47c4ff",
+      "title": "APPELER DJ",
+      "start": "2026-06-01T12:00:00",
+      "end": "2026-06-01T14:00:00",
       "allDay": false,
       "startTs": 1780308000
     },
