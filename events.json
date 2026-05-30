@@ -1,24 +1,6 @@
 {
-  "synced": "2026-05-29T14:35:26.422194",
+  "synced": "2026-05-30T10:37:09.327343",
   "events": [
-    {
-      "cal": "Nine & Dod ❤️",
-      "color": "#47c4ff",
-      "title": "Live Hypnose : Effets hypnotiques",
-      "start": "2026-05-29T19:00:00",
-      "end": "2026-05-29T21:00:00",
-      "allDay": false,
-      "startTs": 1780074000
-    },
-    {
-      "cal": "Nine & Dod ❤️",
-      "color": "#47c4ff",
-      "title": "Envoie SCRIPT Caroline",
-      "start": "2026-05-30T00:00:00",
-      "end": "2026-05-31T23:59:59",
-      "allDay": true,
-      "startTs": 1780092000
-    },
     {
       "cal": "Nine & Dod ❤️",
       "color": "#47c4ff",
@@ -54,6 +36,15 @@
       "end": "2026-06-01T14:00:00",
       "allDay": false,
       "startTs": 1780308000
+    },
+    {
+      "cal": "Nine & Dod ❤️",
+      "color": "#47c4ff",
+      "title": "SPA",
+      "start": "2026-06-01T19:00:00",
+      "end": "2026-06-01T22:00:00",
+      "allDay": false,
+      "startTs": 1780333200
     },
     {
       "cal": "Nine & Dod ❤️",
