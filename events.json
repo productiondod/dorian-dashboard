@@ -1,15 +1,6 @@
 {
-  "synced": "2026-06-01T17:45:20.438917",
+  "synced": "2026-06-01T20:52:10.354090",
   "events": [
-    {
-      "cal": "Nine & Dod ❤️",
-      "color": "#47c4ff",
-      "title": "SPA",
-      "start": "2026-06-01T19:00:00",
-      "end": "2026-06-01T22:00:00",
-      "allDay": false,
-      "startTs": 1780333200
-    },
     {
       "cal": "Nine & Dod ❤️",
       "color": "#47c4ff",
@@ -144,6 +135,15 @@
       "end": "2026-06-17T23:59:59",
       "allDay": true,
       "startTs": 1781474400
+    },
+    {
+      "cal": "Nine & Dod ❤️",
+      "color": "#47c4ff",
+      "title": "Anniversaire Claudie avec Laura et Gaelle ",
+      "start": "2026-06-15T18:00:00",
+      "end": "2026-06-15T22:00:00",
+      "allDay": false,
+      "startTs": 1781539200
     }
   ]
 }
