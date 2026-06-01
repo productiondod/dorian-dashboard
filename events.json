@@ -1,5 +1,5 @@
 {
-  "synced": "2026-05-31T22:53:00.034418",
+  "synced": "2026-06-01T03:40:20.677940",
   "events": [
     {
       "cal": "Nine & Dod ❤️",
@@ -153,6 +153,15 @@
       "end": "2026-06-14T23:59:59",
       "allDay": true,
       "startTs": 1781128800
+    },
+    {
+      "cal": "Nine & Dod ❤️",
+      "color": "#47c4ff",
+      "title": "🐕 Livraison croquettes",
+      "start": "2026-06-15T00:00:00",
+      "end": "2026-06-17T23:59:59",
+      "allDay": true,
+      "startTs": 1781474400
     }
   ]
 }
