@@ -1,15 +1,6 @@
 {
-  "synced": "2026-06-02T17:52:57.191408",
+  "synced": "2026-06-02T18:53:42.186402",
   "events": [
-    {
-      "cal": "Nine & Dod ❤️",
-      "color": "#47c4ff",
-      "title": "Psy Marine ",
-      "start": "2026-06-02T19:15:00",
-      "end": "2026-06-02T20:15:00",
-      "allDay": false,
-      "startTs": 1780420500
-    },
     {
       "cal": "Nine & Dod ❤️",
       "color": "#47c4ff",
@@ -63,6 +54,15 @@
       "end": "2026-06-05T10:00:00",
       "allDay": false,
       "startTs": 1780644600
+    },
+    {
+      "cal": "Nine & Dod ❤️",
+      "color": "#47c4ff",
+      "title": "Psy Marine ",
+      "start": "2026-06-05T11:00:00",
+      "end": "2026-06-05T12:00:00",
+      "allDay": false,
+      "startTs": 1780650000
     },
     {
       "cal": "Nine & Dod ❤️",
