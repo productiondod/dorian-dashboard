@@ -1,5 +1,5 @@
 {
-  "synced": "2026-06-03T08:20:02.297808",
+  "synced": "2026-06-03T08:44:20.520209",
   "events": [
     {
       "cal": "Nine & Dod ❤️",
@@ -13,20 +13,29 @@
     {
       "cal": "Nine & Dod ❤️",
       "color": "#47c4ff",
-      "title": "Rendez-vous chez M. Rémy Aoun",
-      "start": "2026-06-03T12:40:00",
-      "end": "2026-06-03T13:00:00",
-      "allDay": false,
-      "startTs": 1780483200
-    },
-    {
-      "cal": "Nine & Dod ❤️",
-      "color": "#47c4ff",
       "title": "Opération Maman 14h ",
       "start": "2026-06-03T14:00:00",
       "end": "2026-06-03T15:00:00",
       "allDay": false,
       "startTs": 1780488000
+    },
+    {
+      "cal": "DodProduction",
+      "color": "#e8ff47",
+      "title": "6e avenue ",
+      "start": "2026-06-03T14:00:00",
+      "end": "2026-06-03T16:00:00",
+      "allDay": false,
+      "startTs": 1780488000
+    },
+    {
+      "cal": "DodProduction",
+      "color": "#e8ff47",
+      "title": "Autres tâches ",
+      "start": "2026-06-03T16:15:00",
+      "end": "2026-06-03T17:15:00",
+      "allDay": false,
+      "startTs": 1780496100
     },
     {
       "cal": "Nine & Dod ❤️",
