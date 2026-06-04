@@ -1,5 +1,5 @@
 {
-  "synced": "2026-06-03T20:13:40.816467",
+  "synced": "2026-06-04T03:44:12.185362",
   "events": [
     {
       "cal": "Nine & Dod ❤️",
@@ -117,6 +117,15 @@
       "end": "2026-06-16T23:00:00",
       "allDay": false,
       "startTs": 1781632800
+    },
+    {
+      "cal": "Nine & Dod ❤️",
+      "color": "#47c4ff",
+      "title": "RDV CATHY ",
+      "start": "2026-06-18T00:00:00",
+      "end": "2026-06-18T23:59:59",
+      "allDay": true,
+      "startTs": 1781733600
     }
   ]
 }
