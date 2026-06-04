@@ -1,5 +1,5 @@
 {
-  "synced": "2026-06-04T19:30:56.138763",
+  "synced": "2026-06-04T23:14:00.866075",
   "events": [
     {
       "cal": "Nine & Dod ❤️",
@@ -45,6 +45,15 @@
       "end": "2026-06-07T23:59:59",
       "allDay": true,
       "startTs": 1780696800
+    },
+    {
+      "cal": "Nine & Dod ❤️",
+      "color": "#47c4ff",
+      "title": "Pestacle équestre 🏇🐎🎠🐴",
+      "start": "2026-06-06T17:30:00",
+      "end": "2026-06-06T20:00:00",
+      "allDay": false,
+      "startTs": 1780759800
     },
     {
       "cal": "Nine & Dod ❤️",
