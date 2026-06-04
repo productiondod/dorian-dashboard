@@ -1,5 +1,5 @@
 {
-  "synced": "2026-06-04T03:44:12.185362",
+  "synced": "2026-06-04T10:27:47.181311",
   "events": [
     {
       "cal": "Nine & Dod ❤️",
@@ -63,6 +63,15 @@
       "end": "2026-06-07T21:00:00",
       "allDay": false,
       "startTs": 1780855200
+    },
+    {
+      "cal": "Nine & Dod ❤️",
+      "color": "#47c4ff",
+      "title": "Opération maman Marine",
+      "start": "2026-06-08T08:00:00",
+      "end": "2026-06-08T13:00:00",
+      "allDay": false,
+      "startTs": 1780898400
     },
     {
       "cal": "Nine & Dod ❤️",
