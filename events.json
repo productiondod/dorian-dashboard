@@ -1,42 +1,6 @@
 {
-  "synced": "2026-06-05T13:20:15.413969",
+  "synced": "2026-06-07T08:49:41.258094",
   "events": [
-    {
-      "cal": "Nine & Dod ❤️",
-      "color": "#47c4ff",
-      "title": "Live Hypnose : La posture en séance",
-      "start": "2026-06-05T19:00:00",
-      "end": "2026-06-05T21:00:00",
-      "allDay": false,
-      "startTs": 1780678800
-    },
-    {
-      "cal": "Nine & Dod ❤️",
-      "color": "#47c4ff",
-      "title": "Foire Photo Bievres ",
-      "start": "2026-06-06T00:00:00",
-      "end": "2026-06-07T23:59:59",
-      "allDay": true,
-      "startTs": 1780696800
-    },
-    {
-      "cal": "Nine & Dod ❤️",
-      "color": "#47c4ff",
-      "title": "Pestacle équestre 🏇🐎🎠🐴",
-      "start": "2026-06-06T17:30:00",
-      "end": "2026-06-06T20:00:00",
-      "allDay": false,
-      "startTs": 1780759800
-    },
-    {
-      "cal": "Nine & Dod ❤️",
-      "color": "#47c4ff",
-      "title": "Vieilles voitures versailles ",
-      "start": "2026-06-07T00:00:00",
-      "end": "2026-06-07T23:59:59",
-      "allDay": true,
-      "startTs": 1780783200
-    },
     {
       "cal": "Nine & Dod ❤️",
       "color": "#47c4ff",
@@ -144,6 +108,24 @@
       "end": "2026-06-18T21:00:00",
       "allDay": false,
       "startTs": 1781802000
+    },
+    {
+      "cal": "Nine & Dod ❤️",
+      "color": "#47c4ff",
+      "title": "Totox",
+      "start": "2026-06-19T17:00:00",
+      "end": "2026-06-22T17:00:00",
+      "allDay": false,
+      "startTs": 1781881200
+    },
+    {
+      "cal": "Nine & Dod ❤️",
+      "color": "#47c4ff",
+      "title": "Romain Versailles ",
+      "start": "2026-06-20T11:00:00",
+      "end": "2026-06-20T18:30:00",
+      "allDay": false,
+      "startTs": 1781946000
     }
   ]
 }
